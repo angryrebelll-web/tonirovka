@@ -80,7 +80,7 @@
             
             /* Текст */
             --propellini-text: #ffffff;
-            --propellini-text-secondary: #b3b3b3;
+            --propellini-text-secondary: #e0e0e0;
             --propellini-text-muted: #808080;
             
             /* Стеклянные карточки */
@@ -598,7 +598,7 @@
         }
         
         .nav-link:hover {
-            color: rgba(255, 255, 255, 0.8) !important;
+            color: rgba(255, 255, 255, 0.95) !important;
         }
         
         .mobile-menu-btn span {
@@ -1643,7 +1643,7 @@
         }
         
         .mobile-menu a:hover {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.95);
             padding-left: 24px;
             background: rgba(255, 255, 255, 0.1);
         }
@@ -2732,6 +2732,58 @@
                 font-size: 16px;
             }
         }
+        
+        /* ===============================
+           УЛУЧШЕНИЕ ЧИТАЕМОСТИ ТЕКСТА НА МОБИЛЬНЫХ
+           =============================== */
+        
+        @media (max-width: 768px) {
+            /* Увеличиваем контрастность вторичного текста */
+            [style*="color: var(--propellini-text-secondary)"],
+            [style*="color: rgba(255, 255, 255, 0.8)"],
+            [style*="color: rgba(255,255,255,0.8)"] {
+                color: #e8e8e8 !important;
+            }
+            
+            /* Текст в карточках преимуществ */
+            .premium-benefit-card p,
+            .premium-benefit-card span {
+                color: #e8e8e8 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            }
+            
+            /* Текст в отзывах */
+            .review-card p,
+            .review-card div:not(.review-link-text) {
+                color: #f0f0f0 !important;
+            }
+            
+            /* Заголовки секций */
+            .section-subtitle,
+            h2[style*="color: var(--propellini-text-secondary)"] {
+                color: #e8e8e8 !important;
+            }
+            
+            /* Текст в блоках "Кто мы" и "Преимущества" */
+            .about-text-column p,
+            .about-text-column .text-lg {
+                color: #e8e8e8 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            
+            /* Текст в галерее работ */
+            .gallery-overlay .text-sm {
+                color: #ffffff !important;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            }
+            
+            /* Улучшаем контрастность через text-shadow */
+            p:not(.btn-primary):not(.price-card-shimmer),
+            span:not(.btn-primary):not(.price-card-shimmer),
+            div:not(.btn-primary):not(.price-card-shimmer):not(.hero-prices) {
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+        }
     </style>
 </head>
 <body>
@@ -3349,7 +3401,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Глянцевая антигравийная пленка</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Профессиональная оклейка</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Профессиональная оклейка</div>
                         </div>
                     </div>
                 </div>
@@ -3358,7 +3410,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Сатиновая антигравийная пленка</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Премиум защита кузова</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Премиум защита кузова</div>
                         </div>
                     </div>
                 </div>
@@ -3367,7 +3419,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Матовая антигравийная пленка</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Стильная защита</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Стильная защита</div>
                         </div>
                     </div>
                 </div>
@@ -3376,7 +3428,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Виниловая цветная пленка</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Индивидуальный дизайн</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Индивидуальный дизайн</div>
                         </div>
                     </div>
                 </div>
@@ -3385,7 +3437,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Пленка хамелеон</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Эффект перелива цветов</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Эффект перелива цветов</div>
                         </div>
                     </div>
                 </div>
@@ -3394,7 +3446,7 @@
                     <div class="gallery-overlay">
                         <div>
                             <div class="font-semibold mb-1">Премиум оклейка</div>
-                            <div class="text-sm" style="color: rgba(255,255,255,0.8);">Высокое качество работ</div>
+                            <div class="text-sm" style="color: rgba(255,255,255,0.95);">Высокое качество работ</div>
                         </div>
                     </div>
                 </div>
