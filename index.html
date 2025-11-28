@@ -496,6 +496,15 @@
             .hero-bg img {
                 object-position: center center;
             }
+            
+            /* Уменьшаем затемнение фона Hero в мобильной версии */
+            .hero-bg::after {
+                background: rgba(0, 0, 0, 0.25) !important;
+            }
+            
+            .hero-overlay {
+                background: linear-gradient(180deg, rgba(10, 10, 10, 0.15) 0%, rgba(10, 10, 10, 0.45) 100%) !important;
+            }
         }
 
         .hero-overlay {
@@ -2801,7 +2810,7 @@
             /* Фон для блока статистики на мобильных */
             .stats-bg-mobile {
                 display: block !important;
-                opacity: 0.5 !important;
+                opacity: 0.8 !important;
                 background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt2-pro-5k-89-1080x1920.jpg') !important;
                 background-size: cover !important;
                 background-position: center !important;
@@ -2809,7 +2818,7 @@
             }
             
             .stats-overlay {
-                background: linear-gradient(135deg, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.75) 100%) !important;
+                background: linear-gradient(135deg, rgba(17, 17, 17, 0.5) 0%, rgba(17, 17, 17, 0.4) 100%) !important;
             }
             
             /* Улучшаем читаемость карточек статистики на фоне */
