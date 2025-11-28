@@ -1,107 +1,319 @@
 /* ===============================
    PROPellini Calculator Styles
+   Вариант B: 4 шага
    =============================== */
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     padding: 0;
     background: #0b0f0f;
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
 }
 
 .header {
     text-align: center;
     padding: 25px;
     background: #0e1313;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header h1 {
     font-size: 24px;
     font-weight: 700;
     margin: 0;
+    color: #168491;
 }
 
 .container {
     width: 92%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 20px auto;
+    padding-bottom: 40px;
 }
 
-.block {
+/* ===============================
+   STEP BLOCKS
+   =============================== */
+
+.step-block {
     background: #111718;
-    padding: 20px;
-    margin-bottom: 18px;
+    padding: 24px;
+    margin-bottom: 20px;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
 }
 
-.block h2 {
-    margin-top: 0;
+.step-block.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #168491;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+}
+
+.step-header h2 {
+    margin: 0;
     font-size: 20px;
     color: #168491;
 }
 
-.chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 12px;
+.step-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-.chip {
-    padding: 10px 16px;
+/* ===============================
+   ШАГ 1: ТИПЫ АВТО (ЧИПСЫ)
+   =============================== */
+
+.type-chips-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.type-chip {
     background: #1b2223;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: 0.2s;
-    border: 1px solid rgba(255,255,255,0.15);
-    user-select: none;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
 }
 
-.chip:hover {
-    background: #16849133;
+.type-chip:hover {
+    background: rgba(22, 132, 145, 0.15);
+    border-color: rgba(22, 132, 145, 0.5);
+    transform: translateY(-2px);
 }
 
-.chip.active {
+.type-chip.active {
     background: #168491;
     border-color: #168491;
+    box-shadow: 0 4px 16px rgba(22, 132, 145, 0.4);
 }
 
-.scrollable {
-    max-height: 160px;
-    overflow-y: auto;
-    padding-right: 6px;
+.type-chip-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #fff;
 }
+
+.type-chip-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.type-chip.active .type-chip-desc {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===============================
+   ШАГ 2: МАРКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ)
+   =============================== */
 
 .search {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border-radius: 10px;
-    border: none;
-    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 16px;
     outline: none;
+    background: #1b2223;
+    color: #fff;
+    font-size: 16px;
 }
 
-.check {
+.search:focus {
+    border-color: #168491;
+    box-shadow: 0 0 0 3px rgba(22, 132, 145, 0.2);
+}
+
+.brands-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.brands-scroll-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.brands-scroll-container::-webkit-scrollbar-track {
+    background: #1b2223;
+    border-radius: 3px;
+}
+
+.brands-scroll-container::-webkit-scrollbar-thumb {
+    background: #168491;
+    border-radius: 3px;
+}
+
+.brands-scroll {
     display: flex;
-    justify-content: space-between;
-    background: #1a2122;
-    padding: 12px 14px;
+    gap: 12px;
+    padding: 4px 0;
+    min-width: min-content;
+}
+
+.brand-chip {
+    padding: 12px 20px;
+    background: #1b2223;
     border-radius: 10px;
-    margin: 8px 0;
-    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    user-select: none;
+    white-space: nowrap;
+    font-size: 15px;
+    flex-shrink: 0;
 }
 
-.check input {
-    transform: scale(1.2);
-    margin-right: 10px;
+.brand-chip:hover {
+    background: rgba(22, 132, 145, 0.2);
+    border-color: rgba(22, 132, 145, 0.5);
 }
 
-.check .price {
-    color: #168491;
+.brand-chip.active {
+    background: #168491;
+    border-color: #168491;
+    box-shadow: 0 2px 8px rgba(22, 132, 145, 0.4);
+}
+
+/* ===============================
+   ШАГ 3: МОДЕЛИ (ПЛИТКИ)
+   =============================== */
+
+.model-tiles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.model-tile {
+    background: #1b2223;
+    padding: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 15px;
+    user-select: none;
+}
+
+.model-tile:hover {
+    background: rgba(22, 132, 145, 0.15);
+    border-color: rgba(22, 132, 145, 0.5);
+    transform: translateY(-2px);
+}
+
+.model-tile.active {
+    background: #168491;
+    border-color: #168491;
+    box-shadow: 0 4px 12px rgba(22, 132, 145, 0.4);
+}
+
+.info-line {
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+}
+
+.class-indicator {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
     font-weight: 600;
+    margin-top: 12px;
+    background: rgba(22, 132, 145, 0.2);
+    color: #168491;
+    border: 1px solid rgba(22, 132, 145, 0.3);
+}
+
+.class-indicator.class-1 {
+    background: rgba(100, 200, 100, 0.2);
+    color: #64c864;
+    border-color: rgba(100, 200, 100, 0.3);
+}
+
+.class-indicator.class-2 {
+    background: rgba(22, 132, 145, 0.2);
+    color: #168491;
+    border-color: rgba(22, 132, 145, 0.3);
+}
+
+.class-indicator.class-3 {
+    background: rgba(200, 150, 50, 0.2);
+    color: #c89632;
+    border-color: rgba(200, 150, 50, 0.3);
+}
+
+.class-indicator.class-4 {
+    background: rgba(200, 100, 100, 0.2);
+    color: #c86464;
+    border-color: rgba(200, 100, 100, 0.3);
+}
+
+.class-indicator.class-5 {
+    background: rgba(150, 100, 200, 0.2);
+    color: #9664c8;
+    border-color: rgba(150, 100, 200, 0.3);
+}
+
+/* ===============================
+   ШАГ 4: ПАКЕТЫ И УСЛУГИ
+   =============================== */
+
+.packages-section,
+.full-wrap-section,
+.risk-zones-section {
+    margin-bottom: 24px;
+}
+
+.packages-section h3,
+.full-wrap-section h3,
+.risk-zones-section h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .package-list {
@@ -112,131 +324,263 @@ body {
 
 .package-item {
     background: #1c2324;
-    padding: 16px;
+    padding: 18px;
     border-radius: 12px;
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
 }
 
 .package-item:hover {
-    background: #16849133;
+    background: rgba(22, 132, 145, 0.15);
+    border-color: rgba(22, 132, 145, 0.5);
 }
 
 .package-item.active {
     background: #168491;
     border-color: #168491;
+    box-shadow: 0 4px 12px rgba(22, 132, 145, 0.4);
 }
 
-.total {
+.package-item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package-item-content strong {
+    font-size: 16px;
+    color: #fff;
+}
+
+.package-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #168491;
+}
+
+.package-item.active .package-price {
+    color: #fff;
+}
+
+.check {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a2122;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.check:hover {
+    background: #1f2627;
+}
+
+.check input {
+    transform: scale(1.2);
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.check .price {
+    color: #168491;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.check span:not(.price) {
+    flex: 1;
+    color: #fff;
+}
+
+/* ===============================
+   ИТОГОВАЯ СТОИМОСТЬ
+   =============================== */
+
+.total-section {
+    background: rgba(22, 132, 145, 0.1);
+    padding: 24px;
+    border-radius: 12px;
+    border: 2px solid rgba(22, 132, 145, 0.3);
     text-align: center;
 }
 
-.total-line {
-    margin: 6px 0;
+.total-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #168491;
+    font-size: 20px;
+}
+
+.summary-info {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.summary-line {
+    margin: 8px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+.summary-line span {
+    color: #168491;
+    font-weight: 600;
+}
+
+.final-price-container {
+    margin: 24px 0;
+}
+
+#finalPrice {
+    font-size: 42px;
+    font-weight: 700;
+    color: #168491;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(22, 132, 145, 0.3);
 }
 
 .cta {
     width: 100%;
-    padding: 16px;
-    margin-top: 18px;
+    padding: 18px;
+    margin-top: 20px;
     background: linear-gradient(135deg, #168491, #0d5c60);
     border: none;
     border-radius: 12px;
     color: #fff;
     font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.25s;
-    box-shadow: 0 0 8px rgba(22,132,145,0.4);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(22, 132, 145, 0.4);
 }
 
 .cta:hover {
-    box-shadow: 0 0 16px rgba(22,132,145,0.7);
-    transform: scale(1.02);
+    box-shadow: 0 6px 24px rgba(22, 132, 145, 0.6);
+    transform: translateY(-2px);
+}
+
+.cta:active {
+    transform: translateY(0);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
 }
 
 /* ===============================
-   MODAL
+   МОДАЛЬНОЕ ОКНО
    =============================== */
 
 .modal {
     display: none;
     position: fixed;
-    z-index: 50;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
     background: #111718;
-    margin: 8% auto;
-    padding: 25px;
+    margin: 5% auto;
+    padding: 30px;
     border-radius: 14px;
     width: 90%;
-    max-width: 480px;
-    border: 1px solid rgba(255,255,255,0.08);
+    max-width: 520px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #fff;
 }
 
 .modal-content h2 {
     margin-top: 0;
     color: #168491;
+    font-size: 24px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
 }
 
 .modal input,
 .modal textarea {
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     padding: 12px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     outline: none;
     background: #1b2223;
     color: #fff;
+    font-size: 15px;
+    font-family: inherit;
 }
 
-.close {
-    float: right;
-    cursor: pointer;
-    font-size: 28px;
+.modal input:focus,
+.modal textarea:focus {
+    border-color: #168491;
+    box-shadow: 0 0 0 3px rgba(22, 132, 145, 0.2);
 }
 
-#summaryData {
-    background: #1b2223;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 14px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
-.info-line {
-    margin-top: 12px;
-    color: rgba(255,255,255,0.7);
-}
-
-h3 {
-    margin-top: 20px;
-    margin-bottom: 12px;
-    font-size: 16px;
-    color: rgba(255,255,255,0.9);
-}
-
-.modal-content label {
-    display: block;
-    margin-bottom: 6px;
-    color: rgba(255,255,255,0.9);
+.modal textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 .modal-content h3 {
     margin-top: 20px;
     margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+}
+
+#summaryData {
+    background: #1b2223;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 16px;
 }
 
 /* ===============================
-   MOBILE STYLES
+   АДАПТИВНОСТЬ
    =============================== */
 
 @media (max-width: 768px) {
@@ -249,63 +593,81 @@ h3 {
         margin: 15px auto;
     }
 
-    .block {
-        padding: 16px;
-        margin-bottom: 15px;
+    .step-block {
+        padding: 20px;
+        margin-bottom: 16px;
     }
 
-    .block h2 {
+    .step-header h2 {
         font-size: 18px;
     }
 
-    .chip {
-        padding: 8px 12px;
+    .type-chips-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .type-chip {
+        padding: 16px;
+    }
+
+    .type-chip-title {
+        font-size: 16px;
+    }
+
+    .brand-chip {
+        padding: 10px 16px;
         font-size: 14px;
     }
 
-    .scrollable {
-        max-height: 200px;
+    .model-tiles-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
     }
 
-    .search {
-        padding: 10px;
+    .model-tile {
+        padding: 14px;
         font-size: 14px;
     }
 
     .package-item {
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    .check {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .modal-content {
-        margin: 5% auto;
-        padding: 20px;
-        width: 95%;
-        max-width: 95%;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    .modal-content h2 {
-        font-size: 18px;
-    }
-
-    .cta {
         padding: 14px;
+    }
+
+    .package-item-content strong {
+        font-size: 15px;
+    }
+
+    .package-price {
         font-size: 16px;
     }
 
+    .check {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
     #finalPrice {
-        font-size: 28px;
+        font-size: 32px;
+    }
+
+    .cta {
+        padding: 16px;
+        font-size: 16px;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 24px;
+        width: 95%;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
     }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 480px) {
     .header {
         padding: 20px 15px;
     }
@@ -319,58 +681,99 @@ h3 {
         margin: 10px auto;
     }
 
-    .block {
-        padding: 14px;
+    .step-block {
+        padding: 16px;
         margin-bottom: 12px;
     }
 
-    .block h2 {
-        font-size: 16px;
+    .step-header {
+        gap: 10px;
     }
 
-    .chip {
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-
-    .scrollable {
-        max-height: 180px;
-    }
-
-    .search {
-        padding: 10px;
+    .step-number {
+        width: 28px;
+        height: 28px;
         font-size: 14px;
     }
 
-    .check {
-        padding: 10px;
+    .step-header h2 {
+        font-size: 16px;
+    }
+
+    .type-chip {
+        padding: 14px;
+    }
+
+    .type-chip-title {
+        font-size: 15px;
+    }
+
+    .type-chip-desc {
+        font-size: 13px;
+    }
+
+    .brand-chip {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .model-tiles-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+
+    .model-tile {
+        padding: 12px;
         font-size: 13px;
     }
 
     .package-item {
-        padding: 10px;
-        font-size: 13px;
-    }
-
-    .modal-content {
-        padding: 16px;
-        margin: 2% auto;
-        max-height: 95vh;
-    }
-
-    .cta {
         padding: 12px;
-        font-size: 15px;
+    }
+
+    .package-item-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .check {
+        padding: 10px 12px;
+        font-size: 13px;
+        flex-wrap: wrap;
+    }
+
+    .check .price {
+        width: 100%;
+        margin-top: 4px;
+        text-align: right;
     }
 
     #finalPrice {
-        font-size: 24px;
+        font-size: 28px;
+    }
+
+    .summary-info {
+        padding: 12px;
+    }
+
+    .summary-line {
+        font-size: 14px;
+    }
+
+    .cta {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        margin: 5% auto;
     }
 
     .close {
-        font-size: 24px;
+        font-size: 28px;
+        top: 10px;
+        right: 15px;
     }
 }
-
-
-

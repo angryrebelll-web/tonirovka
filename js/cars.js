@@ -1,301 +1,182 @@
 /* ============================
-   БАЗА АВТОМОБИЛЕЙ (250+ моделей)
-   ============================ */
-/*
+   БАЗА АВТОМОБИЛЕЙ
+   Структура: марка → модель → класс
+   ============================
 
 Классы:
-
 1 — Малый класс
-
 2 — Бизнес / Кроссоверы
-
 3 — Внедорожники / Люкс
-
 4 — Пикапы
-
 5 — Минивэны
 
 */
 
 const carDatabase = {
-
-    /* ======================
-       AUDI
-    ====================== */
     "Audi": {
-        class: 2,
-        models: [
-            "A3", "A4", "A5", "A6", "A7", "A8",
-            "Q2", "Q3", "Q5", "Q7", "Q8",
-            "RS3", "RS4", "RS5", "RS6", "RS7",
-            "SQ5", "SQ7"
-        ]
+        "A3": 2, "A4": 2, "A5": 2, "A6": 2, "A7": 2, "A8": 2,
+        "Q2": 2, "Q3": 2, "Q5": 2, "Q7": 3, "Q8": 3,
+        "RS3": 2, "RS4": 2, "RS5": 2, "RS6": 2, "RS7": 2,
+        "SQ5": 2, "SQ7": 3
     },
-
-    /* ======================
-       BMW
-    ====================== */
     "BMW": {
-        class: 2,
-        models: [
-            "1 Series", "2 Series", "3 Series", "4 Series", "5 Series",
-            "7 Series", "8 Series",
-            "X1", "X2", "X3", "X4", "X5", "X6", "X7",
-            "M2", "M3", "M4", "M5", "M8"
-        ]
+        "1 Series": 2, "2 Series": 2, "3 Series": 2, "4 Series": 2, "5 Series": 2,
+        "7 Series": 3, "8 Series": 3,
+        "X1": 2, "X2": 2, "X3": 2, "X4": 2, "X5": 3, "X6": 3, "X7": 3,
+        "M2": 2, "M3": 2, "M4": 2, "M5": 2, "M8": 3
     },
-
-    /* ======================
-       MERCEDES
-    ====================== */
     "Mercedes-Benz": {
-        class: 3,
-        models: [
-            "A-Class", "C-Class", "E-Class", "S-Class",
-            "CLA", "CLS",
-            "GLA", "GLB", "GLC", "GLE", "GLS",
-            "AMG A45", "AMG C63", "AMG E63", "AMG GT"
-        ]
+        "A-Class": 2, "C-Class": 2, "E-Class": 2, "S-Class": 3,
+        "CLA": 2, "CLS": 2,
+        "GLA": 2, "GLB": 2, "GLC": 2, "GLE": 3, "GLS": 3,
+        "AMG A45": 2, "AMG C63": 2, "AMG E63": 2, "AMG GT": 3
     },
-
-    /* ======================
-       PORSCHE
-    ====================== */
     "Porsche": {
-        class: 3,
-        models: [
-            "Cayman", "Boxster", "911",
-            "Panamera",
-            "Macan", "Cayenne"
-        ]
+        "Cayman": 3, "Boxster": 3, "911": 3,
+        "Panamera": 3,
+        "Macan": 3, "Cayenne": 3
     },
-
-    /* ======================
-       TOYOTA
-    ====================== */
     "Toyota": {
-        class: 2,
-        models: [
-            "Camry", "Corolla", "RAV4",
-            "Land Cruiser 200", "Land Cruiser 300",
-            "Prado", "Highlander",
-            "Tundra"
-        ]
+        "Camry": 2, "Corolla": 1, "RAV4": 2,
+        "Land Cruiser 200": 3, "Land Cruiser 300": 3,
+        "Prado": 3, "Highlander": 2,
+        "Tundra": 4
     },
-
-    /* ======================
-       LEXUS
-    ====================== */
     "Lexus": {
-        class: 3,
-        models: [
-            "IS", "ES", "GS", "LS",
-            "UX", "NX", "RX", "GX", "LX",
-            "RC F"
-        ]
+        "IS": 3, "ES": 3, "GS": 3, "LS": 3,
+        "UX": 2, "NX": 2, "RX": 3, "GX": 3, "LX": 3,
+        "RC F": 3
     },
-
-    /* ======================
-       KIA
-    ====================== */
     "KIA": {
-        class: 2,
-        models: [
-            "Rio", "Ceed", "Cerato",
-            "Optima", "K5",
-            "Sportage", "Sorento", "Mohave"
-        ]
+        "Rio": 1, "Ceed": 1, "Cerato": 1,
+        "Optima": 2, "K5": 2,
+        "Sportage": 2, "Sorento": 2, "Mohave": 3
     },
-
-    /* ======================
-       HYUNDAI
-    ====================== */
     "Hyundai": {
-        class: 2,
-        models: [
-            "Solaris", "Elantra",
-            "Sonata",
-            "Tucson", "Santa Fe", "Palisade"
-        ]
+        "Solaris": 1, "Elantra": 1,
+        "Sonata": 2,
+        "Tucson": 2, "Santa Fe": 2, "Palisade": 3
     },
-
-    /* ======================
-       VOLKSWAGEN
-    ====================== */
     "Volkswagen": {
-        class: 2,
-        models: [
-            "Polo", "Golf", "Passat",
-            "Tiguan", "Touareg",
-            "Arteon"
-        ]
+        "Polo": 1, "Golf": 1, "Passat": 2,
+        "Tiguan": 2, "Touareg": 3,
+        "Arteon": 2
     },
-
-    /* ======================
-       RANGE ROVER / JLR
-    ====================== */
     "Range Rover": {
-        class: 3,
-        models: [
-            "Evoque", "Velar", "Sport", "Vogue", "Autobiography"
-        ]
+        "Evoque": 2, "Velar": 3, "Sport": 3, "Vogue": 3, "Autobiography": 3
     },
-
-    /* ======================
-       TESLA
-    ====================== */
     "Tesla": {
-        class: 2,
-        models: [
-            "Model 3", "Model Y",
-            "Model S", "Model X"
-        ]
+        "Model 3": 2, "Model Y": 2,
+        "Model S": 3, "Model X": 3
     },
-
-    /* ======================
-       FORD
-    ====================== */
     "Ford": {
-        class: 4,
-        models: [
-            "F-150", "Raptor",
-            "Explorer", "Expedition", "Mustang"
-        ]
+        "F-150": 4, "Raptor": 4,
+        "Explorer": 2, "Expedition": 3, "Mustang": 2
     },
-
-    /* ======================
-       CHEVROLET
-    ====================== */
     "Chevrolet": {
-        class: 4,
-        models: [
-            "Tahoe", "Suburban", "Camaro",
-            "Silverado"
-        ]
+        "Tahoe": 3, "Suburban": 3, "Camaro": 2,
+        "Silverado": 4
     },
-
-    /* ======================
-       CADILLAC
-    ====================== */
     "Cadillac": {
-        class: 3,
-        models: [
-            "CT5", "CT6",
-            "XT5", "XT6",
-            "Escalade"
-        ]
+        "CT5": 3, "CT6": 3,
+        "XT5": 3, "XT6": 3,
+        "Escalade": 3
     },
-
-    /* ======================
-       INFINITI
-    ====================== */
     "Infiniti": {
-        class: 3,
-        models: [
-            "Q50", "Q60",
-            "QX50", "QX60", "QX80"
-        ]
+        "Q50": 3, "Q60": 3,
+        "QX50": 2, "QX60": 3, "QX80": 3
     },
-
-    /* ======================
-       MINI
-    ====================== */
     "Mini": {
-        class: 1,
-        models: [
-            "Cooper", "Clubman", "Countryman"
-        ]
+        "Cooper": 1, "Clubman": 1, "Countryman": 1
     },
-
-    /* ======================
-       HONDA
-    ====================== */
     "Honda": {
-        class: 2,
-        models: [
-            "Civic", "Accord",
-            "CR-V", "Pilot"
-        ]
+        "Civic": 1, "Accord": 2,
+        "CR-V": 2, "Pilot": 2
     },
-
-    /* ======================
-       MAZDA
-    ====================== */
     "Mazda": {
-        class: 2,
-        models: [
-            "Mazda 3", "Mazda 6",
-            "CX-3", "CX-5", "CX-9"
-        ]
+        "Mazda 3": 1, "Mazda 6": 2,
+        "CX-3": 1, "CX-5": 2, "CX-9": 2
     },
-
-    /* ======================
-       NISSAN
-    ====================== */
     "Nissan": {
-        class: 2,
-        models: [
-            "Qashqai", "X-Trail",
-            "Murano", "Patrol",
-            "GT-R"
-        ]
+        "Qashqai": 2, "X-Trail": 2,
+        "Murano": 2, "Patrol": 3,
+        "GT-R": 3
     },
-
-    /* ======================
-       VOLVO
-    ====================== */
     "Volvo": {
-        class: 3,
-        models: [
-            "S60", "S90",
-            "XC40", "XC60", "XC90"
-        ]
+        "S60": 3, "S90": 3,
+        "XC40": 2, "XC60": 3, "XC90": 3
     },
-
-    /* ======================
-       SUBARU
-    ====================== */
     "Subaru": {
-        class: 2,
-        models: [
-            "Impreza", "Legacy",
-            "Forester", "Outback",
-            "WRX", "WRX STI"
-        ]
+        "Impreza": 1, "Legacy": 2,
+        "Forester": 2, "Outback": 2,
+        "WRX": 2, "WRX STI": 2
     },
-
-    /* ======================
-       JEEP
-    ====================== */
     "Jeep": {
-        class: 3,
-        models: [
-            "Renegade", "Compass",
-            "Cherokee", "Grand Cherokee",
-            "Wrangler"
-        ]
+        "Renegade": 2, "Compass": 2,
+        "Cherokee": 2, "Grand Cherokee": 3,
+        "Wrangler": 3
     },
-
-    /* ======================
-       GMC
-    ====================== */
     "GMC": {
-        class: 4,
-        models: [
-            "Sierra", "Yukon", "Denali"
-        ]
+        "Sierra": 4, "Yukon": 3, "Denali": 3
     },
-
-    /* ======================
-       TOYOTA HIACE / MINIVANS
-    ====================== */
     "Toyota Minivans": {
-        class: 5,
-        models: [
-            "Hiace", "Alphard", "Vellfire", "Sienna"
-        ]
+        "Hiace": 5, "Alphard": 5, "Vellfire": 5, "Sienna": 5
     }
-
 };
 
+/* ============================
+   ФУНКЦИИ ФИЛЬТРАЦИИ
+   ============================ */
 
+const filterBrandsByType = (typeId) => {
+    if (!typeId) return Object.keys(carDatabase);
+    
+    const allowedClasses = getClassesByType(typeId);
+    if (!allowedClasses || allowedClasses.length === 0) return [];
+    
+    const brands = [];
+    Object.keys(carDatabase).forEach(brand => {
+        const models = carDatabase[brand];
+        const hasMatchingModel = Object.values(models).some(modelClass => 
+            allowedClasses.includes(modelClass)
+        );
+        if (hasMatchingModel) {
+            brands.push(brand);
+        }
+    });
+    
+    return brands;
+};
+
+const filterModelsByType = (brand, typeId) => {
+    if (!brand || !carDatabase[brand]) return [];
+    
+    if (!typeId) return Object.keys(carDatabase[brand]);
+    
+    const allowedClasses = getClassesByType(typeId);
+    if (!allowedClasses || allowedClasses.length === 0) return [];
+    
+    const models = [];
+    Object.keys(carDatabase[brand]).forEach(model => {
+        const modelClass = carDatabase[brand][model];
+        if (allowedClasses.includes(modelClass)) {
+            models.push(model);
+        }
+    });
+    
+    return models;
+};
+
+const getClassByModel = (brand, model) => {
+    if (!brand || !model || !carDatabase[brand]) return null;
+    return carDatabase[brand][model] || null;
+};
+
+const getAllBrands = () => {
+    return Object.keys(carDatabase);
+};
+
+const getModelsByBrand = (brand) => {
+    if (!brand || !carDatabase[brand]) return [];
+    return Object.keys(carDatabase[brand]);
+};

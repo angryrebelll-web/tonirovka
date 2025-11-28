@@ -106,4 +106,33 @@ const packages = [
     }
 ];
 
+/* ============================
+   ФУНКЦИИ РАБОТЫ С ЦЕНАМИ
+   ============================ */
+
+const getPricesByClass = (carClass) => {
+    if (!carClass) return null;
+    
+    return {
+        fullWrapGloss: fullWrapGloss[carClass] || 0,
+        fullWrapMatte: fullWrapMatte[carClass] || 0,
+        riskZone: riskZonePrices,
+        packages: packages.map(pkg => ({
+            ...pkg,
+            price: pkg.base[carClass] || 0
+        }))
+    };
+};
+
+const getPackagePrice = (packageId, carClass) => {
+    if (!packageId || !carClass) return 0;
+    
+    const pkg = packages.find(p => p.id === packageId);
+    return pkg && pkg.base[carClass] ? pkg.base[carClass] : 0;
+};
+
+const getRiskZonePrice = (zoneName, carClass) => {
+    if (!zoneName || !carClass || !riskZonePrices[zoneName]) return 0;
+    return riskZonePrices[zoneName][carClass] || 0;
+};
 

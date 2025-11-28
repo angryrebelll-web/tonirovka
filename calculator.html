@@ -10,61 +10,92 @@
     <header class="header">
         <h1>Калькулятор оклейки автомобиля</h1>
     </header>
+    
     <main class="container">
-        <!-- Шаг 1: Тип авто -->
-        <section class="block">
-            <h2>Выбрать тип авто</h2>
-            <div class="chips" id="carTypeSelect">
-                <div class="chip" data-type="1">Малый класс</div>
-                <div class="chip" data-type="2">Бизнес класс / Кроссоверы</div>
-                <div class="chip" data-type="3">Внедорожники / Люкс</div>
-                <div class="chip" data-type="4">Большие пикапы</div>
-                <div class="chip" data-type="5">Автобусы / Минивэны</div>
+        <!-- Шаг 1: Выбор типа авто -->
+        <section class="step-block" id="step1">
+            <div class="step-header">
+                <span class="step-number">1</span>
+                <h2>Выберите тип автомобиля</h2>
+            </div>
+            <div class="type-chips-container"></div>
+        </section>
+
+        <!-- Шаг 2: Выбор марки -->
+        <section class="step-block" id="step2">
+            <div class="step-header">
+                <span class="step-number">2</span>
+                <h2>Выберите марку</h2>
+            </div>
+            <input type="text" id="searchBrand" placeholder="Начните вводить марку..." class="search">
+            <div class="brands-scroll-container">
+                <div class="brands-scroll" id="brandList"></div>
             </div>
         </section>
-        <!-- Шаг 2: Выбор бренда -->
-        <section class="block">
-            <h2>Выбор марки и модели</h2>
-            <input type="text" id="searchBrand" placeholder="Начните вводить марку..." class="search">
-            <div class="chips scrollable" id="brandList"></div>
-            <h3>Выберите модель:</h3>
-            <div class="chips scrollable" id="modelList"></div>
+
+        <!-- Шаг 3: Выбор модели -->
+        <section class="step-block" id="step3">
+            <div class="step-header">
+                <span class="step-number">3</span>
+                <h2>Выберите модель</h2>
+            </div>
+            <div class="model-tiles-container" id="modelList"></div>
             <p id="selectedClass" class="info-line">Класс авто: —</p>
+            <div id="classIndicator" class="class-indicator">—</div>
         </section>
-        <!-- Шаг 3: Пакеты -->
-        <section class="block">
-            <h2>Пакеты услуг</h2>
-            <div class="package-list" id="packageList"></div>
-        </section>
-        <!-- Шаг 4: Полная оклейка -->
-        <section class="block">
-            <h2>Полная оклейка кузова</h2>
-            <label class="check">
-                <input type="checkbox" id="fullGloss">
-                <span>Полная оклейка глянцевой пленкой</span>
-                <span class="price" id="priceFullGloss">— ₽</span>
-            </label>
-            <label class="check">
-                <input type="checkbox" id="fullMatte">
-                <span>Полная оклейка матовой пленкой</span>
-                <span class="price" id="priceFullMatte">— ₽</span>
-            </label>
-        </section>
-        <!-- Шаг 5: Зоны риска -->
-        <section class="block">
-            <h2>Зоны риска</h2>
-            <div id="riskZones"></div>
-        </section>
-        <!-- Итоговая стоимость -->
-        <section class="block total">
-            <h2>Итоговая стоимость</h2>
-            <p class="total-line">Выбранный пакет: <span id="chosenPackage">—</span></p>
-            <p class="total-line">Класс авто: <span id="chosenClass">—</span></p>
-            <h1 id="finalPrice">0 ₽</h1>
-            <button class="cta" id="openModal">Записаться на оклейку</button>
+
+        <!-- Шаг 4: Пакеты и итог -->
+        <section class="step-block" id="step4">
+            <div class="step-header">
+                <span class="step-number">4</span>
+                <h2>Выберите услуги</h2>
+            </div>
+            
+            <!-- Пакеты услуг -->
+            <div class="packages-section">
+                <h3>Пакеты услуг</h3>
+                <div class="package-list" id="packageList"></div>
+            </div>
+
+            <!-- Полная оклейка -->
+            <div class="full-wrap-section">
+                <h3>Полная оклейка кузова</h3>
+                <label class="check">
+                    <input type="checkbox" id="fullGloss">
+                    <span>Полная оклейка глянцевой пленкой</span>
+                    <span class="price" id="priceFullGloss">— ₽</span>
+                </label>
+                <label class="check">
+                    <input type="checkbox" id="fullMatte">
+                    <span>Полная оклейка матовой пленкой</span>
+                    <span class="price" id="priceFullMatte">— ₽</span>
+                </label>
+            </div>
+
+            <!-- Зоны риска -->
+            <div class="risk-zones-section">
+                <h3>Зоны риска</h3>
+                <div id="riskZones"></div>
+            </div>
+
+            <!-- Итоговая стоимость -->
+            <div class="total-section">
+                <h3>Итоговая стоимость</h3>
+                <div class="summary-info">
+                    <p class="summary-line">Марка: <span id="chosenBrand">—</span></p>
+                    <p class="summary-line">Модель: <span id="chosenModel">—</span></p>
+                    <p class="summary-line">Класс: <span id="chosenClass">—</span></p>
+                    <p class="summary-line">Пакет: <span id="chosenPackage">—</span></p>
+                </div>
+                <div class="final-price-container">
+                    <h1 id="finalPrice">0 ₽</h1>
+                </div>
+                <button class="cta" id="openModal">Записаться на оклейку</button>
+            </div>
         </section>
     </main>
-    <!-- Модалка -->
+
+    <!-- Модальное окно -->
     <div class="modal" id="modalForm">
         <div class="modal-content">
             <span class="close" id="closeModal">×</span>
@@ -82,6 +113,8 @@
             </form>
         </div>
     </div>
+
+    <script src="js/types.js"></script>
     <script src="js/prices.js"></script>
     <script src="js/cars.js"></script>
     <script src="js/calculator.js"></script>
