@@ -1,0 +1,99 @@
+/* Propellini dark theme */
+:root{
+  --primary:#168491;
+  --primary-2:#126d77;
+  --bg:#0f0f0f;
+  --bg-2:#121212;
+  --card:rgba(18,18,18,.7);
+  --border:rgba(22,132,145,.22);
+  --text:#fff;
+  --muted:#b3b3b3;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:radial-gradient(900px 600px at 0% -10%,rgba(22,132,145,.18),transparent),radial-gradient(900px 600px at 100% -10%,rgba(22,132,145,.12),transparent),var(--bg);color:var(--text)}
+
+.calculator{max-width:1400px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+
+/* Header */
+.header{padding:20px 16px;text-align:center}
+.address{color:var(--muted);margin-bottom:6px}
+.header h1{margin:0;color:var(--primary);letter-spacing:.35em}
+.subtitle{margin:4px 0 0 0;color:var(--muted)}
+
+/* Layout */
+.calculator-content{display:grid;grid-template-columns:1fr 1.35fr;gap:16px;padding:0 16px 16px}
+.left-column{display:flex;flex-direction:column;gap:16px}
+.right-column{display:flex;flex-direction:column;gap:16px}
+
+/* Class options */
+.car-class-selection h2,.model-selection h2,.zones-selection h2{margin:0 0 10px 0;color:var(--text)}
+.class-options{display:flex;flex-direction:column;gap:8px}
+.class-option{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;background:rgba(255,255,255,.03);cursor:pointer;transition:.25s}
+.class-option:hover{transform:translateX(4px);border-color:var(--primary)}
+.class-option.active{background:rgba(22,132,145,.12);border-color:var(--primary)}
+.class-info h3{margin:0;font-size:14px}
+.thumb{width:28px;height:18px;border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.1)}
+
+/* Search */
+.search-container{position:relative;margin-bottom:16px}
+#modelSearch{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--text)}
+#modelSearch::placeholder{color:var(--muted)}
+#modelSearch:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(22,132,145,.2)}
+.dropdown{position:absolute;left:0;right:0;top:calc(100% + 6px);background:rgba(18,18,18,.98);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:12px;display:none;max-height:220px;overflow:auto;z-index:10}
+.dropdown-item{padding:10px 12px;color:var(--muted);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:8px}
+.dropdown-item:hover{background:rgba(22,132,145,.12);color:var(--text)}
+.dropdown-brand{font-weight:600;color:var(--primary)}
+.dropdown-model{color:var(--muted)}
+.brands-chips-container,.models-chips-container{margin-top:16px}
+.chips-title{font-size:13px;color:var(--muted);margin:0 0 10px 0;font-weight:500}
+.chips-wrapper{display:flex;flex-wrap:wrap;gap:8px;max-height:200px;overflow-y:auto;padding-right:4px}
+.brand-chip,.model-chip{padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:var(--text);cursor:pointer;font-size:13px;transition:.2s;white-space:nowrap}
+.brand-chip:hover,.model-chip:hover{background:rgba(22,132,145,.15);border-color:var(--primary);transform:translateY(-1px)}
+.brand-chip.active,.model-chip.active{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:600}
+.models-hint{color:var(--muted);font-size:13px;font-style:italic;padding:8px}
+.selected-model{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:12px;border-radius:12px;border:1px solid var(--primary);background:rgba(22,132,145,.12)}
+.model-class{padding:6px 10px;border-radius:999px;border:1px solid var(--primary);color:var(--text);background:rgba(22,132,145,.18);font-size:12px}
+
+/* Zones */
+.zone-category{margin-top:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px}
+.zone-category.package-category{background:rgba(22,132,145,.08);border-color:var(--primary)}
+.zone-category h3{margin:0 0 10px 0;color:var(--muted);font-size:14px;border-left:3px solid var(--primary);padding-left:8px}
+.package-category h3{color:var(--primary);font-weight:600}
+.zone-items{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.package-items{grid-template-columns:1fr}
+.zone-item{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid rgba(255,255,255,.08);border-radius:10px;cursor:pointer;background:rgba(255,255,255,.03);transition:.2s}
+.zone-item:hover{background:rgba(22,132,145,.1);border-color:var(--primary)}
+.zone-item.package-item{background:rgba(22,132,145,.1);border-color:var(--primary);padding:14px;font-weight:500}
+.zone-item.package-item:hover{background:rgba(22,132,145,.15);transform:translateY(-2px);box-shadow:0 4px 12px rgba(22,132,145,.2)}
+.zone-item input{accent-color:var(--primary);transform:scale(1.15);cursor:pointer}
+.zone-item input[type="radio"]{transform:scale(1.2)}
+.zone-item label{flex:1;cursor:pointer}
+.zone-price{color:var(--primary);font-weight:700;white-space:nowrap}
+.package-item .zone-price{font-size:1.1em}
+
+/* Total */
+.total-header h2{margin:0}
+.total-info{display:flex;gap:12px;color:var(--muted)}
+.total-price{margin-top:6px}
+.total-amount{font-size:32px;color:var(--primary);font-weight:800}
+.order-btn{width:100%;margin-top:12px;padding:12px 16px;border-radius:12px;border:1px solid var(--primary);background:var(--primary);color:#fff;cursor:pointer;transition:.25s}
+.order-btn:hover{background:var(--primary-2)}
+
+/* Contacts */
+.contacts-section h3{margin:0 0 6px 0}
+.phone-number{font-weight:800;color:#fff}
+.phone-subtitle{color:var(--muted)}
+
+/* Footer */
+.footer{padding:16px;color:var(--muted);text-align:center}
+.footer-nav{display:flex;gap:24px;justify-content:center;margin-bottom:8px}
+.footer-nav a{color:var(--muted);text-decoration:none}
+.footer-nav a:hover{color:var(--primary)}
+
+@media (max-width:900px){
+  .calculator-content{grid-template-columns:1fr}
+  .zone-items{grid-template-columns:1fr}
+}
+

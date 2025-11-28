@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propellini — Калькулятор оклейки авто</title>
+    <link rel="stylesheet" href="calculator-style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Калькулятор оклейки автомобиля</h1>
+    </header>
+    <main class="container">
+        <!-- Шаг 1: Тип авто -->
+        <section class="block">
+            <h2>Выбрать тип авто</h2>
+            <div class="chips" id="carTypeSelect">
+                <div class="chip" data-type="1">Малый класс</div>
+                <div class="chip" data-type="2">Бизнес класс / Кроссоверы</div>
+                <div class="chip" data-type="3">Внедорожники / Люкс</div>
+                <div class="chip" data-type="4">Большие пикапы</div>
+                <div class="chip" data-type="5">Автобусы / Минивэны</div>
+            </div>
+        </section>
+        <!-- Шаг 2: Выбор бренда -->
+        <section class="block">
+            <h2>Выбор марки и модели</h2>
+            <input type="text" id="searchBrand" placeholder="Начните вводить марку..." class="search">
+            <div class="chips scrollable" id="brandList"></div>
+            <h3>Выберите модель:</h3>
+            <div class="chips scrollable" id="modelList"></div>
+            <p id="selectedClass" class="info-line">Класс авто: —</p>
+        </section>
+        <!-- Шаг 3: Пакеты -->
+        <section class="block">
+            <h2>Пакеты услуг</h2>
+            <div class="package-list" id="packageList"></div>
+        </section>
+        <!-- Шаг 4: Полная оклейка -->
+        <section class="block">
+            <h2>Полная оклейка кузова</h2>
+            <label class="check">
+                <input type="checkbox" id="fullGloss">
+                <span>Полная оклейка глянцевой пленкой</span>
+                <span class="price" id="priceFullGloss">— ₽</span>
+            </label>
+            <label class="check">
+                <input type="checkbox" id="fullMatte">
+                <span>Полная оклейка матовой пленкой</span>
+                <span class="price" id="priceFullMatte">— ₽</span>
+            </label>
+        </section>
+        <!-- Шаг 5: Зоны риска -->
+        <section class="block">
+            <h2>Зоны риска</h2>
+            <div id="riskZones"></div>
+        </section>
+        <!-- Итоговая стоимость -->
+        <section class="block total">
+            <h2>Итоговая стоимость</h2>
+            <p class="total-line">Выбранный пакет: <span id="chosenPackage">—</span></p>
+            <p class="total-line">Класс авто: <span id="chosenClass">—</span></p>
+            <h1 id="finalPrice">0 ₽</h1>
+            <button class="cta" id="openModal">Записаться на оклейку</button>
+        </section>
+    </main>
+    <!-- Модалка -->
+    <div class="modal" id="modalForm">
+        <div class="modal-content">
+            <span class="close" id="closeModal">×</span>
+            <h2>Оставить заявку</h2>
+            <form id="requestForm">
+                <label>Ваше имя:</label>
+                <input type="text" id="userName" required>
+                <label>Телефон:</label>
+                <input type="tel" id="userPhone" required>
+                <label>Комментарий:</label>
+                <textarea id="userComment"></textarea>
+                <h3>Выбранные услуги:</h3>
+                <pre id="summaryData"></pre>
+                <button type="submit" class="cta">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/prices.js"></script>
+    <script src="js/cars.js"></script>
+    <script src="js/calculator.js"></script>
+</body>
+</html>
