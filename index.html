@@ -5011,20 +5011,25 @@
             }
         })();
         
-        // Плавающая кнопка "Записаться" - появляется при скролле в мобильной версии
+        // Плавающая кнопка "Записаться" - появляется при скролле в мобильной версии (как кнопка калькулятора)
         (function() {
             const bookBtn = document.getElementById('floatingBookBtn');
             if (!bookBtn) return;
-            
-            // Проверяем, мобильная ли версия
-            const isMobile = window.innerWidth <= 768;
-            if (!isMobile) return;
             
             let lastScrollTopBook = 0;
             let scrollTimeoutBook = null;
             let bookBtnTicking = false;
             
+            // Проверяем, мобильная ли версия
+            const checkMobile = () => window.innerWidth <= 768;
+            
+            // Простая логика: показываем при прокрутке вниз на 300px с throttle для производительности
             window.addEventListener('scroll', () => {
+                if (!checkMobile()) {
+                    // На desktop кнопка всегда видна вверху справа
+                    return;
+                }
+                
                 if (!bookBtnTicking) {
                     window.requestAnimationFrame(() => {
                         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
