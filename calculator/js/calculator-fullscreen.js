@@ -1551,18 +1551,25 @@ function closeBookingModal() {
         document.body.removeAttribute("style");
     }
     
-    // 6. Всегда возвращаемся на главную страницу после закрытия формы
-    // (так как калькулятор был скрыт при открытии формы)
-    if (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator')) {
+    // 6. Возвращаемся на главную страницу только если калькулятор был скрыт
+    // (при открытии формы калькулятор скрывается)
+    const calculatorWasHidden = calculatorFullscreen && !calculatorFullscreen.classList.contains("active");
+    
+    if (calculatorWasHidden && (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator'))) {
         // Небольшая задержка для плавного закрытия, затем возврат
         setTimeout(() => {
             try {
-                // Всегда переходим на главную страницу
+                // Переходим на главную страницу только если калькулятор скрыт
                 window.location.href = '../';
             } catch (e) {
                 window.location.href = '../';
             }
         }, 200);
+    } else {
+        // Если калькулятор все еще открыт, просто показываем его снова
+        if (calculatorFullscreen && calculatorFullscreen.classList.contains("active")) {
+            // Калькулятор уже виден, ничего не делаем
+        }
     }
 }
 
