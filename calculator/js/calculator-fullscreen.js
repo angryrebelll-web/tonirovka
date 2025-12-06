@@ -1460,7 +1460,13 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
                     `;
                 }
                 
+                // Принудительно показываем форму
                 modal.classList.add("active");
+                modal.style.display = "block";
+                modal.style.opacity = "1";
+                modal.style.visibility = "visible";
+                modal.style.pointerEvents = "auto";
+                modal.style.zIndex = "10001";
                 document.body.style.overflow = "hidden";
                 
                 // Убеждаемся, что поля формы доступны для ввода
