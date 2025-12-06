@@ -1,0 +1,2702 @@
+/* ===============================
+   PROPellini Calculator Fullscreen Styles
+   =============================== */
+
+:root {
+    --propellini-primary: #168491;
+    --propellini-primary-darker: #0d5c60;
+    --propellini-bg: #0b0f0f;
+    --propellini-dark: #111718;
+    --propellini-dark-secondary: #1a2122;
+    --propellini-text: #ffffff;
+    --propellini-text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* ===============================
+   FULLSCREEN MODAL
+   =============================== */
+
+.calculator-fullscreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.calculator-fullscreen.active {
+    display: block;
+}
+
+.calculator-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+.calculator-modal {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: var(--propellini-bg);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.4s ease;
+    overflow: hidden;
+}
+
+.calculator-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--propellini-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.calculator-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.calculator-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 120px;
+}
+
+@media (min-width: 1024px) {
+    .calculator-content {
+        padding-top: 15px;
+    }
+}
+
+/* ===============================
+   STEP INDICATOR (Desktop)
+   =============================== */
+
+.calculator-steps-indicator {
+    display: none;
+    width: 240px;
+    padding: 40px 20px;
+    background: var(--propellini-dark);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+    .calculator-steps-indicator {
+        padding: 15px 15px;
+        width: 200px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .calculator-steps-indicator {
+        display: block;
+    }
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+@media (min-width: 1024px) {
+    .step-item {
+        gap: 10px;
+        padding: 10px;
+        margin-bottom: 4px;
+    }
+}
+
+.step-item.active {
+    background: rgba(22, 132, 145, 0.1);
+    opacity: 1;
+}
+
+.step-item.completed {
+    opacity: 0.7;
+}
+
+.step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--propellini-text);
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+    .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+}
+
+.step-item.active .step-number {
+    background: var(--propellini-primary);
+    border-color: var(--propellini-primary);
+    color: white;
+}
+
+.step-item.completed .step-number {
+    background: var(--propellini-primary);
+    border-color: var(--propellini-primary);
+}
+
+.step-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--propellini-text);
+}
+
+@media (min-width: 1024px) {
+    .step-label {
+        font-size: 12px;
+    }
+}
+
+/* ===============================
+   STEPS CONTAINER
+   =============================== */
+
+.calculator-steps-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 20px 10px;
+    position: relative;
+}
+
+@media (min-width: 1024px) {
+    .calculator-steps-container {
+        padding: 0 30px 10px;
+    }
+}
+
+.calculator-step {
+    display: none;
+    min-height: 100%;
+    padding: 10px 0;
+    animation: fadeIn 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+    .calculator-step {
+        padding: 5px 0;
+    }
+}
+
+.calculator-step.active {
+    display: block;
+}
+
+.calculator-step.slide-left {
+    animation: slideLeft 0.4s ease;
+}
+
+.calculator-step.slide-right {
+    animation: slideRight 0.4s ease;
+}
+
+.step-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+    .step-header {
+        margin-bottom: 30px;
+    }
+}
+
+.step-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--propellini-text);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+    .step-title {
+        font-size: 28px;
+        margin: 0 0 8px 0;
+    }
+}
+
+.step-subtitle {
+    font-size: 14px;
+    color: var(--propellini-text-secondary);
+    margin: 0;
+}
+
+@media (min-width: 1024px) {
+    .step-subtitle {
+        font-size: 15px;
+    }
+}
+
+.step-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .step-content {
+        max-width: 1100px;
+        width: 100%;
+    }
+}
+
+/* ===============================
+   CHIPS
+   =============================== */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    /* Плавная анимация появления */
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 1024px) {
+    .chips {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: 8px;
+    }
+    
+    .chips::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .chips::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+    }
+    
+    .chips::-webkit-scrollbar-thumb {
+        background: var(--propellini-primary);
+        border-radius: 4px;
+    }
+    
+    /* Специальные стили для карточек типа авто на десктопе */
+    #carTypeSelect.chips {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: 1200px;
+        margin: 30px auto 0;
+        max-height: none;
+        overflow-y: visible;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Вертикальная сетка 2 колонки для типов авто на мобильных */
+    #carTypeSelect.chips {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        margin-top: 16px !important;
+        padding-bottom: 0 !important;
+        padding-right: 0 !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        /* Убираем дергание */
+        will-change: auto;
+        transform: none;
+    }
+    
+    #carTypeSelect .chip {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        flex-shrink: 1 !important;
+        padding: 20px 12px !important;
+        min-height: 100px !important;
+        /* Убираем дергание */
+        will-change: auto !important;
+        transform: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Скрываем иконки на мобильных */
+    #carTypeSelect .chip-icon {
+        display: none !important;
+    }
+    
+    #carTypeSelect .chip-text {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 4px !important;
+    }
+    
+    #carTypeSelect .chip-text strong {
+        font-size: 15px;
+        font-weight: 700;
+    }
+    
+    #carTypeSelect .chip-text span {
+        font-size: 11px;
+        line-height: 1.3;
+    }
+    
+    /* Вертикальная сетка для марок и моделей на мобильных */
+    #brandList.chips,
+    #modelList.chips {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        margin-top: 12px !important;
+        padding-bottom: 0 !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    #brandList .chip,
+    #modelList .chip {
+        width: 100% !important;
+        min-width: auto !important;
+        flex-shrink: 1 !important;
+        padding: 12px 14px !important;
+        text-align: center;
+    }
+    
+    /* Вертикальная сетка в модальном окне моделей */
+    .model-body .chips {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding-bottom: 0 !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        max-height: none !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .model-body .chip {
+        width: 100% !important;
+        min-width: auto !important;
+        flex-shrink: 1 !important;
+        padding: 12px 14px !important;
+        text-align: center;
+    }
+}
+
+.scrollable-horizontal {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    overflow-y: visible;
+    padding-bottom: 0;
+}
+
+@media (max-width: 1023px) {
+    .scrollable-horizontal {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--propellini-primary) transparent;
+        scroll-behavior: smooth;
+        /* Улучшаем плавность скролла */
+        scroll-snap-type: x proximity;
+    }
+    
+    .scrollable-horizontal::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .scrollable-horizontal::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+    }
+    
+    .scrollable-horizontal::-webkit-scrollbar-thumb {
+        background: var(--propellini-primary);
+        border-radius: 3px;
+    }
+    
+    /* Улучшаем скролл для марок и моделей */
+    #brandList.scrollable-horizontal,
+    #modelList.scrollable-horizontal,
+    #modelListModal.scrollable-horizontal {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Ускоряем скролл */
+        overscroll-behavior-x: contain;
+    }
+}
+
+.chip {
+    padding: 12px 18px;
+    background: var(--propellini-dark-secondary);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    flex-shrink: 0;
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+    --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --x: 0px;
+    --y: 0px;
+    --t: rgba(255, 255, 255, 0.001);
+    --lightest: #1ba5b3;
+    --light: #168491;
+    --dark: #0d5c60;
+    --darkest: #0a3d40;
+}
+
+.chip::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 0;
+    filter: blur(2px) brightness(0);
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.2) 0%,
+        var(--t) 20%
+    ),
+    radial-gradient(
+        circle at center,
+        var(--lightest),
+        var(--light) 5%,
+        var(--dark) 30%,
+        var(--darkest) 50%
+    ),
+    var(--darkest);
+    background-size: 0px 0px, 0px 0px, 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 1;
+    mix-blend-mode: lighten;
+    z-index: 1;
+    transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
+    transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
+    pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+    .chip {
+        padding: 16px 20px;
+        border-radius: 12px;
+        gap: 12px;
+        min-width: auto;
+    }
+    
+    /* Специальные стили для карточек типа авто */
+    #carTypeSelect .chip {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 20px;
+        min-height: 140px;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--propellini-dark-secondary) 0%, rgba(22, 132, 145, 0.05) 100%);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Скрываем иконки в типах авто */
+    #carTypeSelect .chip-icon {
+        display: none !important;
+    }
+    
+    #carTypeSelect .chip::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(22, 132, 145, 0.1) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    #carTypeSelect .chip:hover::before {
+        opacity: 1;
+    }
+    
+    #carTypeSelect .chip:hover {
+        transform: none;
+        border-color: rgba(22, 132, 145, 0.4);
+        box-shadow: 0 4px 12px rgba(22, 132, 145, 0.2);
+    }
+    
+    #carTypeSelect .chip.active {
+        background: linear-gradient(135deg, var(--propellini-primary) 0%, rgba(22, 132, 145, 0.8) 100%);
+        border-color: var(--propellini-primary);
+        box-shadow: 0 4px 16px rgba(22, 132, 145, 0.3);
+        transform: none;
+    }
+    
+    #carTypeSelect .chip.active::before {
+        opacity: 0;
+    }
+}
+
+.chip:hover {
+    background: rgba(22, 132, 145, 0.25);
+    border-color: var(--propellini-primary);
+    transform: none;
+    box-shadow: 0 2px 6px rgba(22, 132, 145, 0.15);
+    /* Убираем дергание */
+    will-change: auto;
+}
+
+.chip:hover::after {
+    filter: none;
+    background-size: 0px 0px, 100% 100%, 100%;
+    transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out;
+}
+
+.chip:active::after {
+    background-size: 35% 60%, 100% 100%, 100%;
+}
+
+.chip.active {
+    background: var(--propellini-primary);
+    border-color: var(--propellini-primary);
+    box-shadow: 0 2px 8px rgba(22, 132, 145, 0.3);
+    transform: none;
+    /* Убираем дергание */
+    will-change: auto;
+}
+
+@media (min-width: 1024px) {
+    .chip:hover:not(#carTypeSelect .chip) {
+        background: rgba(22, 132, 145, 0.2);
+        border-color: var(--propellini-primary);
+        transform: none;
+        box-shadow: 0 2px 6px rgba(22, 132, 145, 0.15);
+        will-change: auto;
+    }
+    
+    .chip.active:not(#carTypeSelect .chip) {
+        background: var(--propellini-primary);
+        border-color: var(--propellini-primary);
+        box-shadow: 0 2px 8px rgba(22, 132, 145, 0.3);
+        transform: none;
+        will-change: auto;
+    }
+}
+
+/* Убираем свечение для марок и моделей на мобильных */
+@media (max-width: 768px) {
+    #brandList .chip,
+    #modelList .chip,
+    .model-body .chip {
+        overflow: visible;
+    }
+    
+    #brandList .chip::after,
+    #modelList .chip::after,
+    .model-body .chip::after {
+        display: none;
+    }
+    
+    #brandList .chip:hover,
+    #modelList .chip:hover,
+    .model-body .chip:hover {
+        box-shadow: 0 1px 3px rgba(22, 132, 145, 0.15);
+        transform: none;
+    }
+    
+    #brandList .chip.active,
+    #modelList .chip.active,
+    .model-body .chip.active {
+        box-shadow: 0 1px 4px rgba(22, 132, 145, 0.2);
+        transform: none;
+    }
+    
+    #brandList .chip:hover::after,
+    #modelList .chip:hover::after,
+    .model-body .chip:hover::after {
+        display: none;
+    }
+}
+
+.chip-icon {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chip-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+    .chip-icon {
+        font-size: 24px;
+    }
+    
+    /* Специальные стили для иконок типа авто */
+    #carTypeSelect .chip-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+    }
+    
+    #carTypeSelect .chip-icon img {
+        width: 48px;
+        height: 48px;
+        transition: transform 0.25s ease;
+    }
+    
+    #carTypeSelect .chip:hover .chip-icon {
+        transform: scale(1.08);
+    }
+    
+    #carTypeSelect .chip.active .chip-icon {
+        transform: scale(1.12);
+        filter: drop-shadow(0 4px 12px rgba(22, 132, 145, 0.5));
+    }
+}
+
+@media (max-width: 1023px) {
+    #carTypeSelect .chip-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+    }
+    
+    #carTypeSelect .chip-icon img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.chip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    z-index: 2;
+}
+
+.chip-icon {
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 1024px) {
+    .chip-text {
+        gap: 6px;
+    }
+    
+    /* Специальные стили для текста типа авто */
+    #carTypeSelect .chip-text {
+        gap: 8px;
+    }
+}
+
+.chip-text strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--propellini-text);
+}
+
+@media (min-width: 1024px) {
+    .chip-text strong {
+        font-size: 16px;
+    }
+    
+    /* Специальные стили для заголовка типа авто */
+    #carTypeSelect .chip-text strong {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+    }
+}
+
+.chip-text span {
+    font-size: 11px;
+    color: var(--propellini-text-secondary);
+    opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+    .chip-text span {
+        font-size: 13px;
+    }
+    
+    /* Специальные стили для подзаголовка типа авто */
+    #carTypeSelect .chip-text span {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+    
+    #carTypeSelect .chip.active .chip-text span {
+        opacity: 1;
+        color: rgba(255, 255, 255, 0.95);
+    }
+}
+
+.chip.active .chip-text span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===============================
+   SEARCH
+   =============================== */
+
+.search-container {
+    margin-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+    .search-container {
+        margin-bottom: 10px;
+    }
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: var(--propellini-dark-secondary);
+    color: var(--propellini-text);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--propellini-primary);
+    box-shadow: 0 0 0 4px rgba(22, 132, 145, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--propellini-text-secondary);
+}
+
+.popular-brands {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.popular-label {
+    display: block;
+    font-size: 12px;
+    color: var(--propellini-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.popular-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.popular-chip {
+    padding: 10px 18px;
+    background: rgba(22, 132, 145, 0.15);
+    border: 1px solid rgba(22, 132, 145, 0.3);
+    border-radius: 20px;
+    font-size: 14px;
+    color: var(--propellini-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --x: 0px;
+    --y: 0px;
+    --t: rgba(255, 255, 255, 0.001);
+    --lightest: #1ba5b3;
+    --light: #168491;
+    --dark: #0d5c60;
+    --darkest: #0a3d40;
+}
+
+.popular-chip::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 0;
+    filter: blur(2px) brightness(0);
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.2) 0%,
+        var(--t) 20%
+    ),
+    radial-gradient(
+        circle at center,
+        var(--lightest),
+        var(--light) 5%,
+        var(--dark) 30%,
+        var(--darkest) 50%
+    ),
+    var(--darkest);
+    background-size: 0px 0px, 0px 0px, 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 1;
+    mix-blend-mode: lighten;
+    z-index: 1;
+    transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out, filter 0.5s ease-in-out;
+    transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%));
+    pointer-events: none;
+}
+
+.popular-chip:hover {
+    background: rgba(22, 132, 145, 0.25);
+    border-color: var(--propellini-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 132, 145, 0.2);
+}
+
+.popular-chip:hover::after {
+    filter: blur(2px) brightness(1);
+    background-size: 0px 0px, 100% 100%, 100%;
+    transition: transform 0.5s var(--elastic), background-size 0.25s ease-in-out;
+}
+
+.popular-chip:active {
+    transform: translateY(0);
+}
+
+.popular-chip:active::after {
+    background-size: 35% 60%, 100% 100%, 100%;
+}
+
+/* ===============================
+   SECTION BLOCK
+   =============================== */
+
+.section-block {
+    margin-bottom: 14px;
+}
+
+@media (min-width: 1024px) {
+    .section-block {
+        margin-bottom: 10px;
+    }
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--propellini-primary);
+    margin: 0 0 8px 0;
+}
+
+@media (min-width: 1024px) {
+    .section-title {
+        font-size: 13px;
+        margin: 0 0 5px 0;
+    }
+}
+
+.info-line {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(22, 132, 145, 0.1);
+    border-radius: 6px;
+    color: var(--propellini-text);
+    font-size: 13px;
+}
+
+@media (min-width: 1024px) {
+    .info-line {
+        margin-top: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+.info-line span {
+    font-weight: 700;
+    color: var(--propellini-primary);
+}
+
+/* ===============================
+   PACKAGES
+   =============================== */
+
+.package-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+    /* Плавная анимация появления */
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@media (max-width: 768px) {
+    .package-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 16px;
+        margin-top: 16px;
+        padding-bottom: 20px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: var(--propellini-primary) transparent;
+    }
+    
+    .package-list::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .package-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+    }
+    
+    .package-list::-webkit-scrollbar-thumb {
+        background: var(--propellini-primary);
+        border-radius: 3px;
+    }
+    
+    .package-item {
+        --plan-b: 0.9em;
+        --head-h: 95px;
+        min-height: auto;
+        height: auto;
+        max-height: calc(100vh - 180px);
+        min-width: 280px;
+        max-width: 300px;
+        width: 280px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        transform: none !important;
+        margin-bottom: 0;
+        /* Убираем дергание - фиксируем размеры */
+        will-change: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        /* Стабильность */
+        contain: layout style paint !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+    }
+    
+    .package-item:hover {
+        transform: none !important;
+    }
+    
+    .package-item.active {
+        transform: none !important;
+        /* Убираем подсветку вокруг пакета */
+        box-shadow: none !important;
+        border-color: transparent !important;
+    }
+    
+    .package-header {
+        height: 95px !important;
+        min-height: 95px !important;
+        max-height: 95px !important;
+        padding: 10px 12px 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        /* Стабильность текста */
+        contain: layout style paint !important;
+        /* Прозрачный фон чтобы цветная шапка из ::after была видна */
+        background: transparent !important;
+    }
+    
+    .package-name {
+        font-size: 0.9em !important;
+        line-height: 1.25 !important;
+        margin-bottom: 6px !important;
+        margin-top: 0 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        text-align: center !important;
+        /* Стабильность */
+        white-space: normal !important;
+        min-height: 2.5em !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .package-cost {
+        font-size: 0.9em !important;
+        line-height: 1.3 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        text-align: center !important;
+        /* Стабильность */
+        white-space: nowrap !important;
+        min-height: 1.3em !important;
+    }
+    
+    .package-features {
+        margin-top: 0 !important;
+        padding: 10px 12px !important;
+        min-height: 140px !important;
+        max-height: 200px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        flex: 1 1 auto !important;
+        flex-shrink: 1 !important;
+        /* Стабильность текста */
+        contain: layout style paint !important;
+        -webkit-overflow-scrolling: touch !important;
+        /* Фиксируем размеры чтобы текст не расплывался */
+        position: relative !important;
+    }
+    
+    .package-features ul {
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+        /* Стабильность */
+        width: 100% !important;
+        /* Фиксируем размеры */
+        position: relative !important;
+    }
+    
+    .package-features li {
+        font-size: 11px !important;
+        padding: 4px 0 !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        /* Стабильность текста - фиксируем все размеры */
+        white-space: normal !important;
+        min-height: 1.4em !important;
+        height: auto !important;
+        max-height: none !important;
+        text-align: left !important;
+        width: 100% !important;
+        /* Предотвращаем расплывание */
+        display: block !important;
+        position: relative !important;
+        contain: layout style !important;
+        /* Фиксируем цвет и стиль */
+        color: var(--propellini-text) !important;
+        font-weight: 400 !important;
+        letter-spacing: 0 !important;
+        text-rendering: optimizeLegibility !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+    }
+    
+    /* Фиксируем стили при активном пакете */
+    .package-item.active .package-features li {
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        padding: 4px 0 !important;
+        color: var(--propellini-text) !important;
+    }
+    
+    .package-footer {
+        padding: 10px 12px !important;
+        flex-shrink: 0 !important;
+        min-height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .package-button {
+        font-size: 0.75em !important;
+        padding: 8px 16px !important;
+        white-space: nowrap !important;
+    }
+}
+
+.package-item {
+    --plan-b: 2.75em;
+    --base-w: 100%;
+    --base-b: 0.8em;
+    --base-r: calc(var(--base-b) + 12px);
+    --head-h: 130px;
+    --grad-a: 135deg;
+    
+    position: relative;
+    overflow: hidden;
+    margin: calc(-1 * var(--plan-b));
+    border: solid var(--plan-b) transparent;
+    border-radius: calc(var(--plan-b) + var(--base-r));
+    background: 
+        radial-gradient(closest-side, hsla(0, 0%, 0%, 0.15), transparent) 50% 100% / var(--base-w) var(--plan-b) border-box no-repeat,
+        linear-gradient(var(--propellini-dark-secondary) 0 0) padding-box;
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
+    min-height: 240px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* Стабильность */
+    will-change: auto;
+    /* Убираем свечение и подсветку */
+    box-shadow: none;
+    outline: none;
+}
+
+.package-item::before,
+.package-item::after {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--plan-b));
+    left: calc(-1 * var(--plan-b));
+    width: calc(100% + 2 * var(--plan-b));
+    height: calc(var(--head-h) + var(--plan-b) + 4px);
+    pointer-events: none;
+    z-index: 1;
+    /* Исправляем обрезку цвета - расширяем границы */
+    border-radius: calc(var(--plan-b) + var(--base-r)) calc(var(--plan-b) + var(--base-r)) 0 0;
+    overflow: hidden;
+    /* Ограничиваем градиент только header */
+    clip-path: inset(0 0 calc(100% - var(--head-h) - var(--plan-b)) 0);
+}
+
+.package-item::before {
+    /* Убираем градиент - оставляем только для эффекта нажатия */
+    background: transparent;
+    filter: none;
+    opacity: 0;
+}
+
+.package-item::after {
+    /* Цветная шапка пакета - градиент только в header */
+    background: 
+        conic-gradient(from 180deg at 100% calc(var(--head-h) - 20px), 
+            var(--c4, #1ba5b3) 45deg, 
+            var(--c3, #168491) 67deg, 
+            transparent 67deg),
+        linear-gradient(var(--grad-a), 
+            var(--c1, #1ba5b3) 32%, 
+            var(--c2, #168491) 0 57%, 
+            var(--c3, #0d5c60) 0);
+    /* Используем normal для четкого отображения цвета */
+    mix-blend-mode: normal;
+    opacity: 1;
+    /* Убеждаемся что цветная шапка видна */
+    z-index: 1;
+}
+
+.package-item:hover {
+    transform: none;
+    /* Убираем свечение и подсветку при наведении */
+    box-shadow: none;
+    border-color: transparent;
+    outline: none;
+}
+
+.package-item:not(:hover) {
+    transform: none;
+}
+
+.package-item.active {
+    transform: none;
+    /* Эффект нажатия без подсветки */
+    box-shadow: 
+        inset 0 4px 12px rgba(22, 132, 145, 0.3),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.2);
+    /* Убираем внешнее свечение и подсветку */
+    border-color: transparent;
+    outline: none;
+}
+
+.package-item.active::after {
+    opacity: 1;
+}
+
+/* Дополнительный эффект нажатия для активного пакета */
+.package-item.active::before {
+    /* Убираем градиент при активном состоянии */
+    opacity: 0;
+    filter: none;
+}
+
+.package-header {
+    position: relative;
+    z-index: 2;
+    padding: calc(var(--base-b) * 0.8) var(--base-b) 0;
+    text-align: center;
+    color: #ffffff;
+    /* Стабильность текста */
+    min-height: var(--head-h);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Исправляем обрезку цвета - убираем overflow и margin */
+    overflow: visible;
+    margin: calc(-1 * var(--plan-b)) calc(-1 * var(--plan-b)) 0;
+    padding-top: calc(var(--plan-b) + calc(var(--base-b) * 0.8));
+    border-radius: calc(var(--plan-b) + var(--base-r)) calc(var(--plan-b) + var(--base-r)) 0 0;
+    /* Прозрачный фон чтобы градиент из ::after был виден */
+    background: transparent;
+}
+
+.package-name {
+    font-size: 1.3em;
+    font-weight: 800;
+    text-transform: capitalize;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    /* Стабильность текста */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
+}
+
+.package-desc {
+    font-size: 0.85em;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.package-cost {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.package-cost::before {
+    content: 'ОТ ';
+    font-size: 0.7em;
+    opacity: 0.8;
+}
+
+.package-cost::after {
+    content: ' ₽';
+    font-size: 0.8em;
+}
+
+.package-features {
+    position: relative;
+    z-index: 2;
+    padding: calc(var(--base-b) * 0.7);
+    margin: calc(-1 * var(--base-b)) 0 calc(2 * var(--base-b));
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: calc(var(--head-h) - var(--base-b) - 10px);
+    /* Стабильность текста */
+    contain: layout style paint;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.package-features ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+}
+
+.package-features li {
+    font-size: 0.85em;
+    color: var(--propellini-text);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Стабильность текста */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    min-height: 1.4em;
+}
+
+.package-features li:last-child {
+    border-bottom: none;
+}
+
+.package-features li[data-suf] {
+    color: var(--c4, #1ba5b3);
+}
+
+.package-features li[data-suf]::after {
+    content: ' ' attr(data-suf);
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.package-features li[disabled] {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.package-footer {
+    position: relative;
+    z-index: 2;
+    padding: 0 var(--base-b) var(--base-b);
+    display: flex;
+    justify-content: center;
+    /* Убираем лишний фон */
+    background: transparent;
+    margin: 0;
+}
+
+
+
+.package-button {
+    all: unset;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: relative;
+    border-radius: 999vw;
+    background-color: rgba(22, 132, 145, 0.75);
+    box-shadow: -0.15em -0.15em 0.15em -0.075em rgba(5, 5, 5, 0.25),
+        0.0375em 0.0375em 0.0675em 0 rgba(5, 5, 5, 0.1);
+    width: 100%;
+    font-size: 0.95em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.package-button::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 0.3em);
+    height: calc(100% + 0.3em);
+    top: -0.15em;
+    left: -0.15em;
+    border-radius: inherit;
+    /* Убираем лишний фон - делаем прозрачным */
+    background: transparent;
+    opacity: 0;
+}
+
+.package-button .button-outer {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    transition: box-shadow 300ms ease;
+    will-change: box-shadow;
+    box-shadow: 0 0.05em 0.05em -0.01em rgba(5, 5, 5, 1),
+        0 0.01em 0.01em -0.01em rgba(5, 5, 5, 0.5),
+        0.15em 0.3em 0.1em -0.01em rgba(5, 5, 5, 0.25);
+}
+
+.package-button:hover .button-outer {
+    box-shadow: 0 0 0 0 rgba(5, 5, 5, 1), 0 0 0 0 rgba(5, 5, 5, 0.5),
+        0 0 0 0 rgba(5, 5, 5, 0.25);
+}
+
+.package-button .button-inner {
+    --inset: 0.035em;
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 12px 24px;
+    transition: box-shadow 300ms ease, clip-path 250ms ease,
+        background-image 250ms ease, transform 250ms ease;
+    will-change: box-shadow, clip-path, background-image, transform;
+    overflow: clip;
+    clip-path: inset(0 0 0 0 round 999vw);
+    background-image: linear-gradient(135deg,
+            var(--c1, #1ba5b3),
+            var(--c3, #0d5c60));
+    box-shadow:
+        0 0 0 0 inset rgba(5, 5, 5, 0.1),
+        -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.25),
+        0 0 0 0 inset rgba(5, 5, 5, 0.1),
+        0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.25),
+        0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+        -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.25);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.package-button:hover .button-inner {
+    clip-path: inset(clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) round 999vw);
+    box-shadow:
+        0.1em 0.15em 0.05em 0 inset rgba(5, 5, 5, 0.75),
+        -0.025em -0.03em 0.05em 0.025em inset rgba(5, 5, 5, 0.5),
+        0.25em 0.25em 0.2em 0 inset rgba(5, 5, 5, 0.5),
+        0 0 0.05em 0.5em inset rgba(255, 255, 255, 0.15),
+        0 0 0 0 inset rgba(255, 255, 255, 1),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+        -0.075em -0.12em 0.2em 0.1em inset rgba(5, 5, 5, 0.25);
+}
+
+.package-button .button-inner span {
+    position: relative;
+    z-index: 4;
+    color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(135deg,
+            rgba(255, 255, 255, 1),
+            rgba(230, 255, 255, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: rgba(0, 0, 0, 0.1) 0 0 0.1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: transform 250ms ease;
+    will-change: transform;
+}
+
+.package-button:hover .button-inner span {
+    transform: scale(0.975);
+}
+
+.package-button:active .button-inner {
+    transform: scale(0.975);
+}
+
+/* Цветовые схемы для разных пакетов */
+.package-item[data-id="risk"] {
+    --c1: #fddb6d;
+    --c2: #fecf3b;
+    --c3: #f9ae39;
+    --c4: #e5983c;
+}
+
+.package-item[data-id="fullGloss"] {
+    --c1: #4bc5da;
+    --c2: #36adc5;
+    --c3: #2f99b3;
+    --c4: #298ca3;
+}
+
+.package-item[data-id="fullMatte"] {
+    --c1: #1ba5b3;
+    --c2: #168491;
+    --c3: #0d5c60;
+    --c4: #0a3d40;
+}
+
+.package-item[data-id="fullVinyl"] {
+    --c1: #d3db25;
+    --c2: #bcd231;
+    --c3: #71b045;
+    --c4: #6da542;
+}
+
+/* Анимация появления карточек */
+@keyframes packageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.package-item {
+    animation: packageAppear 0.4s ease-out backwards;
+}
+
+.package-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.package-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.package-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.package-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ===============================
+   CHECKBOXES
+   =============================== */
+
+.check {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--propellini-dark-secondary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 3px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 1024px) {
+    .check {
+        padding: 6px 10px;
+        margin: 2px 0;
+    }
+}
+
+.check:hover {
+    border-color: var(--propellini-primary);
+    background: rgba(22, 132, 145, 0.1);
+}
+
+.check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: var(--propellini-primary);
+}
+
+.check span:not(.price) {
+    flex: 1;
+    color: var(--propellini-text);
+    font-size: 13px;
+}
+
+.check .price {
+    color: var(--propellini-primary);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* Подсветка зон риска, входящих в пакет */
+.check.package-zone-highlight {
+    background: linear-gradient(90deg, rgba(22, 132, 145, 0.2) 0%, rgba(22, 132, 145, 0.1) 100%);
+    border-color: var(--propellini-primary);
+    border-width: 2px;
+    position: relative;
+    box-shadow: 0 0 0 2px rgba(22, 132, 145, 0.1);
+}
+
+.check.package-zone-highlight::before {
+    content: '✓';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background: var(--propellini-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(22, 132, 145, 0.4);
+}
+
+.check.package-zone-highlight input[type="checkbox"] {
+    margin-left: 36px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.check.package-zone-highlight span:not(.price) {
+    margin-left: 4px;
+    color: var(--propellini-text);
+    font-weight: 600;
+}
+
+.check.package-zone-highlight .price {
+    color: var(--propellini-primary);
+    font-weight: 800;
+    font-size: 15px;
+}
+
+/* ===============================
+   RISK ZONES
+   =============================== */
+
+#riskZones {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+@media (min-width: 1024px) {
+    #riskZones {
+        gap: 2px;
+    }
+}
+
+/* ===============================
+   SUMMARY CARD
+   =============================== */
+
+.summary-card {
+    background: var(--propellini-dark-secondary);
+    border-radius: 12px;
+    padding: 16px;
+    border: 2px solid rgba(22, 132, 145, 0.2);
+}
+
+@media (max-width: 768px) {
+    .summary-card {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .summary-card {
+        padding: 12px;
+    }
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .summary-item {
+        padding: 6px 0;
+        font-size: 13px;
+    }
+    
+    .summary-label {
+        font-size: 12px;
+    }
+    
+    .summary-value {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .summary-item {
+        padding: 6px 0;
+    }
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: var(--propellini-text-secondary);
+}
+
+.summary-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--propellini-primary);
+}
+
+/* ===============================
+   BOTTOM PANEL
+   =============================== */
+
+.calculator-bottom-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(11, 15, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(22, 132, 145, 0.3);
+    padding: 20px;
+    z-index: 10000;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.bottom-panel-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.price-display {
+    flex: 1;
+}
+
+.price-label {
+    font-size: 14px;
+    color: var(--propellini-text-secondary);
+    margin-bottom: 4px;
+}
+
+.price-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--propellini-primary);
+    letter-spacing: -0.02em;
+}
+
+.bottom-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+    all: unset;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: relative;
+    border-radius: 999vw;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.btn-primary .button-outer,
+.btn-secondary .button-outer {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    transition: box-shadow 300ms ease;
+    will-change: box-shadow;
+}
+
+.btn-primary .button-inner,
+.btn-secondary .button-inner {
+    --inset: 0.035em;
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 14px 28px;
+    transition: box-shadow 300ms ease, clip-path 250ms ease,
+        background-image 250ms ease, transform 250ms ease;
+    will-change: box-shadow, clip-path, background-image, transform;
+    overflow: clip;
+    clip-path: inset(0 0 0 0 round 999vw);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary .button-inner span,
+.btn-secondary .button-inner span {
+    position: relative;
+    z-index: 4;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    transition: transform 250ms ease;
+    display: block;
+    will-change: transform;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-primary {
+    background-color: rgba(22, 132, 145, 0.75);
+    box-shadow: -0.15em -0.15em 0.15em -0.075em rgba(5, 5, 5, 0.25),
+        0.0375em 0.0375em 0.0675em 0 rgba(5, 5, 5, 0.1);
+}
+
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 0.3em);
+    height: calc(100% + 0.3em);
+    top: -0.15em;
+    left: -0.15em;
+    border-radius: inherit;
+    background: linear-gradient(-135deg,
+            rgba(5, 5, 5, 0.5),
+            transparent 20%,
+            transparent 100%);
+    filter: blur(0.0125em);
+    opacity: 0.25;
+    mix-blend-mode: multiply;
+}
+
+.btn-primary .button-outer {
+    box-shadow: 0 0.05em 0.05em -0.01em rgba(5, 5, 5, 1),
+        0 0.01em 0.01em -0.01em rgba(5, 5, 5, 0.5),
+        0.15em 0.3em 0.1em -0.01em rgba(5, 5, 5, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) .button-outer {
+    box-shadow: 0 0 0 0 rgba(5, 5, 5, 1), 0 0 0 0 rgba(5, 5, 5, 0.5),
+        0 0 0 0 rgba(5, 5, 5, 0.25);
+}
+
+.btn-primary .button-inner {
+    background-image: linear-gradient(135deg,
+            rgba(22, 132, 145, 1),
+            rgba(13, 92, 96, 1));
+    box-shadow:
+        0 0 0 0 inset rgba(5, 5, 5, 0.1),
+        -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.25),
+        0 0 0 0 inset rgba(5, 5, 5, 0.1),
+        0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.25),
+        0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+        -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) .button-inner {
+    clip-path: inset(clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) round 999vw);
+    box-shadow:
+        0.1em 0.15em 0.05em 0 inset rgba(5, 5, 5, 0.75),
+        -0.025em -0.03em 0.05em 0.025em inset rgba(5, 5, 5, 0.5),
+        0.25em 0.25em 0.2em 0 inset rgba(5, 5, 5, 0.5),
+        0 0 0.05em 0.5em inset rgba(255, 255, 255, 0.15),
+        0 0 0 0 inset rgba(255, 255, 255, 1),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+        -0.075em -0.12em 0.2em 0.1em inset rgba(5, 5, 5, 0.25);
+}
+
+.btn-primary .button-inner span {
+    color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(135deg,
+            rgba(255, 255, 255, 1),
+            rgba(230, 255, 255, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: rgba(0, 0, 0, 0.1) 0 0 0.1em;
+}
+
+.btn-primary .button-inner svg {
+    stroke: rgba(255, 255, 255, 0.95);
+    filter: drop-shadow(0 0 0.1em rgba(0, 0, 0, 0.1));
+}
+
+.btn-primary:hover:not(:disabled) .button-inner span {
+    transform: scale(0.975);
+}
+
+.btn-primary:active:not(:disabled) .button-inner {
+    transform: scale(0.975);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary:disabled .button-inner {
+    transform: none;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: -0.15em -0.15em 0.15em -0.075em rgba(5, 5, 5, 0.15),
+        0.0375em 0.0375em 0.0675em 0 rgba(5, 5, 5, 0.05);
+}
+
+.btn-secondary::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 0.3em);
+    height: calc(100% + 0.3em);
+    top: -0.15em;
+    left: -0.15em;
+    border-radius: inherit;
+    background: linear-gradient(-135deg,
+            rgba(5, 5, 5, 0.3),
+            transparent 20%,
+            transparent 100%);
+    filter: blur(0.0125em);
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+}
+
+.btn-secondary .button-outer {
+    box-shadow: 0 0.05em 0.05em -0.01em rgba(5, 5, 5, 0.8),
+        0 0.01em 0.01em -0.01em rgba(5, 5, 5, 0.4),
+        0.15em 0.3em 0.1em -0.01em rgba(5, 5, 5, 0.2);
+}
+
+.btn-secondary:hover .button-outer {
+    box-shadow: 0 0 0 0 rgba(5, 5, 5, 0.8), 0 0 0 0 rgba(5, 5, 5, 0.4),
+        0 0 0 0 rgba(5, 5, 5, 0.2);
+}
+
+.btn-secondary .button-inner {
+    background-image: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15),
+            rgba(200, 200, 200, 0.1));
+    box-shadow:
+        0 0 0 0 inset rgba(5, 5, 5, 0.05),
+        -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.15),
+        0 0 0 0 inset rgba(5, 5, 5, 0.05),
+        0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.2),
+        0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 0.8),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.15),
+        -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.15);
+}
+
+.btn-secondary:hover .button-inner {
+    clip-path: inset(clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) round 999vw);
+    box-shadow:
+        0.1em 0.15em 0.05em 0 inset rgba(5, 5, 5, 0.5),
+        -0.025em -0.03em 0.05em 0.025em inset rgba(5, 5, 5, 0.3),
+        0.25em 0.25em 0.2em 0 inset rgba(5, 5, 5, 0.3),
+        0 0 0.05em 0.5em inset rgba(255, 255, 255, 0.1),
+        0 0 0 0 inset rgba(255, 255, 255, 0.8),
+        0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.15),
+        -0.075em -0.12em 0.2em 0.1em inset rgba(5, 5, 5, 0.15);
+}
+
+.btn-secondary .button-inner span {
+    color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(135deg,
+            rgba(255, 255, 255, 1),
+            rgba(200, 200, 200, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: rgba(0, 0, 0, 0.1) 0 0 0.1em;
+}
+
+.btn-secondary .button-inner svg {
+    stroke: rgba(255, 255, 255, 0.9);
+    filter: drop-shadow(0 0 0.1em rgba(0, 0, 0, 0.1));
+}
+
+.btn-secondary:hover .button-inner span {
+    transform: scale(0.975);
+}
+
+.btn-secondary:active .button-inner {
+    transform: scale(0.975);
+}
+
+/* Адаптивные стили для кнопок */
+@media (max-width: 768px) {
+    .btn-primary,
+    .btn-secondary {
+        font-size: 13px;
+    }
+    
+    .btn-primary .button-inner,
+    .btn-secondary .button-inner {
+        padding: 10px 18px;
+    }
+    
+    .package-button {
+        font-size: 0.8em;
+    }
+    
+    .package-button .button-inner {
+        padding: 8px 16px;
+    }
+    
+    /* Убираем дергание кнопок */
+    .btn-primary,
+    .btn-secondary {
+        will-change: transform;
+        transform: translateZ(0);
+    }
+}
+
+/* ===============================
+   BOOKING MODAL
+   =============================== */
+
+/* ===============================
+   MODEL SELECTION MODAL
+   =============================== */
+
+.model-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10001;
+}
+
+.model-modal.active {
+    display: block;
+}
+
+.model-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.15s ease-out;
+}
+
+.model-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    background: var(--propellini-dark);
+    border-radius: 16px;
+    padding: 32px;
+    overflow-y: auto;
+    border: 2px solid rgba(22, 132, 145, 0.3);
+    animation: modalAppear 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.model-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--propellini-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.model-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.model-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.model-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--propellini-text);
+    margin: 0 0 8px 0;
+}
+
+.model-subtitle {
+    font-size: 16px;
+    color: var(--propellini-primary);
+    font-weight: 600;
+    margin: 0;
+}
+
+.model-body {
+    margin-top: 20px;
+}
+
+.model-body .chips {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.model-body .chips::-webkit-scrollbar {
+    width: 8px;
+}
+
+.model-body .chips::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.model-body .chips::-webkit-scrollbar-thumb {
+    background: var(--propellini-primary);
+    border-radius: 4px;
+}
+
+.model-body .info-line {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--propellini-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .model-content {
+        width: 95%;
+        padding: 24px;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .model-title {
+        font-size: 20px;
+    }
+    
+    .model-subtitle {
+        font-size: 14px;
+    }
+    
+    .model-body {
+        max-height: calc(90vh - 120px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    .model-body .chips {
+        max-height: none;
+        overflow-y: hidden;
+    }
+}
+
+.booking-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10002;
+    /* Предотвращаем перетаскивание */
+    touch-action: pan-y;
+    overflow: hidden;
+}
+
+.booking-modal.active {
+    display: block;
+}
+
+.booking-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.15s ease-out;
+}
+
+.booking-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    background: var(--propellini-dark);
+    border-radius: 16px;
+    padding: 28px;
+    overflow-y: auto;
+    border: 2px solid rgba(22, 132, 145, 0.3);
+    animation: modalAppear 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Убираем дергание - фиксируем позицию */
+    will-change: auto;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Предотвращаем перетаскивание */
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Фиксируем позицию */
+    contain: layout style paint;
+}
+
+.booking-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--propellini-text);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.booking-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: none;
+}
+
+.booking-content h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--propellini-primary);
+    margin: 0 0 20px 0;
+    /* Стабильность */
+    flex-shrink: 0;
+}
+
+.form-group {
+    margin-bottom: 16px;
+    /* Стабильность */
+    flex-shrink: 0;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--propellini-text);
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: var(--propellini-dark-secondary);
+    color: var(--propellini-text);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    /* Убираем дергание */
+    will-change: auto;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--propellini-primary);
+    box-shadow: 0 0 0 4px rgba(22, 132, 145, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-summary {
+    margin: 20px 0;
+    padding: 16px;
+    background: var(--propellini-dark-secondary);
+    border-radius: 12px;
+    border: 1px solid rgba(22, 132, 145, 0.2);
+}
+
+.form-summary h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--propellini-primary);
+    margin: 0 0 12px 0;
+}
+
+#summaryData {
+    font-size: 14px;
+    color: var(--propellini-text-secondary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+}
+
+/* ===============================
+   ANIMATIONS
+   =============================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes modalAppear {
+    from {
+        transform: translate(-50%, -50%) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===============================
+   MOBILE STYLES
+   =============================== */
+
+@media (max-width: 1023px) {
+    .calculator-content {
+        padding-top: 20px;
+        padding-bottom: 100px;
+    }
+
+    .step-title {
+        font-size: 20px;
+    }
+
+    .step-subtitle {
+        font-size: 12px;
+    }
+
+    .chip {
+        padding: 10px 14px;
+        min-width: 100px;
+        gap: 8px;
+    }
+    
+    /* Улучшаем скролл для всех списков на мобильных */
+    .chips {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+    }
+    
+    /* Улучшаем видимость активного чипа на мобильных */
+    .chip.active {
+        box-shadow: 0 2px 12px rgba(22, 132, 145, 0.4);
+    }
+
+    .chip-text strong {
+        font-size: 13px;
+    }
+
+    .chip-text span {
+        font-size: 10px;
+    }
+
+    .bottom-panel-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .price-value {
+        font-size: 28px;
+    }
+
+    .bottom-actions {
+        width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .calculator-close {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 640px) {
+    .calculator-content {
+        padding: 20px 16px 90px;
+    }
+
+    .step-title {
+        font-size: 18px;
+    }
+
+    .step-content {
+        padding: 0;
+    }
+
+    .chips {
+        gap: 8px;
+    }
+
+    .chip {
+        padding: 8px 12px;
+        min-width: 90px;
+    }
+
+    .package-item {
+        padding: 10px 14px;
+    }
+
+    .summary-card {
+        padding: 12px;
+    }
+
+    .calculator-bottom-panel {
+        padding: 16px;
+    }
+
+    .price-value {
+        font-size: 24px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .booking-content {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        padding: 14px 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 100vh !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        /* Убираем дергание - полностью фиксируем */
+        will-change: auto !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        /* Предотвращаем перетаскивание */
+        touch-action: pan-y !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+        /* Фиксируем позицию */
+        contain: layout style paint !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .booking-content h2 {
+        font-size: 16px !important;
+        margin-bottom: 12px !important;
+        padding-top: 0 !important;
+    }
+    
+    .form-group {
+        margin-bottom: 12px !important;
+    }
+    
+    .form-group label {
+        font-size: 11px !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 8px 10px !important;
+        font-size: 16px !important; /* Предотвращает зум на iOS */
+        border-radius: 8px !important;
+    }
+    
+    .form-group textarea {
+        min-height: 60px !important;
+    }
+    
+    .form-summary {
+        margin: 12px 0 !important;
+        padding: 10px !important;
+    }
+    
+    .form-summary h3 {
+        font-size: 12px !important;
+        margin-bottom: 6px !important;
+    }
+    
+    #summaryData {
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+    }
+    
+    .btn-submit {
+        padding: 12px !important;
+        font-size: 14px !important;
+        margin-top: 12px !important;
+    }
+    
+    .booking-close {
+        top: 8px !important;
+        right: 8px !important;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 20px !important;
+        z-index: 10003 !important;
+        /* Предотвращаем перетаскивание */
+        touch-action: manipulation !important;
+    }
+}
+
+/* ===============================
+   SCROLLBAR STYLING
+   =============================== */
+
+.calculator-steps-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calculator-steps-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.calculator-steps-container::-webkit-scrollbar-thumb {
+    background: var(--propellini-primary);
+    border-radius: 4px;
+}
+
+.calculator-steps-container::-webkit-scrollbar-thumb:hover {
+    background: var(--propellini-primary-darker);
+}
+
