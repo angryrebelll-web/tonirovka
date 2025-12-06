@@ -1616,68 +1616,8 @@ if (bookingModal) {
     }
 }
 
-// Обработчик отправки формы
-if (requestForm) {
-    requestForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        
-        const userNameInput = document.getElementById("userName");
-        const userPhoneInput = document.getElementById("userPhone");
-        const userEmailInput = document.getElementById("userEmail");
-        const userCommentInput = document.getElementById("userComment");
-        
-        const userName = userNameInput?.value?.trim() || "";
-        const userPhone = userPhoneInput?.value?.trim() || "";
-        const userEmail = userEmailInput?.value?.trim() || "";
-        const userComment = userCommentInput?.value?.trim() || "";
-
-        // Улучшенная валидация
-        let errorMessage = "";
-        if (!userName) {
-            errorMessage = "Пожалуйста, заполните поле 'Ваше имя'";
-            if (userNameInput) {
-                userNameInput.focus();
-                userNameInput.style.borderColor = "#e74c3c";
-                setTimeout(() => {
-                    if (userNameInput) userNameInput.style.borderColor = "";
-                }, 3000);
-            }
-        } else if (!userPhone) {
-            errorMessage = "Пожалуйста, заполните поле 'Телефон'";
-            if (userPhoneInput) {
-                userPhoneInput.focus();
-                userPhoneInput.style.borderColor = "#e74c3c";
-                setTimeout(() => {
-                    if (userPhoneInput) userPhoneInput.style.borderColor = "";
-                }, 3000);
-            }
-        } else if (userPhone && userPhone.replace(/\D/g, '').length < 10) {
-            errorMessage = "Пожалуйста, введите корректный номер телефона (минимум 10 цифр)";
-            if (userPhoneInput) {
-                userPhoneInput.focus();
-                userPhoneInput.style.borderColor = "#e74c3c";
-                setTimeout(() => {
-                    if (userPhoneInput) userPhoneInput.style.borderColor = "";
-                }, 3000);
-            }
-        }
-        
-        if (errorMessage) {
-            alert(errorMessage);
-            return;
-        }
-
-        // Здесь можно добавить отправку данных на сервер
-        alert("Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.");
-        
-        // Закрыть модальное окно формы
-        closeRequestForm();
-        
-        requestForm.reset();
-        
-        // НЕ сбрасываем калькулятор - остаёмся на шаге 4
-    });
-}
+// Обработчик отправки формы - удалён отсюда, перенесён в DOMContentLoaded
+// чтобы избежать дублирования обработчиков
 
 /* =============================
    ГЛОБАЛЬНЫЕ ФУНКЦИИ
