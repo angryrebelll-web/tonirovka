@@ -468,13 +468,61 @@ const popularBrands = ["Toyota", "BMW", "Mercedes-Benz", "Audi", "Lexus", "Volks
 
 // Популярные марки по типу кузова
 const popularBrandsByBodyType = {
-    hatchback: ["Volkswagen", "Ford", "Kia", "Hyundai", "BMW"],
-    sedan: ["Toyota", "Lexus", "Mercedes-Benz", "BMW", "Audi"],
-    crossover: ["Toyota", "Mazda", "Lexus", "BMW", "Volkswagen"],
-    suv: ["Toyota", "Lexus", "Cadillac", "BMW", "Mercedes-Benz"],
-    coupe: ["BMW", "Mercedes-Benz", "Audi"],
-    universal: ["Audi", "Mercedes-Benz", "Volvo", "BMW"]
+    sedan: [
+        "Toyota", "Lexus", "BMW",
+        "Mercedes-Benz", "Audi", "Kia", "Hyundai"
+    ],
+    hatchback: [
+        "Volkswagen", "Kia", "Hyundai",
+        "Ford", "BMW", "Audi", "Opel"
+    ],
+    suv: [
+        "Toyota", "Lexus", "BMW",
+        "Mercedes-Benz", "Audi", "Volkswagen", "Mazda"
+    ],
+    coupe: [
+        "BMW", "Mercedes-Benz", "Audi",
+        "Lexus", "Porsche", "Ford", "Chevrolet"
+    ],
+    pickup: [
+        "Toyota", "Ford", "Nissan",
+        "Mitsubishi", "Chevrolet", "RAM", "GMC"
+    ],
+    minivan: [
+        "Toyota", "Kia", "Hyundai",
+        "Mercedes-Benz", "Volkswagen", "Honda", "Nissan"
+    ],
+    microbus: [
+        "Mercedes-Benz", "Ford", "Volkswagen",
+        "Fiat", "Peugeot", "Citroën", "Renault"
+    ]
 };
+
+// Синхронизация популярных марок с общей базой авто
+function syncPopularBrandsWithDatabase() {
+    if (typeof carDatabaseArray === 'undefined') return;
+    
+    // Собираем все уникальные марки из popularBrandsByBodyType
+    const allPopularBrands = new Set();
+    Object.values(popularBrandsByBodyType).forEach(brands => {
+        brands.forEach(brand => allPopularBrands.add(brand));
+    });
+    
+    // Получаем все марки, которые уже есть в базе
+    const existingBrands = new Set();
+    carDatabaseArray.forEach(car => {
+        existingBrands.add(car.brand);
+    });
+    
+    // Проверяем и логируем недостающие марки
+    allPopularBrands.forEach(brand => {
+        if (!existingBrands.has(brand)) {
+            // Марка отсутствует в базе - это нормально, она просто не будет иметь моделей
+            // Модели не добавляем, как указано в требованиях
+            console.log("%c[SYNC] Марка отсутствует в базе (будет показана, но без моделей):", "color:#16a085", brand);
+        }
+    });
+}
 
 // Рендер популярных марок
 function renderPopularBrands() {
@@ -511,10 +559,18 @@ function updatePopularBrands(bodyType) {
     const brands = popularBrandsByBodyType[bodyType] || [];
 
     brands.forEach(brand => {
-        const div = document.createElement("div");
-        div.classList.add("brand-item");
-        div.innerText = brand;
-        popularBrandsList.appendChild(div);
+        const item = document.createElement("div");
+        item.classList.add("brand-item");
+        item.innerText = brand;
+        // Добавляем обработчик клика для выбора марки
+        item.onclick = () => {
+            if (searchBrandInput) {
+                searchBrandInput.value = brand;
+                renderBrands(brand);
+            }
+            selectBrand(brand);
+        };
+        popularBrandsList.appendChild(item);
     });
 }
 
@@ -1558,6 +1614,9 @@ window.resetCalculator = resetCalculator;
 // Инициализация
 document.addEventListener("DOMContentLoaded", () => {
     console.log("%c[INIT] Калькулятор инициализирован", "color:#16a085;font-weight:bold");
+    
+    // Синхронизация популярных марок с базой
+    syncPopularBrandsWithDatabase();
     
     // Инициализация популярных марок
     renderPopularBrands();
