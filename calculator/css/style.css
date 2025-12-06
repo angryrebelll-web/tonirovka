@@ -2482,6 +2482,204 @@ body {
     display: none !important;
 }
 
+/* ===============================
+   REQUEST MODAL - НОВАЯ ФОРМА ЗАЯВКИ
+   =============================== */
+
+.request-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.request-modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.request-modal.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.request-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1;
+}
+
+.request-content {
+    position: relative;
+    background: var(--propellini-dark);
+    border: 1px solid rgba(22, 132, 145, 0.3);
+    border-radius: 14px;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 2;
+    color: var(--propellini-text);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.request-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+    color: var(--propellini-primary);
+}
+
+.request-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 26px;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: var(--propellini-text);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.request-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.request-content .form-group {
+    margin-bottom: 16px;
+}
+
+.request-content label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--propellini-text);
+    margin-bottom: 8px;
+}
+
+.request-content input,
+.request-content textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: var(--propellini-dark-secondary);
+    color: var(--propellini-text);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.request-content input:focus,
+.request-content textarea:focus {
+    border-color: var(--propellini-primary);
+    box-shadow: 0 0 0 4px rgba(22, 132, 145, 0.1);
+}
+
+.request-content textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.request-submit {
+    margin-top: 20px;
+    padding: 14px;
+    width: 100%;
+    border-radius: 8px;
+    background: var(--propellini-primary);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.request-submit:hover {
+    background: var(--propellini-primary-dark);
+    transform: translateY(-1px);
+}
+
+.request-submit:active {
+    transform: translateY(0);
+}
+
+.form-summary {
+    margin: 20px 0;
+    padding: 16px;
+    background: var(--propellini-dark-secondary);
+    border-radius: 12px;
+    border: 1px solid rgba(22, 132, 145, 0.2);
+}
+
+.form-summary h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--propellini-primary);
+    margin-bottom: 12px;
+}
+
+.form-summary pre {
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--propellini-text-secondary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+    .request-content {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 20px 16px;
+    }
+    
+    .request-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+    
+    .request-content input,
+    .request-content textarea {
+        font-size: 16px; /* Предотвращаем зум на iOS */
+    }
+    
+    .request-submit {
+        padding: 16px;
+        font-size: 16px;
+    }
+}
+
 .booking-content {
     position: fixed;
     top: 50%;

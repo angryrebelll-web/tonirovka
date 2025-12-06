@@ -1369,98 +1369,34 @@ function updateSummaryStep() {
    8) ФОРМА ЗАПИСИ
    ============================= */
 
-if (btnBook) {
-    btnBook.addEventListener("click", () => {
-        if (totalPrice <= 0) {
-            alert("Сначала выберите автомобиль и услуги!");
-            return;
-        }
+// Функция открытия формы заявки
+window.openRequestForm = function() {
+    if (totalPrice <= 0) {
+        alert("Сначала выберите автомобиль и услуги!");
+        return;
+    }
 
-        // Обновить данные в форме
-        if (summaryData) {
-            const serviceNamesMap = {
-                "fullVinyl": "Полная оклейка виниловой пленкой",
-                "displayWrap": "Оклейка дисплеев автомобиля",
-                "interiorGloss": "Оклейка глянцевых элементов салона",
-                "elementByElement": "Поэлементная оклейка защитной пленкой",
-                "filmRemoval": "Снятие пленки с одного элемента"
-            };
-            const additionalServicesNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
-            
-            summaryData.textContent = `
-Марка: ${selectedBrand || "—"}
-Модель: ${selectedModel || "—"}
-Класс: ${selectedClass || "—"}
+    const modal = document.getElementById('requestModal');
+    if (!modal) {
+        alert("Ошибка: форма заявки не найдена!");
+        return;
+    }
 
-Пакет: ${selectedPackage ? selectedPackage.name : "—"}
-
-Зоны риска:
-${selectedRiskZones.length > 0 ? selectedRiskZones.join(", ") : "—"}
-
-Дополнительные услуги:
-${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "—"}
-
-ИТОГО: ${totalPrice.toLocaleString("ru-RU")} ₽
-            `;
-        }
-
-        // НЕ скрываем калькулятор - форма должна быть видна внутри него
-        // Убеждаемся, что calculator-fullscreen активен и видим
-        if (calculatorFullscreen) {
-            calculatorFullscreen.classList.add("active");
-            // Принудительно показываем calculator-fullscreen
-            calculatorFullscreen.style.setProperty("display", "block", "important");
-            calculatorFullscreen.style.setProperty("opacity", "1", "important");
-            calculatorFullscreen.style.setProperty("visibility", "visible", "important");
-            calculatorFullscreen.style.setProperty("pointer-events", "auto", "important");
-            calculatorFullscreen.style.setProperty("z-index", "9999", "important");
-            
-            // Скрываем только калькуляторный контент, но оставляем overlay для формы
-            const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
-            if (calculatorModal) {
-                calculatorModal.style.display = "none";
-            }
-        } else {
-            alert("Ошибка: calculator-fullscreen не найден!");
-            return;
-        }
+    // Обновить данные в форме
+    const summaryDataEl = document.getElementById('summaryData');
+    const summaryDataContainer = document.getElementById('summaryDataContainer');
+    
+    if (summaryDataEl) {
+        const serviceNamesMap = {
+            "fullVinyl": "Полная оклейка виниловой пленкой",
+            "displayWrap": "Оклейка дисплеев автомобиля",
+            "interiorGloss": "Оклейка глянцевых элементов салона",
+            "elementByElement": "Поэлементная оклейка защитной пленкой",
+            "filmRemoval": "Снятие пленки с одного элемента"
+        };
+        const additionalServicesNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
         
-        // Открыть модальное окно формы с небольшой задержкой для плавности
-        setTimeout(() => {
-            // Перепроверяем наличие модального окна
-            const modal = document.getElementById("bookingModal");
-            const summaryDataEl = document.getElementById("summaryData");
-            
-            // Отладка
-            if (!modal) {
-                alert("Ошибка: модальное окно формы не найдено!");
-                return;
-            }
-            
-            if (modal) {
-                // Показываем калькуляторный overlay для формы, но делаем его менее тёмным
-                if (calculatorOverlay) {
-                    calculatorOverlay.style.display = "block";
-                    calculatorOverlay.style.opacity = "0.5";
-                    calculatorOverlay.style.visibility = "visible";
-                    calculatorOverlay.style.pointerEvents = "auto";
-                    calculatorOverlay.style.zIndex = "10000";
-                    calculatorOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-                }
-                
-                // Убеждаемся, что данные обновлены
-                if (summaryDataEl && !summaryDataEl.textContent.trim()) {
-                    // Если данные не были обновлены, обновляем их сейчас
-                    const serviceNamesMap = {
-                        "fullVinyl": "Полная оклейка виниловой пленкой",
-                        "displayWrap": "Оклейка дисплеев автомобиля",
-                        "interiorGloss": "Оклейка глянцевых элементов салона",
-                        "elementByElement": "Поэлементная оклейка защитной пленкой",
-                        "filmRemoval": "Снятие пленки с одного элемента"
-                    };
-                    const additionalServicesNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
-                    
-                    summaryDataEl.textContent = `
+        summaryDataEl.textContent = `
 Марка: ${selectedBrand || "—"}
 Модель: ${selectedModel || "—"}
 Класс: ${selectedClass || "—"}
@@ -1474,75 +1410,56 @@ ${selectedRiskZones.length > 0 ? selectedRiskZones.join(", ") : "—"}
 ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "—"}
 
 ИТОГО: ${totalPrice.toLocaleString("ru-RU")} ₽
-                    `;
-                }
-                
-                // Принудительно показываем форму через setProperty с important
-                modal.classList.add("active");
-                modal.style.setProperty("display", "block", "important");
-                modal.style.setProperty("opacity", "1", "important");
-                modal.style.setProperty("visibility", "visible", "important");
-                modal.style.setProperty("pointer-events", "auto", "important");
-                modal.style.setProperty("z-index", "10001", "important");
-                modal.style.setProperty("position", "fixed", "important");
-                modal.style.setProperty("top", "0", "important");
-                modal.style.setProperty("left", "0", "important");
-                modal.style.setProperty("width", "100%", "important");
-                modal.style.setProperty("height", "100%", "important");
-                
-                // Убеждаемся, что booking-content тоже виден
-                const bookingContent = modal.querySelector(".booking-content");
-                if (bookingContent) {
-                    bookingContent.style.setProperty("display", "block", "important");
-                    bookingContent.style.setProperty("opacity", "1", "important");
-                    bookingContent.style.setProperty("visibility", "visible", "important");
-                    bookingContent.style.setProperty("pointer-events", "auto", "important");
-                    bookingContent.style.setProperty("z-index", "10002", "important");
-                } else {
-                    alert("Ошибка: .booking-content не найден!");
-                }
-                
-                document.body.style.overflow = "hidden";
-                
-                // Убеждаемся, что поля формы доступны для ввода
-                const userNameInput = document.getElementById("userName");
-                const userPhoneInput = document.getElementById("userPhone");
-                const userEmailInput = document.getElementById("userEmail");
-                const userCommentInput = document.getElementById("userComment");
-                
-                // Убираем блокировки с полей
-                if (userNameInput) {
-                    userNameInput.disabled = false;
-                    userNameInput.readOnly = false;
-                    userNameInput.style.pointerEvents = "auto";
-                }
-                if (userPhoneInput) {
-                    userPhoneInput.disabled = false;
-                    userPhoneInput.readOnly = false;
-                    userPhoneInput.style.pointerEvents = "auto";
-                }
-                if (userEmailInput) {
-                    userEmailInput.disabled = false;
-                    userEmailInput.readOnly = false;
-                    userEmailInput.style.pointerEvents = "auto";
-                }
-                if (userCommentInput) {
-                    userCommentInput.disabled = false;
-                    userCommentInput.readOnly = false;
-                    userCommentInput.style.pointerEvents = "auto";
-                }
-                
-                // Фокус на первое поле после небольшой задержки
-                setTimeout(() => {
-                    if (userNameInput) {
-                        userNameInput.focus();
-                    }
-                }, 200);
-            } else {
-                // Если модальное окно не найдено, показываем alert
-                alert("Ошибка: модальное окно не найдено. Пожалуйста, обновите страницу.");
-            }
-        }, 150);
+        `;
+        
+        if (summaryDataContainer) {
+            summaryDataContainer.style.display = "block";
+        }
+    }
+
+    // Открываем модалку
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    // Фокус на первое поле
+    setTimeout(() => {
+        const nameInput = document.getElementById('userName');
+        if (nameInput) {
+            nameInput.focus();
+        }
+    }, 200);
+};
+
+// Функция закрытия формы заявки
+window.closeRequestForm = function() {
+    const modal = document.getElementById('requestModal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+    
+    document.body.style.overflow = '';
+    
+    // Возврат на шаг 4 калькулятора
+    if (currentStep !== 4) {
+        currentStep = 4;
+        updateStepDisplay();
+    }
+    
+    // Показываем калькуляторный контент снова
+    if (calculatorFullscreen) {
+        const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
+        if (calculatorModal) {
+            calculatorModal.style.display = "";
+        }
+    }
+};
+
+// Обработчик кнопки "Записаться"
+if (btnBook) {
+    btnBook.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openRequestForm();
     });
 }
 
