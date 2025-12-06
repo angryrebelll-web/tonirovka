@@ -1404,9 +1404,14 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
             `;
         }
 
-        // Скрыть калькулятор, но НЕ перекидывать на главную страницу
+        // Скрыть калькулятор (но оставить его в DOM для формы)
         if (calculatorFullscreen) {
             calculatorFullscreen.classList.remove("active");
+            // Скрываем калькуляторный контент, но оставляем overlay для формы
+            const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
+            if (calculatorModal) {
+                calculatorModal.style.display = "none";
+            }
         }
         
         // Открыть модальное окно формы с небольшой задержкой для плавности
@@ -1416,6 +1421,15 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
             const summaryDataEl = document.getElementById("summaryData");
             
             if (modal) {
+                // Показываем калькуляторный overlay для формы
+                if (calculatorOverlay) {
+                    calculatorOverlay.style.display = "block";
+                    calculatorOverlay.style.opacity = "1";
+                    calculatorOverlay.style.visibility = "visible";
+                    calculatorOverlay.style.pointerEvents = "auto";
+                    calculatorOverlay.style.zIndex = "10000";
+                }
+                
                 // Убеждаемся, что данные обновлены
                 if (summaryDataEl && !summaryDataEl.textContent.trim()) {
                     // Если данные не были обновлены, обновляем их сейчас
@@ -1507,18 +1521,7 @@ if (modelOverlay) {
 function closeBookingModal() {
     if (!bookingModal) return;
     
-    // 1. Принудительно скрываем overlay
-    const bookingOverlay = bookingModal.querySelector(".booking-overlay");
-    if (bookingOverlay) {
-        bookingOverlay.style.display = "none";
-        bookingOverlay.style.opacity = "0";
-        bookingOverlay.style.visibility = "hidden";
-        bookingOverlay.style.pointerEvents = "none";
-        bookingOverlay.style.zIndex = "-1";
-        bookingOverlay.classList.remove("active");
-    }
-    
-    // 2. Принудительно скрываем модальное окно
+    // 1. Принудительно скрываем модальное окно формы
     bookingModal.classList.remove("active");
     bookingModal.style.display = "none";
     bookingModal.style.opacity = "0";
@@ -1526,61 +1529,76 @@ function closeBookingModal() {
     bookingModal.style.pointerEvents = "none";
     bookingModal.style.zIndex = "-1";
     
-    // 3. Полностью восстанавливаем body
+    // 2. Скрываем калькуляторный overlay
+    if (calculatorOverlay) {
+        calculatorOverlay.style.display = "none";
+        calculatorOverlay.style.opacity = "0";
+        calculatorOverlay.style.visibility = "hidden";
+        calculatorOverlay.style.pointerEvents = "none";
+        calculatorOverlay.style.zIndex = "-1";
+        calculatorOverlay.style.filter = "none";
+        calculatorOverlay.style.backdropFilter = "none";
+        calculatorOverlay.style.webkitBackdropFilter = "none";
+    }
+    
+    // 3. Ищем и скрываем глобальный overlay из index.html (если есть)
+    const globalOverlay = document.querySelector(".modal-overlay");
+    if (globalOverlay) {
+        globalOverlay.style.display = "none";
+        globalOverlay.style.opacity = "0";
+        globalOverlay.style.visibility = "hidden";
+        globalOverlay.style.pointerEvents = "none";
+        globalOverlay.style.zIndex = "-1";
+        globalOverlay.style.filter = "none";
+        globalOverlay.style.backdropFilter = "none";
+        globalOverlay.style.webkitBackdropFilter = "none";
+        globalOverlay.classList.remove("active");
+    }
+    
+    // 4. Убираем blur/filter с body и калькулятора
+    document.body.style.filter = "none";
+    document.body.style.backdropFilter = "none";
+    document.body.style.webkitBackdropFilter = "none";
+    if (calculatorFullscreen) {
+        calculatorFullscreen.style.filter = "none";
+        calculatorFullscreen.style.backdropFilter = "none";
+        calculatorFullscreen.style.webkitBackdropFilter = "none";
+    }
+    
+    // 5. Полностью восстанавливаем body
     document.body.style.overflow = "auto";
     document.body.style.overflowX = "auto";
     document.body.style.overflowY = "auto";
     document.body.style.height = "auto";
     document.body.style.position = "static";
     
-    // 4. Убираем все inline стили с body, которые могли быть установлены
-    // Сохраняем только важные стили, если они были установлены ранее
-    const bodyStyle = document.body.getAttribute("style");
-    if (bodyStyle) {
-        // Удаляем только overflow-связанные стили
-        document.body.style.removeProperty("overflow");
-        document.body.style.removeProperty("overflow-x");
-        document.body.style.removeProperty("overflow-y");
-        document.body.style.removeProperty("height");
-        document.body.style.removeProperty("position");
-    }
+    // 6. Полностью очищаем все inline стили с body
+    document.body.removeAttribute("style");
     
-    // 5. Если других важных стилей нет, полностью очищаем
-    const remainingStyles = document.body.getAttribute("style");
-    if (!remainingStyles || remainingStyles.trim() === "") {
-        document.body.removeAttribute("style");
-    }
-    
-    // 6. Возвращаемся на главную страницу только если калькулятор был скрыт
-    // (при открытии формы калькулятор скрывается)
-    const calculatorWasHidden = calculatorFullscreen && !calculatorFullscreen.classList.contains("active");
-    
-    if (calculatorWasHidden && (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator'))) {
-        // Небольшая задержка для плавного закрытия, затем возврат
+    // 7. Всегда возвращаемся на главную страницу после закрытия формы
+    // (так как калькулятор был скрыт при открытии формы)
+    if (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator')) {
+        // Небольшая задержка для полного сброса overlay, затем возврат
         setTimeout(() => {
             try {
-                // Переходим на главную страницу только если калькулятор скрыт
-                window.location.href = '../';
+                window.location.href = '/';
             } catch (e) {
-                window.location.href = '../';
+                window.location.href = '/';
             }
-        }, 200);
-    } else {
-        // Если калькулятор все еще открыт, просто показываем его снова
-        if (calculatorFullscreen && calculatorFullscreen.classList.contains("active")) {
-            // Калькулятор уже виден, ничего не делаем
-        }
+        }, 50);
     }
 }
 
 if (bookingModal) {
-    const bookingOverlay = bookingModal.querySelector(".booking-overlay");
     const bookingContent = bookingModal.querySelector(".booking-content");
     
-    if (bookingOverlay) {
-        bookingOverlay.addEventListener("click", (e) => {
-            if (e.target === bookingOverlay) {
-                closeBookingModal();
+    // Клик по калькуляторному overlay закрывает форму
+    if (calculatorOverlay) {
+        calculatorOverlay.addEventListener("click", (e) => {
+            if (bookingModal && bookingModal.classList.contains("active")) {
+                if (e.target === calculatorOverlay) {
+                    closeBookingModal();
+                }
             }
         });
     }
