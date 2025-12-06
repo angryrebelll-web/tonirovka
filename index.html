@@ -1321,6 +1321,27 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             background: var(--propellini-dark-secondary);
         }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            
+            .gallery-item {
+                aspect-ratio: 4/3 !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            .gallery-item img {
+                width: 100% !important;
+                height: 100% !important;
+                min-height: auto !important;
+                object-fit: cover !important;
+                object-position: center !important;
+            }
+        }
 
         .gallery-item {
             overflow: hidden;
