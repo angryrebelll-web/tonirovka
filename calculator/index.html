@@ -309,9 +309,7 @@
             }, 500);
         });
     </script>
-</body>
-</html>
-
+    
     <!-- Scripts -->
     <script src="./js/prices.js"></script>
     <script src="./js/cars.js"></script>
@@ -335,5 +333,44 @@
             }, 500);
         });
     </script>
+    
+    <!-- Request Form Modal - Модальное окно формы заявки -->
+    <div id="requestModal" class="request-modal hidden">
+        <div class="request-overlay"></div>
+        <div class="request-content">
+            <button class="request-close" id="requestCloseBtn">×</button>
+            
+            <h2 class="request-title">Оставьте заявку</h2>
+            
+            <form id="requestForm">
+                <div class="form-group">
+                    <label>Ваше имя *</label>
+                    <input type="text" name="name" id="userName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" name="phone" id="userPhone" required placeholder="+7 (___) ___-__-__">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" id="userEmail">
+                </div>
+                
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <textarea name="comment" id="userComment" rows="4"></textarea>
+                </div>
+                
+                <div class="form-summary" id="summaryDataContainer" style="display: none;">
+                    <h3>Выбранные услуги:</h3>
+                    <pre id="summaryData"></pre>
+                </div>
+                
+                <button type="submit" class="request-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

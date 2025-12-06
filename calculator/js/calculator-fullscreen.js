@@ -1363,7 +1363,8 @@ window.openRequestForm = function() {
 
     const modal = document.getElementById('requestModal');
     if (!modal) {
-        alert("Ошибка: форма заявки не найдена!");
+        // Форма должна быть в DOM, если её нет - это критическая ошибка структуры
+        console.error("Критическая ошибка: requestModal не найден в DOM!");
         return;
     }
 
