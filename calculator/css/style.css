@@ -148,7 +148,8 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
 .calculator-close:hover {
@@ -2454,10 +2455,10 @@ body {
         -webkit-backdrop-filter: none !important;
     }
     
-    /* Восстановление backdrop только для активного калькуляторного overlay */
+    /* ПОЛНОЕ отключение backdrop даже для активного overlay */
     .calculator-overlay.active {
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 }
 
