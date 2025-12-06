@@ -1404,10 +1404,11 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
             `;
         }
 
-        // Скрыть калькулятор (но оставить его в DOM для формы)
+        // НЕ скрываем калькулятор - форма должна быть видна внутри него
+        // Убеждаемся, что calculator-fullscreen активен
         if (calculatorFullscreen) {
-            calculatorFullscreen.classList.remove("active");
-            // Скрываем калькуляторный контент, но оставляем overlay для формы
+            calculatorFullscreen.classList.add("active");
+            // Скрываем только калькуляторный контент, но оставляем overlay для формы
             const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
             if (calculatorModal) {
                 calculatorModal.style.display = "none";

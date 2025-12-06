@@ -2373,7 +2373,7 @@ body {
 
 .booking-modal {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -2389,10 +2389,11 @@ body {
 }
 
 .booking-modal.active {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 10001 !important;
 }
 
 /* Принудительное скрытие на мобильных при отсутствии класса active */
