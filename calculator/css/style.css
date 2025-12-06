@@ -2593,6 +2593,7 @@ body {
 
     .step-content {
         padding: 0;
+        padding-bottom: 140px !important;
     }
 
     .chips {
