@@ -1668,19 +1668,49 @@ document.addEventListener("DOMContentLoaded", () => {
         requestForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const phone = this.querySelector('[name="phone"]')?.value.trim() || 
-                         document.getElementById('userPhone')?.value.trim() || '';
+            const userNameInput = document.getElementById('userName');
+            const userPhoneInput = document.getElementById('userPhone');
+            const userEmailInput = document.getElementById('userEmail');
+            const userCommentInput = document.getElementById('userComment');
             
-            if (!phone || phone.replace(/\D/g, '').length < 10) {
-                alert("Введите корректный номер телефона");
-                const phoneInput = this.querySelector('[name="phone"]') || document.getElementById('userPhone');
-                if (phoneInput) {
-                    phoneInput.focus();
-                    phoneInput.style.borderColor = "#e74c3c";
+            const userName = userNameInput?.value?.trim() || '';
+            const userPhone = userPhoneInput?.value?.trim() || '';
+            const userEmail = userEmailInput?.value?.trim() || '';
+            const userComment = userCommentInput?.value?.trim() || '';
+            
+            // Улучшенная валидация
+            let errorMessage = '';
+            if (!userName) {
+                errorMessage = "Пожалуйста, заполните поле 'Ваше имя'";
+                if (userNameInput) {
+                    userNameInput.focus();
+                    userNameInput.style.borderColor = "#e74c3c";
                     setTimeout(() => {
-                        if (phoneInput) phoneInput.style.borderColor = "";
+                        if (userNameInput) userNameInput.style.borderColor = "";
                     }, 3000);
                 }
+            } else if (!userPhone) {
+                errorMessage = "Пожалуйста, заполните поле 'Телефон'";
+                if (userPhoneInput) {
+                    userPhoneInput.focus();
+                    userPhoneInput.style.borderColor = "#e74c3c";
+                    setTimeout(() => {
+                        if (userPhoneInput) userPhoneInput.style.borderColor = "";
+                    }, 3000);
+                }
+            } else if (userPhone && userPhone.replace(/\D/g, '').length < 10) {
+                errorMessage = "Пожалуйста, введите корректный номер телефона (минимум 10 цифр)";
+                if (userPhoneInput) {
+                    userPhoneInput.focus();
+                    userPhoneInput.style.borderColor = "#e74c3c";
+                    setTimeout(() => {
+                        if (userPhoneInput) userPhoneInput.style.borderColor = "";
+                    }, 3000);
+                }
+            }
+            
+            if (errorMessage) {
+                alert(errorMessage);
                 return;
             }
             
