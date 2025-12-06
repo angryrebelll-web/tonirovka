@@ -390,6 +390,8 @@ if (carTypeSelect) {
         
         console.log("%c[TYPE] Выбран тип:", "color:#16a085", type);
         
+        updatePopularBrands(type);
+        
         // Обновляем список брендов с фильтрацией по типу
         renderBrands();
         
@@ -464,6 +466,16 @@ function renderBrands(filterText = "") {
 // Популярные марки (топ-6)
 const popularBrands = ["Toyota", "BMW", "Mercedes-Benz", "Audi", "Lexus", "Volkswagen"];
 
+// Популярные марки по типу кузова
+const popularBrandsByBodyType = {
+    hatchback: ["Volkswagen", "Ford", "Kia", "Hyundai", "BMW"],
+    sedan: ["Toyota", "Lexus", "Mercedes-Benz", "BMW", "Audi"],
+    crossover: ["Toyota", "Mazda", "Lexus", "BMW", "Volkswagen"],
+    suv: ["Toyota", "Lexus", "Cadillac", "BMW", "Mercedes-Benz"],
+    coupe: ["BMW", "Mercedes-Benz", "Audi"],
+    universal: ["Audi", "Mercedes-Benz", "Volvo", "BMW"]
+};
+
 // Рендер популярных марок
 function renderPopularBrands() {
     const popularBrandsList = document.getElementById("popularBrandsList");
@@ -483,6 +495,26 @@ function renderPopularBrands() {
             selectBrand(brand);
         };
         popularBrandsList.appendChild(chip);
+    });
+}
+
+// Обновление популярных марок по типу кузова
+function updatePopularBrands(bodyType) {
+    const container = document.querySelector(".popular-brands");
+    if (!container) return;
+
+    const popularBrandsList = document.getElementById("popularBrandsList");
+    if (!popularBrandsList) return;
+
+    popularBrandsList.innerHTML = "";
+
+    const brands = popularBrandsByBodyType[bodyType] || [];
+
+    brands.forEach(brand => {
+        const div = document.createElement("div");
+        div.classList.add("brand-item");
+        div.innerText = brand;
+        popularBrandsList.appendChild(div);
     });
 }
 
