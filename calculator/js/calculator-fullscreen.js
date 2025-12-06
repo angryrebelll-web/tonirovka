@@ -1613,13 +1613,49 @@ if (requestForm) {
     requestForm.addEventListener("submit", (e) => {
         e.preventDefault();
         
-        const userName = document.getElementById("userName")?.value || "";
-        const userPhone = document.getElementById("userPhone")?.value || "";
-        const userEmail = document.getElementById("userEmail")?.value || "";
-        const userComment = document.getElementById("userComment")?.value || "";
+        const userNameInput = document.getElementById("userName");
+        const userPhoneInput = document.getElementById("userPhone");
+        const userEmailInput = document.getElementById("userEmail");
+        const userCommentInput = document.getElementById("userComment");
+        
+        const userName = userNameInput?.value?.trim() || "";
+        const userPhone = userPhoneInput?.value?.trim() || "";
+        const userEmail = userEmailInput?.value?.trim() || "";
+        const userComment = userCommentInput?.value?.trim() || "";
 
-        if (!userName || !userPhone) {
-            alert("Заполните имя и телефон!");
+        // Улучшенная валидация
+        let errorMessage = "";
+        if (!userName) {
+            errorMessage = "Пожалуйста, заполните поле 'Ваше имя'";
+            if (userNameInput) {
+                userNameInput.focus();
+                userNameInput.style.borderColor = "#e74c3c";
+                setTimeout(() => {
+                    if (userNameInput) userNameInput.style.borderColor = "";
+                }, 3000);
+            }
+        } else if (!userPhone) {
+            errorMessage = "Пожалуйста, заполните поле 'Телефон'";
+            if (userPhoneInput) {
+                userPhoneInput.focus();
+                userPhoneInput.style.borderColor = "#e74c3c";
+                setTimeout(() => {
+                    if (userPhoneInput) userPhoneInput.style.borderColor = "";
+                }, 3000);
+            }
+        } else if (userPhone && userPhone.replace(/\D/g, '').length < 10) {
+            errorMessage = "Пожалуйста, введите корректный номер телефона (минимум 10 цифр)";
+            if (userPhoneInput) {
+                userPhoneInput.focus();
+                userPhoneInput.style.borderColor = "#e74c3c";
+                setTimeout(() => {
+                    if (userPhoneInput) userPhoneInput.style.borderColor = "";
+                }, 3000);
+            }
+        }
+        
+        if (errorMessage) {
+            alert(errorMessage);
             return;
         }
 
@@ -1633,21 +1669,6 @@ if (requestForm) {
         
         // Сброс калькулятора после отправки
         resetCalculator();
-        
-        // Только после отправки формы закрыть калькулятор и вернуться на главную
-        if (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator')) {
-            setTimeout(() => {
-                try {
-                    if (document.referrer && document.referrer.includes(window.location.origin) && !document.referrer.includes('/calculator')) {
-                        window.history.back();
-                    } else {
-                        window.location.href = '../';
-                    }
-                } catch (e) {
-                    window.location.href = '../';
-                }
-            }, 500);
-        }
     });
 }
 
