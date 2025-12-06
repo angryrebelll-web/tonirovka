@@ -380,22 +380,36 @@ function closeCalculator() {
     document.documentElement.style.background = '';
     document.documentElement.style.backgroundColor = '';
     
+    // КРИТИЧЕСКИ ВАЖНО: Принудительно скрываем calculator-fullscreen полностью
+    // Это предотвращает черный экран
+    if (calculatorFullscreen) {
+        calculatorFullscreen.style.setProperty('display', 'none', 'important');
+        calculatorFullscreen.style.setProperty('opacity', '0', 'important');
+        calculatorFullscreen.style.setProperty('visibility', 'hidden', 'important');
+        calculatorFullscreen.style.setProperty('pointer-events', 'none', 'important');
+        calculatorFullscreen.style.setProperty('z-index', '-1', 'important');
+        calculatorFullscreen.style.setProperty('background', 'transparent', 'important');
+    }
+    
     // Возврат на главную страницу при закрытии калькулятора
     // Проверяем, находимся ли мы на странице калькулятора
     if (window.location.pathname.includes('/calculator/') || 
         window.location.pathname.includes('/calculator') ||
         window.location.pathname.endsWith('/calculator')) {
-        // НЕМЕДЛЕННЫЙ возврат без задержки, чтобы избежать серого экрана
+        // НЕМЕДЛЕННЫЙ возврат используя replace для избежания истории браузера
+        // Это предотвращает черный экран
         try {
             // Возврат на главную страницу сайта
             const basePath = window.location.pathname.split('/calculator')[0] || '/';
-            window.location.href = basePath === '/' ? '/' : basePath + '/';
+            const targetUrl = basePath === '/' ? '/' : basePath + '/';
+            // Используем replace вместо href для немедленного перехода без истории
+            window.location.replace(targetUrl);
         } catch (e) {
             // Если ошибка, пробуем просто вернуться назад
             try {
                 window.history.back();
             } catch (e2) {
-                window.location.href = '/';
+                window.location.replace('/');
             }
         }
     }
