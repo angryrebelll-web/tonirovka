@@ -2388,6 +2388,8 @@ body {
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Убеждаемся, что форма не перекрывается чёрным фоном */
+    background: transparent;
 }
 
 .booking-modal.active {
@@ -2396,6 +2398,7 @@ body {
     visibility: visible !important;
     pointer-events: auto !important;
     z-index: 10001 !important;
+    background: transparent !important;
 }
 
 /* Принудительное скрытие на мобильных при отсутствии класса active */
