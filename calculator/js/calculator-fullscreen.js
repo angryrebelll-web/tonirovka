@@ -306,6 +306,38 @@ function canProceedToNextStep() {
 }
 
 /* =============================
+   УНИВЕРСАЛЬНЫЕ ФУНКЦИИ ДЛЯ ЗАКРЫТИЯ
+   ============================= */
+
+// Универсальное скрытие всех overlay, модалок и блокировок
+function hideAllOverlays() {
+    const overlays = document.querySelectorAll('.overlay, .modal-overlay, .request-overlay, .calculator-overlay, .model-overlay, .dark-bg, .blur-bg');
+    overlays.forEach(el => {
+        el.style.display = 'none';
+        el.style.opacity = '0';
+        el.style.visibility = 'hidden';
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = '-1';
+        el.classList.remove('active');
+    });
+    
+    // Восстанавливаем скролл
+    document.body.style.overflow = '';
+    document.body.style.overflowX = '';
+    document.body.style.overflowY = '';
+    document.body.style.height = '';
+    document.body.style.position = '';
+    document.body.style.background = '';
+    document.body.style.backgroundColor = '';
+    document.documentElement.style.overflow = '';
+    document.documentElement.style.background = '';
+    document.documentElement.style.backgroundColor = '';
+    
+    // Убираем все inline стили
+    document.body.removeAttribute("style");
+}
+
+/* =============================
    ОТКРЫТИЕ/ЗАКРЫТИЕ КАЛЬКУЛЯТОРА
    ============================= */
 
@@ -318,71 +350,28 @@ function openCalculator() {
     }
 }
 
+// Универсальное закрытие калькулятора (кнопка Х в правом верхнем углу)
 function closeCalculator() {
     // Закрываем все модальные окна
     if (modelModal) {
         modelModal.classList.remove("active");
+        modelModal.style.display = 'none';
     }
     if (bookingModal) {
         bookingModal.classList.remove("active");
+        bookingModal.style.display = 'none';
     }
     
     // Закрываем форму заявки, если она открыта
     const requestModal = document.getElementById('requestModal');
     if (requestModal) {
         requestModal.classList.add('hidden');
+        requestModal.style.display = 'none';
     }
     
-    // Убираем активный класс с калькулятора
+    // Убираем активный класс с калькулятора и принудительно скрываем
     if (calculatorFullscreen) {
         calculatorFullscreen.classList.remove("active");
-        // Принудительно скрываем калькулятор
-        calculatorFullscreen.style.display = "none";
-    }
-    
-    // Принудительно скрываем overlay
-    if (calculatorOverlay) {
-        calculatorOverlay.style.display = "none";
-        calculatorOverlay.style.opacity = "0";
-        calculatorOverlay.style.visibility = "hidden";
-        calculatorOverlay.style.pointerEvents = "none";
-        calculatorOverlay.classList.remove("active");
-    }
-    
-    // Восстанавливаем overflow для body
-    document.body.style.overflow = "";
-    document.body.style.overflowX = "";
-    document.body.style.overflowY = "";
-    document.body.style.height = "";
-    document.body.style.position = "";
-    
-    // Убираем все inline стили, которые могли быть установлены
-    document.body.removeAttribute("style");
-    
-    // Сбрасываем калькулятор
-    resetCalculator();
-    
-    // КРИТИЧЕСКИ ВАЖНО: Принудительно скрываем ВСЕ элементы перед редиректом
-    // Это предотвращает появление серого экрана
-    const allOverlays = document.querySelectorAll('.calculator-overlay, .request-overlay, .model-overlay, .modal-overlay');
-    allOverlays.forEach(overlay => {
-        overlay.style.display = 'none';
-        overlay.style.opacity = '0';
-        overlay.style.visibility = 'hidden';
-        overlay.style.pointerEvents = 'none';
-        overlay.style.zIndex = '-1';
-        overlay.classList.remove('active');
-    });
-    
-    // Принудительно скрываем body background и все возможные блокирующие элементы
-    document.body.style.background = '';
-    document.body.style.backgroundColor = '';
-    document.documentElement.style.background = '';
-    document.documentElement.style.backgroundColor = '';
-    
-    // КРИТИЧЕСКИ ВАЖНО: Принудительно скрываем calculator-fullscreen полностью
-    // Это предотвращает черный экран
-    if (calculatorFullscreen) {
         calculatorFullscreen.style.setProperty('display', 'none', 'important');
         calculatorFullscreen.style.setProperty('opacity', '0', 'important');
         calculatorFullscreen.style.setProperty('visibility', 'hidden', 'important');
@@ -391,28 +380,16 @@ function closeCalculator() {
         calculatorFullscreen.style.setProperty('background', 'transparent', 'important');
     }
     
-    // Возврат на главную страницу при закрытии калькулятора
-    // Проверяем, находимся ли мы на странице калькулятора
-    if (window.location.pathname.includes('/calculator/') || 
-        window.location.pathname.includes('/calculator') ||
-        window.location.pathname.endsWith('/calculator')) {
-        // НЕМЕДЛЕННЫЙ возврат используя replace для избежания истории браузера
-        // Это предотвращает черный экран
-        try {
-            // Возврат на главную страницу сайта
-            const basePath = window.location.pathname.split('/calculator')[0] || '/';
-            const targetUrl = basePath === '/' ? '/' : basePath + '/';
-            // Используем replace вместо href для немедленного перехода без истории
-            window.location.replace(targetUrl);
-        } catch (e) {
-            // Если ошибка, пробуем просто вернуться назад
-            try {
-                window.history.back();
-            } catch (e2) {
-                window.location.replace('/');
-            }
-        }
-    }
+    // Скрываем все overlay
+    hideAllOverlays();
+    
+    // Сбрасываем калькулятор
+    resetCalculator();
+    
+    // Возврат на главную страницу сайта
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 50);
 }
 
 // Обработчики закрытия
