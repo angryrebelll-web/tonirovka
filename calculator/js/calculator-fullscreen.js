@@ -1577,13 +1577,7 @@ if (requestForm) {
         alert("Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.");
         
         // Закрыть модальное окно формы
-        if (bookingModal) {
-            bookingModal.classList.remove("active");
-            // Восстанавливаем overflow для body
-            document.body.style.overflow = "";
-            document.body.style.overflowX = "";
-            document.body.style.overflowY = "";
-        }
+        closeBookingModal();
         
         requestForm.reset();
         
