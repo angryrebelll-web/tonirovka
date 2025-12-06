@@ -2338,10 +2338,17 @@ body {
     /* Предотвращаем перетаскивание */
     touch-action: pan-y;
     overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .booking-modal.active {
     display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .booking-overlay {

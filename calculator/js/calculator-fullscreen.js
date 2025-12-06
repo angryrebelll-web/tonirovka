@@ -1379,6 +1379,7 @@ if (btnBook) {
         // Обновить данные в форме
         if (summaryData) {
             const serviceNamesMap = {
+                "fullVinyl": "Полная оклейка виниловой пленкой",
                 "displayWrap": "Оклейка дисплеев автомобиля",
                 "interiorGloss": "Оклейка глянцевых элементов салона",
                 "elementByElement": "Поэлементная оклейка защитной пленкой",
@@ -1408,11 +1409,18 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
             calculatorFullscreen.classList.remove("active");
         }
         
-        // Открыть модальное окно формы
-        if (bookingModal) {
-            bookingModal.classList.add("active");
-            document.body.style.overflow = "hidden";
-        }
+        // Открыть модальное окно формы с небольшой задержкой для плавности
+        setTimeout(() => {
+            // Перепроверяем наличие модального окна
+            const modal = document.getElementById("bookingModal");
+            if (modal) {
+                modal.classList.add("active");
+                document.body.style.overflow = "hidden";
+            } else {
+                // Если модальное окно не найдено, показываем alert
+                alert("Ошибка: модальное окно не найдено. Пожалуйста, обновите страницу.");
+            }
+        }, 100);
     });
 }
 
