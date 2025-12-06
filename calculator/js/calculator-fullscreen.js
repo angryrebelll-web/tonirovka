@@ -1405,14 +1405,24 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
         }
 
         // НЕ скрываем калькулятор - форма должна быть видна внутри него
-        // Убеждаемся, что calculator-fullscreen активен
+        // Убеждаемся, что calculator-fullscreen активен и видим
         if (calculatorFullscreen) {
             calculatorFullscreen.classList.add("active");
+            // Принудительно показываем calculator-fullscreen
+            calculatorFullscreen.style.setProperty("display", "block", "important");
+            calculatorFullscreen.style.setProperty("opacity", "1", "important");
+            calculatorFullscreen.style.setProperty("visibility", "visible", "important");
+            calculatorFullscreen.style.setProperty("pointer-events", "auto", "important");
+            calculatorFullscreen.style.setProperty("z-index", "9999", "important");
+            
             // Скрываем только калькуляторный контент, но оставляем overlay для формы
             const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
             if (calculatorModal) {
                 calculatorModal.style.display = "none";
             }
+        } else {
+            alert("Ошибка: calculator-fullscreen не найден!");
+            return;
         }
         
         // Открыть модальное окно формы с небольшой задержкой для плавности
