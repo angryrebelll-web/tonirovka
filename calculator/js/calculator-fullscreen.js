@@ -583,16 +583,16 @@ function updatePopularBrands(bodyType) {
 
     brands.forEach(brand => {
         const item = document.createElement("div");
-        item.classList.add("brand-item");
+        item.classList.add("popular-brand-chip");
         item.innerText = brand;
         // Добавляем обработчик клика для выбора марки
-        item.onclick = () => {
+        item.addEventListener("click", () => {
             if (searchBrandInput) {
                 searchBrandInput.value = brand;
                 renderBrands(brand);
             }
             selectBrand(brand);
-        };
+        });
         popularBrandsList.appendChild(item);
     });
 }
