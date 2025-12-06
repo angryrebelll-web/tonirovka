@@ -327,15 +327,34 @@ function closeCalculator() {
         bookingModal.classList.remove("active");
     }
     
+    // Закрываем форму заявки, если она открыта
+    const requestModal = document.getElementById('requestModal');
+    if (requestModal) {
+        requestModal.classList.add('hidden');
+    }
+    
     // Убираем активный класс с калькулятора
     if (calculatorFullscreen) {
         calculatorFullscreen.classList.remove("active");
+        // Принудительно скрываем калькулятор
+        calculatorFullscreen.style.display = "none";
+    }
+    
+    // Принудительно скрываем overlay
+    if (calculatorOverlay) {
+        calculatorOverlay.style.display = "none";
+        calculatorOverlay.style.opacity = "0";
+        calculatorOverlay.style.visibility = "hidden";
+        calculatorOverlay.style.pointerEvents = "none";
+        calculatorOverlay.classList.remove("active");
     }
     
     // Восстанавливаем overflow для body
     document.body.style.overflow = "";
     document.body.style.overflowX = "";
     document.body.style.overflowY = "";
+    document.body.style.height = "";
+    document.body.style.position = "";
     
     // Убираем все inline стили, которые могли быть установлены
     document.body.removeAttribute("style");
