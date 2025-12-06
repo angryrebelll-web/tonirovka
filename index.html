@@ -1809,14 +1809,20 @@
         }
 
         .calculator-modal-content {
-            max-width: 1200px;
-            width: 95%;
-            padding: 30px;
-            max-height: 95vh;
+            max-width: 100%;
+            width: 100%;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+            max-height: 100vh;
         }
 
         .calculator-modal-content iframe {
-            border-radius: 8px;
+            border-radius: 0;
+            width: 100%;
+            height: 100vh;
+            min-height: 100vh;
         }
 
         .modal-overlay.active .modal-content {
@@ -1901,15 +1907,22 @@
             .calculator-modal-content {
                 width: 100% !important;
                 max-width: 100% !important;
-                padding: 15px !important;
+                padding: 0 !important;
                 margin: 0 !important;
+                height: 100vh !important;
                 max-height: 100vh !important;
                 border-radius: 0 !important;
             }
 
             .calculator-modal-content iframe {
-                height: calc(100vh - 120px) !important;
-                min-height: 500px !important;
+                height: 100vh !important;
+                min-height: 100vh !important;
+                border-radius: 0 !important;
+            }
+            
+            .calculator-modal-content .modal-title,
+            .calculator-modal-content .modal-close {
+                display: none !important;
             }
 
             .modal-title {
@@ -4080,12 +4093,10 @@
     <!-- Модальное окно с калькулятором -->
     <div class="modal-overlay" id="calculatorModal">
         <div class="modal-content calculator-modal-content">
-            <button class="modal-close" id="closeCalculatorModal" aria-label="Закрыть">&times;</button>
-            <h2 class="modal-title">Калькулятор стоимости</h2>
             <iframe 
                 id="calculator-iframe" 
                 src="calculator.html?v=2" 
-                style="width: 100%; height: 80vh; min-height: 600px; border: none; border-radius: 8px; background: var(--propellini-dark-secondary);"
+                style="width: 100%; height: 100vh; min-height: 100vh; border: none; border-radius: 0; background: var(--propellini-dark-secondary);"
                 allowfullscreen
             ></iframe>
         </div>
@@ -4431,9 +4442,13 @@
                 const mobileStickyBtn = document.querySelector('.mobile-sticky-btn');
                 const calculatorIframe = document.getElementById('calculator-iframe');
                 
-                // Сброс калькулятора при открытии
-                if (calculatorIframe && calculatorIframe.contentWindow && typeof calculatorIframe.contentWindow.resetCalculator === 'function') {
-                    calculatorIframe.contentWindow.resetCalculator();
+                // Перезагружаем iframe для исправления проблемы с повторным открытием
+                if (calculatorIframe) {
+                    const currentSrc = calculatorIframe.src;
+                    // Добавляем timestamp для принудительной перезагрузки
+                    const timestamp = new Date().getTime();
+                    const separator = currentSrc.includes('?') ? '&' : '?';
+                    calculatorIframe.src = currentSrc.split('?')[0] + separator + 'v=' + timestamp;
                 }
                 
                 if (modal) {
