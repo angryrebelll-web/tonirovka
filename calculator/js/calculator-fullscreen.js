@@ -1421,6 +1421,12 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
             const modal = document.getElementById("bookingModal");
             const summaryDataEl = document.getElementById("summaryData");
             
+            // Отладка
+            if (!modal) {
+                alert("Ошибка: модальное окно формы не найдено!");
+                return;
+            }
+            
             if (modal) {
                 // Показываем калькуляторный overlay для формы
                 if (calculatorOverlay) {
@@ -1462,11 +1468,26 @@ ${selectedAdditionalServices.length > 0 ? additionalServicesNames.join(", ") : "
                 
                 // Принудительно показываем форму
                 modal.classList.add("active");
-                modal.style.display = "block";
-                modal.style.opacity = "1";
-                modal.style.visibility = "visible";
-                modal.style.pointerEvents = "auto";
-                modal.style.zIndex = "10001";
+                modal.style.display = "block !important";
+                modal.style.opacity = "1 !important";
+                modal.style.visibility = "visible !important";
+                modal.style.pointerEvents = "auto !important";
+                modal.style.zIndex = "10001 !important";
+                modal.style.position = "fixed !important";
+                modal.style.top = "0 !important";
+                modal.style.left = "0 !important";
+                modal.style.width = "100% !important";
+                modal.style.height = "100% !important";
+                
+                // Убеждаемся, что booking-content тоже виден
+                const bookingContent = modal.querySelector(".booking-content");
+                if (bookingContent) {
+                    bookingContent.style.display = "block !important";
+                    bookingContent.style.opacity = "1 !important";
+                    bookingContent.style.visibility = "visible !important";
+                    bookingContent.style.pointerEvents = "auto !important";
+                }
+                
                 document.body.style.overflow = "hidden";
                 
                 // Убеждаемся, что поля формы доступны для ввода
