@@ -343,23 +343,8 @@ function closeCalculator() {
     // Сбрасываем калькулятор
     resetCalculator();
     
-    // Возврат на главную страницу при закрытии
-    // Проверяем, что мы не на главной странице (если есть referrer или путь указывает на калькулятор)
-    if (window.location.pathname.includes('/calculator/') || window.location.pathname.includes('/calculator')) {
-        // Небольшая задержка для плавного закрытия, затем возврат
-        setTimeout(() => {
-            try {
-                if (document.referrer && document.referrer.includes(window.location.origin) && !document.referrer.includes('/calculator')) {
-                    window.history.back();
-                } else {
-                    window.location.href = '../';
-                }
-            } catch (e) {
-                // Если history.back() не работает, используем прямой переход
-                window.location.href = '../';
-            }
-        }, 300);
-    }
+    // НЕ делаем переход на другую страницу при закрытии калькулятора
+    // Просто закрываем калькулятор и остаёмся на текущей странице
 }
 
 // Обработчики закрытия
@@ -1441,8 +1426,7 @@ window.closeRequestForm = function() {
     
     // Возврат на шаг 4 калькулятора
     if (currentStep !== 4) {
-        currentStep = 4;
-        updateStepDisplay();
+        goToStep(4);
     }
     
     // Показываем калькуляторный контент снова
@@ -1564,41 +1548,16 @@ function closeBookingModal() {
     // 8. Полностью очищаем все inline стили с body
     document.body.removeAttribute("style");
     
-    // 9. Всегда возвращаемся на главную страницу после закрытия формы
-    // Проверяем, находимся ли мы на странице калькулятора
-    const isCalculatorPage = window.location.pathname.includes('/calculator/') || 
-                             window.location.pathname.includes('/calculator') ||
-                             window.location.pathname.endsWith('/calculator');
-    
-    if (isCalculatorPage) {
-        // Небольшая задержка для полного сброса overlay, затем возврат
-        setTimeout(() => {
-            try {
-                // Возврат на главную страницу сайта
-                const basePath = window.location.pathname.split('/calculator')[0] || '/';
-                window.location.href = basePath === '/' ? '/' : basePath + '/';
-            } catch (e) {
-                // Если ошибка, пробуем просто вернуться назад
-                try {
-                    window.history.back();
-                } catch (e2) {
-                    window.location.href = '/';
-                }
-            }
-        }, 100);
-    } else {
-        // Если форма открыта как модалка внутри калькулятора, возвращаемся к шагу 4
-        // Показываем калькулятор снова
-        if (calculatorFullscreen) {
-            const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
-            if (calculatorModal) {
-                calculatorModal.style.display = "";
-            }
-            // Возвращаемся к последнему шагу (шаг 4 - итог)
-            if (currentStep !== 4) {
-                currentStep = 4;
-                updateStepDisplay();
-            }
+    // 9. НЕ делаем переход на другую страницу - форма работает как модалка
+    // Возвращаемся к шагу 4 калькулятора
+    if (calculatorFullscreen) {
+        const calculatorModal = calculatorFullscreen.querySelector(".calculator-modal");
+        if (calculatorModal) {
+            calculatorModal.style.display = "";
+        }
+        // Возвращаемся к последнему шагу (шаг 4 - итог)
+        if (currentStep !== 4) {
+            goToStep(4);
         }
     }
 }
