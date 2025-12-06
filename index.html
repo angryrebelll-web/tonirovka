@@ -1789,12 +1789,6 @@
             transition: opacity 0.3s ease;
         }
         
-        #calculatorModal.modal-overlay {
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 20px !important;
-        }
-
         .modal-overlay.active {
             display: flex;
             opacity: 1;
@@ -1812,55 +1806,6 @@
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s ease;
-        }
-
-        .calculator-modal-content {
-            max-width: 95vw !important;
-            width: 95vw !important;
-            height: 95vh !important;
-            padding: 0 !important;
-            margin: auto !important;
-            border-radius: 12px !important;
-            max-height: 95vh !important;
-            border: 1px solid rgba(22, 132, 145, 0.3) !important;
-            transform: none !important;
-            position: relative !important;
-            overflow: hidden !important;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
-        }
-
-        .calculator-modal-content iframe {
-            border-radius: 12px !important;
-            width: 100% !important;
-            height: 100% !important;
-            min-height: 95vh !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-        }
-
-        .modal-overlay.active .calculator-modal-content {
-            transform: none !important;
-        }
-        
-        #calculatorModal.modal-overlay {
-            padding: 20px !important;
-            margin: 0 !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-        
-        #calculatorModal.modal-overlay .calculator-modal-content {
-            flex: none !important;
-            width: 95vw !important;
-            height: 95vh !important;
-            max-width: 95vw !important;
-            max-height: 95vh !important;
-        }
-        
-        .modal-overlay.active .calculator-modal-content {
-            transform: none !important;
-            scale: 1 !important;
         }
 
         .modal-close {
@@ -4141,17 +4086,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно с калькулятором -->
-    <div class="modal-overlay" id="calculatorModal">
-        <div class="modal-content calculator-modal-content">
-            <iframe 
-                id="calculator-iframe" 
-                src="https://angryrebelll-web.github.io/landpadge/calculator.html?v=9" 
-                style="width: 100%; height: 100%; min-height: 100%; border: none; border-radius: 12px; background: var(--propellini-dark-secondary); position: absolute; top: 0; left: 0;"
-                allowfullscreen
-            ></iframe>
-        </div>
-    </div>
 
     <!-- Плавающая кнопка "Рассчитать" -->
     <button id="floatingCalculateBtn" class="floating-calculate-btn" onclick="window.openCalculatorModal()" aria-label="Рассчитать стоимость">
@@ -4486,90 +4420,9 @@
                 }
             };
 
-            // Функции для работы с модальным окном калькулятора
+            // Функция для перехода к калькулятору
             window.openCalculatorModal = function() {
-                const modal = document.getElementById('calculatorModal');
-                const floatingBtn = document.getElementById('floatingCalculateBtn');
-                const mobileStickyBtn = document.querySelector('.mobile-sticky-btn');
-                const calculatorIframe = document.getElementById('calculator-iframe');
-                
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-                
-                // Перезагружаем iframe для исправления проблемы с повторным открытием
-                // На мобильных делаем это асинхронно для лучшей производительности
-                if (calculatorIframe) {
-                    const isMobile = window.innerWidth <= 768;
-                    const loadIframe = () => {
-                        const currentSrc = calculatorIframe.src;
-                        const timestamp = new Date().getTime();
-                        const separator = currentSrc.includes('?') ? '&' : '?';
-                        calculatorIframe.src = currentSrc.split('?')[0] + separator + 'v=' + timestamp;
-                    };
-                    
-                    if (isMobile) {
-                        // На мобильных загружаем с небольшой задержкой для плавности
-                        requestAnimationFrame(() => {
-                            setTimeout(loadIframe, 50);
-                        });
-                    } else {
-                        loadIframe();
-                    }
-                }
-                
-                // Скрываем плавающую кнопку "Рассчитать" при открытии калькулятора
-                if (floatingBtn) {
-                    floatingBtn.style.display = 'none';
-                    floatingBtn.style.visibility = 'hidden';
-                    floatingBtn.classList.remove('visible');
-                }
-                
-                // Скрываем мобильную кнопку
-                if (mobileStickyBtn) {
-                    mobileStickyBtn.style.display = 'none';
-                }
-            };
-
-            window.closeCalculatorModal = function() {
-                const modal = document.getElementById('calculatorModal');
-                const floatingBtn = document.getElementById('floatingCalculateBtn');
-                const mobileStickyBtn = document.querySelector('.mobile-sticky-btn');
-                const calculatorIframe = document.getElementById('calculator-iframe');
-                
-                // Сброс калькулятора при закрытии
-                if (calculatorIframe && calculatorIframe.contentWindow) {
-                    try {
-                        // Пытаемся вызвать resetCalculator напрямую
-                        if (typeof calculatorIframe.contentWindow.resetCalculator === 'function') {
-                            calculatorIframe.contentWindow.resetCalculator();
-                        } else {
-                            // Если прямой вызов не работает, используем postMessage
-                            calculatorIframe.contentWindow.postMessage({ type: 'resetCalculator' }, '*');
-                        }
-                    } catch (e) {
-                        console.log('Не удалось сбросить калькулятор:', e);
-                    }
-                }
-                
-                if (modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-                
-                // Показываем плавающую кнопку "Рассчитать" при закрытии калькулятора
-                // Но не сразу, пусть появится при прокрутке
-                if (floatingBtn) {
-                    floatingBtn.style.display = 'flex';
-                    floatingBtn.style.visibility = 'visible';
-                    floatingBtn.classList.remove('visible'); // Будет видна при прокрутке
-                }
-                
-                // Показываем мобильную кнопку
-                if (mobileStickyBtn) {
-                    mobileStickyBtn.style.display = 'block';
-                }
+                window.location.href = './calculator/';
             };
 
             // Инициализация обработчиков модального окна
@@ -4592,23 +4445,6 @@
                     closeModalBtn.addEventListener('click', window.closeModal);
                 }
 
-                // Обработчики для модального окна калькулятора
-                const calculatorModal = document.getElementById('calculatorModal');
-                if (calculatorModal && !calculatorModal.dataset.initialized) {
-                    calculatorModal.dataset.initialized = 'true';
-                    calculatorModal.addEventListener('click', function(e) {
-                        if (e.target === calculatorModal) {
-                            window.closeCalculatorModal();
-                        }
-                    });
-                }
-
-                const closeCalculatorBtn = document.getElementById('closeCalculatorModal');
-                if (closeCalculatorBtn && !closeCalculatorBtn.dataset.initialized) {
-                    closeCalculatorBtn.dataset.initialized = 'true';
-                    closeCalculatorBtn.addEventListener('click', window.closeCalculatorModal);
-                }
-
                 // Кнопка открытия калькулятора
                 const openCalculatorBtn = document.getElementById('openCalculatorBtn');
                 if (openCalculatorBtn && !openCalculatorBtn.dataset.initialized) {
@@ -4628,12 +4464,9 @@
                 document.modalEscapeHandler = true;
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape') {
-                        const calculatorModal = document.getElementById('calculatorModal');
                         const applicationModal = document.getElementById('applicationModal');
                         
-                        if (calculatorModal && calculatorModal.classList.contains('active')) {
-                            window.closeCalculatorModal();
-                        } else if (applicationModal && applicationModal.classList.contains('active')) {
+                        if (applicationModal && applicationModal.classList.contains('active')) {
                             window.closeModal();
                         }
                     }
