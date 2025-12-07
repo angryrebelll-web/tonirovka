@@ -52,15 +52,23 @@ function closeRequestForm() {
 }
 
 function closeCalculator() {
-    const calc =
-        document.getElementById('calculatorContainer') ||
-        document.querySelector('.calculator-wrapper') ||
-        document.querySelector('.calc-container') ||
-        document.querySelector('#calculator');
+    // Используем правильный селектор для калькулятора
+    const calc = document.getElementById('calculatorFullscreen');
 
-    if (calc) calc.style.display = 'none';
+    if (calc) {
+        calc.classList.remove("active");
+        calc.style.setProperty('display', 'none', 'important');
+        calc.style.setProperty('opacity', '0', 'important');
+        calc.style.setProperty('visibility', 'hidden', 'important');
+        calc.style.setProperty('pointer-events', 'none', 'important');
+        calc.style.setProperty('z-index', '-1', 'important');
+    }
 
     hideAllOverlays();
+
+    // Восстанавливаем скролл
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
 
     setTimeout(() => {
         window.location.href = '/landpadge/';
