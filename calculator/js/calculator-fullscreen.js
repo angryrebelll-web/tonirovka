@@ -1627,197 +1627,67 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavigationButtons();
     updateStepsIndicator();
     
-    // КРИТИЧЕСКИ ВАЖНО: Привязка всех обработчиков кнопок
-    // Используем делегирование событий для надежности
-    function attachHandlers() {
-        const btnBackEl = document.getElementById("btnBack");
-        const btnNextEl = document.getElementById("btnNext");
-        const calculatorCloseEl = document.getElementById("calculatorClose");
-        const calculatorOverlayEl = document.querySelector(".calculator-overlay");
-        
-        // Обработчик кнопки "Назад" - используем делегирование
-        if (btnBackEl) {
-            // Убеждаемся, что кнопка кликабельна
-            btnBackEl.style.pointerEvents = 'auto';
-            btnBackEl.style.cursor = 'pointer';
-            btnBackEl.style.zIndex = '1000';
-            
-            // Удаляем все старые обработчики
-            btnBackEl.onclick = null;
-            const newBtnBack = btnBackEl.cloneNode(true);
-            btnBackEl.parentNode.replaceChild(newBtnBack, btnBackEl);
-            
-            // Привязываем обработчик напрямую к кнопке и всем её дочерним элементам
-            newBtnBack.onclick = function(e) {
-                e = e || window.event;
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                if (currentStep > 1) {
-                    goToStep(currentStep - 1);
-                }
-                return false;
-            };
-            
-            // Также привязываем к дочерним элементам
-            const btnBackInner = newBtnBack.querySelector('.button-inner');
-            if (btnBackInner) {
-                btnBackInner.style.pointerEvents = 'auto';
-                btnBackInner.onclick = function(e) {
-                    e = e || window.event;
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    if (currentStep > 1) {
-                        goToStep(currentStep - 1);
-                    }
-                    return false;
-                };
+    // КРИТИЧЕСКИ ВАЖНО: Простая и надежная привязка обработчиков
+    const btnBackEl = document.getElementById("btnBack");
+    const btnNextEl = document.getElementById("btnNext");
+    const btnBookEl = document.getElementById("btnBook");
+    const calculatorCloseEl = document.getElementById("calculatorClose");
+    const calculatorOverlayEl = document.querySelector(".calculator-overlay");
+    
+    // Обработчик кнопки "Назад"
+    if (btnBackEl) {
+        btnBackEl.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentStep > 1) {
+                goToStep(currentStep - 1);
             }
-        } else {
-            console.error("btnBack не найден!");
-        }
-        
-        // Обработчик кнопки "Далее" - используем делегирование
-        if (btnNextEl) {
-            // Убеждаемся, что кнопка кликабельна
-            btnNextEl.style.pointerEvents = 'auto';
-            btnNextEl.style.cursor = 'pointer';
-            btnNextEl.style.zIndex = '1000';
-            
-            // Удаляем все старые обработчики
-            btnNextEl.onclick = null;
-            const newBtnNext = btnNextEl.cloneNode(true);
-            btnNextEl.parentNode.replaceChild(newBtnNext, btnNextEl);
-            
-            // Привязываем обработчик напрямую к кнопке
-            newBtnNext.onclick = function(e) {
-                e = e || window.event;
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                if (canProceedToNextStep() && currentStep < totalSteps) {
-                    goToStep(currentStep + 1);
-                } else {
-                    alert("Заполните все обязательные поля!");
-                }
-                return false;
-            };
-            
-            // Также привязываем к дочерним элементам
-            const btnNextInner = newBtnNext.querySelector('.button-inner');
-            if (btnNextInner) {
-                btnNextInner.style.pointerEvents = 'auto';
-                btnNextInner.onclick = function(e) {
-                    e = e || window.event;
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    if (canProceedToNextStep() && currentStep < totalSteps) {
-                        goToStep(currentStep + 1);
-                    } else {
-                        alert("Заполните все обязательные поля!");
-                    }
-                    return false;
-                };
-            }
-        } else {
-            console.error("btnNext не найден!");
-        }
-        
-        // Обработчик крестика закрытия калькулятора
-        if (calculatorCloseEl) {
-            // Убеждаемся, что кнопка кликабельна
-            calculatorCloseEl.style.pointerEvents = 'auto';
-            calculatorCloseEl.style.cursor = 'pointer';
-            calculatorCloseEl.style.zIndex = '10001';
-            
-            // Удаляем все старые обработчики
-            calculatorCloseEl.onclick = null;
-            const newCalculatorClose = calculatorCloseEl.cloneNode(true);
-            calculatorCloseEl.parentNode.replaceChild(newCalculatorClose, calculatorCloseEl);
-            
-            newCalculatorClose.onclick = function(e) {
-                e = e || window.event;
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                closeCalculator();
-                return false;
-            };
-        } else {
-            console.error("calculatorClose не найден!");
-        }
-        
-        // Обработчик кнопки "Записаться"
-        const btnBookEl = document.getElementById("btnBook");
-        if (btnBookEl) {
-            // Убеждаемся, что кнопка кликабельна
-            btnBookEl.style.pointerEvents = 'auto';
-            btnBookEl.style.cursor = 'pointer';
-            btnBookEl.style.zIndex = '1000';
-            
-            // Удаляем все старые обработчики
-            btnBookEl.onclick = null;
-            const newBtnBook = btnBookEl.cloneNode(true);
-            btnBookEl.parentNode.replaceChild(newBtnBook, btnBookEl);
-            
-            // Привязываем обработчик напрямую к кнопке
-            newBtnBook.onclick = function(e) {
-                e = e || window.event;
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                if (typeof window.openRequestForm === 'function') {
-                    window.openRequestForm();
-                }
-                return false;
-            };
-            
-            // Также привязываем к дочерним элементам
-            const btnBookInner = newBtnBook.querySelector('.button-inner');
-            if (btnBookInner) {
-                btnBookInner.style.pointerEvents = 'auto';
-                btnBookInner.onclick = function(e) {
-                    e = e || window.event;
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    if (typeof window.openRequestForm === 'function') {
-                        window.openRequestForm();
-                    }
-                    return false;
-                };
-            }
-        } else {
-            console.error("btnBook не найден!");
-        }
-        
-        // Обработчик клика на overlay для закрытия калькулятора
-        if (calculatorOverlayEl) {
-            calculatorOverlayEl.onclick = function(e) {
-                e = e || window.event;
-                if (e && e.target === calculatorOverlayEl) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    closeCalculator();
-                    return false;
-                }
-            };
-        }
+        };
     }
     
-    // Привязываем обработчики сразу и с задержкой
-    attachHandlers();
-    setTimeout(attachHandlers, 100);
-    setTimeout(attachHandlers, 300);
+    // Обработчик кнопки "Далее"
+    if (btnNextEl) {
+        btnNextEl.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (canProceedToNextStep() && currentStep < totalSteps) {
+                goToStep(currentStep + 1);
+            } else {
+                alert("Заполните все обязательные поля!");
+            }
+        };
+    }
+    
+    // Обработчик крестика закрытия
+    if (calculatorCloseEl) {
+        calculatorCloseEl.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeCalculator();
+        };
+    }
+    
+    // Обработчик кнопки "Записаться"
+    if (btnBookEl) {
+        btnBookEl.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.openRequestForm === 'function') {
+                window.openRequestForm();
+            }
+        };
+    }
+    
+    // Обработчик клика на overlay
+    if (calculatorOverlayEl) {
+        calculatorOverlayEl.onclick = function(e) {
+            if (e.target === calculatorOverlayEl) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeCalculator();
+            }
+        };
+    }
     
     // Инициализация новой формы заявки
     const requestCloseBtn = document.getElementById('requestCloseBtn');
