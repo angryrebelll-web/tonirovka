@@ -1,0 +1,37 @@
+# Системные файлы
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Временные отчеты и инструкции
+*_REPORT.md
+*_FIX*.md
+*_INSTRUCTIONS*.md
+*_RECOMMENDATIONS*.md
+*.txt
+ПРОВЕРКА_*.md
+ОТЧЕТ_*.md
+КАК_*.md
+ИСПРАВЛЕНИЯ_*.md
+СКОПИРОВАТЬ_*.txt
+ИНСТРУКЦИЯ_*.txt
+
+# Старые файлы
+mobile-wizard.css
+premium-visual-layer.css
+script.js
+style.css
+
+# Ненужные папки
+deploy/
+project/
+public/
+images/
+
+# MCP конфигурация
+mcp-config.json
+
+# Временные папки
+fix-repo/
+propellini-11/
+propellini-final/
