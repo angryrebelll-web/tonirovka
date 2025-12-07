@@ -427,46 +427,7 @@ function closeCalculator() {
     }, 50);
 }
 
-// Обработчики закрытия
-if (calculatorClose) {
-    calculatorClose.addEventListener("click", closeCalculator);
-}
-
-if (calculatorOverlay) {
-    calculatorOverlay.addEventListener("click", (e) => {
-        if (e.target === calculatorOverlay) {
-            closeCalculator();
-        }
-    });
-}
-
-// Навигация по шагам
-// Обработчики кнопок навигации
-if (btnBack) {
-    btnBack.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (currentStep > 1) {
-            goToStep(currentStep - 1);
-        }
-    });
-} else {
-    console.error("btnBack не найден!");
-}
-
-if (btnNext) {
-    btnNext.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (canProceedToNextStep() && currentStep < totalSteps) {
-            goToStep(currentStep + 1);
-        } else {
-            alert("Заполните все обязательные поля!");
-        }
-    });
-} else {
-    console.error("btnNext не найден!");
-}
+// Обработчики будут привязаны в DOMContentLoaded, чтобы гарантировать, что элементы существуют
 
 /* =============================
    1) ВЫБОР ТИПА АВТО

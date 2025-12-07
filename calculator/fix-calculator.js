@@ -68,16 +68,15 @@ function closeCalculator() {
 }
 
 function attachCloseHandlers() {
-    // Привязываем обработчики ТОЛЬКО к кнопкам закрытия, НЕ к кнопкам навигации
+    // НЕ привязываем обработчики к calculator-close и request-close - они уже обрабатываются в calculator-fullscreen.js
+    // Привязываем только к общим кнопкам закрытия, которые не имеют своих обработчиков
     document.querySelectorAll(`
-        .close-btn,
-        .close,
-        .modal-close,
-        .btn-close,
-        .close-icon,
-        .x-btn,
-        .calculator-close,
-        .request-close
+        .close-btn:not(.calculator-close):not(.request-close),
+        .close:not(.calculator-close):not(.request-close),
+        .modal-close:not(.calculator-close):not(.request-close),
+        .btn-close:not(.calculator-close):not(.request-close),
+        .close-icon:not(.calculator-close):not(.request-close),
+        .x-btn:not(.calculator-close):not(.request-close)
     `).forEach(btn => {
         // Проверяем, что это не кнопка навигации
         if (btn.id !== 'btnNext' && btn.id !== 'btnBack' && !btn.classList.contains('btn-primary') && !btn.classList.contains('btn-secondary')) {
