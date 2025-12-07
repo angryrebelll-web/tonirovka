@@ -277,13 +277,18 @@ function updateNavigationButtons() {
     // Кнопка "Далее" / "Записаться"
     if (btnNext && btnBook) {
         if (currentStep === totalSteps) {
+            // На последнем шаге скрываем "Далее" и показываем "Записаться"
             btnNext.style.display = "none";
             if (totalPrice > 0) {
                 btnBook.style.display = "flex";
+                btnBook.style.pointerEvents = "auto";
+                btnBook.style.cursor = "pointer";
+                btnBook.style.zIndex = "1000";
             } else {
                 btnBook.style.display = "none";
             }
         } else {
+            // На других шагах показываем "Далее" и скрываем "Записаться"
             btnNext.style.display = "flex";
             btnBook.style.display = "none";
         }
@@ -1111,14 +1116,6 @@ function renderPackages() {
             }
 
             calculateTotal();
-            
-            // Автоматический переход на следующий шаг после выбора пакета
-            setTimeout(() => {
-                // Проверяем, что мы на шаге 3 и пакет выбран
-                if (currentStep === 3 && selectedPackage !== null) {
-                    goToStep(4);
-                }
-            }, 600);
         };
 
         packageList.appendChild(div);
@@ -1219,14 +1216,6 @@ function renderAdditionalServices() {
             }
 
             calculateTotal();
-            
-            // Автоматический переход на следующий шаг после выбора дополнительной услуги
-            setTimeout(() => {
-                // Проверяем, что мы на шаге 3 и выбрана хотя бы одна услуга
-                if (currentStep === 3 && selectedAdditionalServices.length > 0) {
-                    goToStep(4);
-                }
-            }, 600);
         });
 
         additionalServicesContainer.appendChild(label);
@@ -1304,14 +1293,6 @@ function renderRiskZones() {
             }
 
             calculateTotal();
-            
-            // Автоматический переход на следующий шаг после выбора зоны риска
-            setTimeout(() => {
-                // Проверяем, что мы на шаге 3 и выбрана хотя бы одна зона
-                if (currentStep === 3 && selectedRiskZones.length > 0) {
-                    goToStep(4);
-                }
-            }, 600);
         });
         
         // Сохранить ссылку на label для подсветки
@@ -1726,11 +1707,17 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Обработчик крестика закрытия калькулятора
         if (calculatorCloseEl) {
+            // Убеждаемся, что кнопка кликабельна
             calculatorCloseEl.style.pointerEvents = 'auto';
             calculatorCloseEl.style.cursor = 'pointer';
             calculatorCloseEl.style.zIndex = '10001';
             
-            calculatorCloseEl.onclick = function(e) {
+            // Удаляем все старые обработчики
+            calculatorCloseEl.onclick = null;
+            const newCalculatorClose = calculatorCloseEl.cloneNode(true);
+            calculatorCloseEl.parentNode.replaceChild(newCalculatorClose, calculatorCloseEl);
+            
+            newCalculatorClose.onclick = function(e) {
                 e = e || window.event;
                 if (e) {
                     e.preventDefault();
@@ -1741,6 +1728,52 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         } else {
             console.error("calculatorClose не найден!");
+        }
+        
+        // Обработчик кнопки "Записаться"
+        const btnBookEl = document.getElementById("btnBook");
+        if (btnBookEl) {
+            // Убеждаемся, что кнопка кликабельна
+            btnBookEl.style.pointerEvents = 'auto';
+            btnBookEl.style.cursor = 'pointer';
+            btnBookEl.style.zIndex = '1000';
+            
+            // Удаляем все старые обработчики
+            btnBookEl.onclick = null;
+            const newBtnBook = btnBookEl.cloneNode(true);
+            btnBookEl.parentNode.replaceChild(newBtnBook, btnBookEl);
+            
+            // Привязываем обработчик напрямую к кнопке
+            newBtnBook.onclick = function(e) {
+                e = e || window.event;
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (typeof window.openRequestForm === 'function') {
+                    window.openRequestForm();
+                }
+                return false;
+            };
+            
+            // Также привязываем к дочерним элементам
+            const btnBookInner = newBtnBook.querySelector('.button-inner');
+            if (btnBookInner) {
+                btnBookInner.style.pointerEvents = 'auto';
+                btnBookInner.onclick = function(e) {
+                    e = e || window.event;
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    if (typeof window.openRequestForm === 'function') {
+                        window.openRequestForm();
+                    }
+                    return false;
+                };
+            }
+        } else {
+            console.error("btnBook не найден!");
         }
         
         // Обработчик клика на overlay для закрытия калькулятора
