@@ -1095,8 +1095,18 @@ function selectModelUI(div) {
    4) ПАКЕТЫ УСЛУГ
    ============================= */
 
+// Флаг для предотвращения повторного рендеринга
+let isRenderingPackages = false;
+
 function renderPackages() {
     if (!packageList) return;
+    
+    // Защита от повторного вызова
+    if (isRenderingPackages) {
+        return;
+    }
+    
+    isRenderingPackages = true;
     
     // ОЧИСТКА перед рендерингом - убираем дублирование
     packageList.innerHTML = '';
@@ -1178,6 +1188,9 @@ function renderPackages() {
 
         packageList.appendChild(div);
     });
+    
+    // Сбрасываем флаг после завершения рендеринга
+    isRenderingPackages = false;
 }
 
 // renderPackages() вызывается при переходе на шаг 3, не нужно вызывать здесь
