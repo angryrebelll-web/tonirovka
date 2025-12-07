@@ -1627,67 +1627,100 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavigationButtons();
     updateStepsIndicator();
     
-    // КРИТИЧЕСКИ ВАЖНО: Простая и надежная привязка обработчиков
-    const btnBackEl = document.getElementById("btnBack");
-    const btnNextEl = document.getElementById("btnNext");
-    const btnBookEl = document.getElementById("btnBook");
+    // КРИТИЧЕСКИ ВАЖНО: Надежная привязка обработчиков через делегирование событий
+    // Используем делегирование на родительском контейнере для гарантированной работы
+    
+    // Делегирование для кнопок навигации через bottom-actions
+    const bottomActions = document.querySelector('.bottom-actions');
+    if (bottomActions) {
+        bottomActions.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+            
+            if (target.id === 'btnBack') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            } else if (target.id === 'btnNext') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (canProceedToNextStep() && currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else {
+                    alert("Заполните все обязательные поля!");
+                }
+            } else if (target.id === 'btnBook') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof window.openRequestForm === 'function') {
+                    window.openRequestForm();
+                }
+            }
+        });
+    }
+    
+    // Обработчик крестика закрытия - прямая привязка
     const calculatorCloseEl = document.getElementById("calculatorClose");
-    const calculatorOverlayEl = document.querySelector(".calculator-overlay");
-    
-    // Обработчик кнопки "Назад"
-    if (btnBackEl) {
-        btnBackEl.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (currentStep > 1) {
-                goToStep(currentStep - 1);
-            }
-        };
-    }
-    
-    // Обработчик кнопки "Далее"
-    if (btnNextEl) {
-        btnNextEl.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (canProceedToNextStep() && currentStep < totalSteps) {
-                goToStep(currentStep + 1);
-            } else {
-                alert("Заполните все обязательные поля!");
-            }
-        };
-    }
-    
-    // Обработчик крестика закрытия
     if (calculatorCloseEl) {
-        calculatorCloseEl.onclick = function(e) {
+        calculatorCloseEl.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             closeCalculator();
-        };
-    }
-    
-    // Обработчик кнопки "Записаться"
-    if (btnBookEl) {
-        btnBookEl.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof window.openRequestForm === 'function') {
-                window.openRequestForm();
-            }
-        };
+        });
     }
     
     // Обработчик клика на overlay
+    const calculatorOverlayEl = document.querySelector(".calculator-overlay");
     if (calculatorOverlayEl) {
-        calculatorOverlayEl.onclick = function(e) {
+        calculatorOverlayEl.addEventListener('click', function(e) {
             if (e.target === calculatorOverlayEl) {
                 e.preventDefault();
                 e.stopPropagation();
                 closeCalculator();
             }
-        };
+        });
     }
+    
+    // Дополнительная прямая привязка для надежности
+    setTimeout(() => {
+        const btnBackEl = document.getElementById("btnBack");
+        const btnNextEl = document.getElementById("btnNext");
+        const btnBookEl = document.getElementById("btnBook");
+        
+        if (btnBackEl) {
+            btnBackEl.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            });
+        }
+        
+        if (btnNextEl) {
+            btnNextEl.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (canProceedToNextStep() && currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else {
+                    alert("Заполните все обязательные поля!");
+                }
+            });
+        }
+        
+        if (btnBookEl) {
+            btnBookEl.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof window.openRequestForm === 'function') {
+                    window.openRequestForm();
+                }
+            });
+        }
+    }, 200);
     
     // Инициализация новой формы заявки
     const requestCloseBtn = document.getElementById('requestCloseBtn');
