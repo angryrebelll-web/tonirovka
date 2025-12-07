@@ -227,7 +227,7 @@ body {
     overflow: hidden;
     padding-top: 20px;
     padding-bottom: 120px;
-    z-index: 10002 !important;
+    z-index: 1 !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
@@ -1993,7 +1993,7 @@ body {
     -webkit-backdrop-filter: none !important;
     border-top: 1px solid rgba(22, 132, 145, 0.3);
     padding: 20px;
-    z-index: 10000 !important;
+    z-index: 99999 !important;
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
     pointer-events: auto !important;
 }
@@ -2028,18 +2028,17 @@ body {
     display: flex;
     gap: 12px;
     pointer-events: auto !important;
-    z-index: 10002 !important;
+    z-index: 99999 !important;
     position: relative;
 }
 
 .bottom-actions * {
     pointer-events: auto !important;
-    z-index: inherit;
 }
 
 .bottom-actions button {
     pointer-events: auto !important;
-    z-index: 10002 !important;
+    z-index: 99999 !important;
     position: relative;
 }
 
@@ -2064,6 +2063,9 @@ body {
     user-select: none;
     opacity: 1 !important;
     visibility: visible !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .btn-primary .button-outer,
@@ -2073,14 +2075,14 @@ body {
     border-radius: inherit;
     transition: box-shadow 300ms ease;
     will-change: box-shadow;
-    pointer-events: auto !important;
+    pointer-events: none !important;
     cursor: pointer !important;
 }
 
 .btn-primary .button-inner,
 .btn-secondary .button-inner {
     --inset: 0.035em;
-    pointer-events: auto !important;
+    pointer-events: none !important;
     cursor: pointer !important;
     position: relative;
     z-index: 1;

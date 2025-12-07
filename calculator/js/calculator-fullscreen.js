@@ -532,105 +532,78 @@ function attachButtonHandlers() {
         });
     }
 
-    // Навигация по шагам
-    const backBtn = document.getElementById("btnBack");
-    if (backBtn && !backBtn.dataset.handlerAttached) {
-        backBtn.dataset.handlerAttached = 'true';
-        backBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            console.log("Кнопка 'Назад' нажата, текущий шаг:", currentStep);
-            if (currentStep > 1) {
-                goToStep(currentStep - 1);
-            }
-        });
-        // Дополнительная защита - обработчик на touchstart для мобильных
-        backBtn.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (currentStep > 1) {
-                goToStep(currentStep - 1);
-            }
-        }, { passive: false });
-    }
-
-    const nextBtn = document.getElementById("btnNext");
-    if (nextBtn && !nextBtn.dataset.handlerAttached) {
-        nextBtn.dataset.handlerAttached = 'true';
-        nextBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            console.log("Кнопка 'Далее' нажата, текущий шаг:", currentStep, "canProceed:", canProceedToNextStep());
-            if (canProceedToNextStep() && currentStep < totalSteps) {
-                goToStep(currentStep + 1);
-            } else {
-                alert("Заполните все обязательные поля!");
-            }
-        });
-        // Дополнительная защита - обработчик на touchstart для мобильных
-        nextBtn.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (canProceedToNextStep() && currentStep < totalSteps) {
-                goToStep(currentStep + 1);
-            } else {
-                alert("Заполните все обязательные поля!");
-            }
-        }, { passive: false });
-    }
-
-    // Кнопка "Записаться" - открывает форму заявки
-    const bookBtn = document.getElementById("btnBook");
-    if (bookBtn && !bookBtn.dataset.handlerAttached) {
-        bookBtn.dataset.handlerAttached = 'true';
-        bookBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            console.log("Кнопка 'Записаться' нажата, текущий шаг:", currentStep, "totalPrice:", totalPrice);
+    // Навигация по шагам - используем делегирование событий для надежности
+    const bottomActions = document.querySelector(".bottom-actions");
+    if (bottomActions && !bottomActions.dataset.handlerAttached) {
+        bottomActions.dataset.handlerAttached = 'true';
+        bottomActions.addEventListener("click", (e) => {
+            const target = e.target.closest("#btnBack, #btnNext, #btnBook");
+            if (!target) return;
             
-            // Проверяем что мы на последнем шаге и есть выбранные услуги
-            if (currentStep !== totalSteps) {
-                console.warn("Кнопка 'Записаться' нажата не на последнем шаге!");
-                return;
-            }
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
             
-            if (totalPrice <= 0) {
-                alert("Сначала выберите автомобиль и услуги!");
-                return;
-            }
-
-            // Открываем форму заявки через openRequestForm
-            if (typeof window.openRequestForm === 'function') {
-                window.openRequestForm();
-            } else {
-                console.error("Функция openRequestForm не найдена!");
-                // Fallback: открываем requestModal напрямую
-                const requestModal = document.getElementById('requestModal');
-                if (requestModal) {
-                    requestModal.classList.remove('hidden');
-                    requestModal.style.display = 'flex';
-                    requestModal.style.opacity = '1';
-                    requestModal.style.visibility = 'visible';
-                    requestModal.style.pointerEvents = 'auto';
-                    requestModal.style.zIndex = '999999';
-                    document.body.style.overflow = "hidden";
+            if (target.id === "btnBack") {
+                console.log("Кнопка 'Назад' нажата, текущий шаг:", currentStep);
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            } else if (target.id === "btnNext") {
+                console.log("Кнопка 'Далее' нажата, текущий шаг:", currentStep, "canProceed:", canProceedToNextStep());
+                if (canProceedToNextStep() && currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else {
+                    alert("Заполните все обязательные поля!");
+                }
+            } else if (target.id === "btnBook") {
+                console.log("Кнопка 'Записаться' нажата, текущий шаг:", currentStep, "totalPrice:", totalPrice);
+                if (currentStep !== totalSteps) {
+                    console.warn("Кнопка 'Записаться' нажата не на последнем шаге!");
+                    return;
+                }
+                if (totalPrice <= 0) {
+                    alert("Сначала выберите автомобиль и услуги!");
+                    return;
+                }
+                if (typeof window.openRequestForm === 'function') {
+                    window.openRequestForm();
+                } else {
+                    console.error("Функция openRequestForm не найдена!");
+                    const requestModal = document.getElementById('requestModal');
+                    if (requestModal) {
+                        requestModal.classList.remove('hidden');
+                        requestModal.style.display = 'flex';
+                        requestModal.style.opacity = '1';
+                        requestModal.style.visibility = 'visible';
+                        requestModal.style.pointerEvents = 'auto';
+                        requestModal.style.zIndex = '999999';
+                        document.body.style.overflow = "hidden";
+                    }
                 }
             }
-        });
-        // Дополнительная защита - обработчик на touchstart для мобильных
-        bookBtn.addEventListener("touchstart", (e) => {
+        }, true);
+        
+        // Touch события для мобильных
+        bottomActions.addEventListener("touchend", (e) => {
+            const target = e.target.closest("#btnBack, #btnNext, #btnBook");
+            if (!target) return;
+            
             e.preventDefault();
             e.stopPropagation();
-            if (currentStep === totalSteps && totalPrice > 0) {
+            
+            if (target.id === "btnBack" && currentStep > 1) {
+                goToStep(currentStep - 1);
+            } else if (target.id === "btnNext" && canProceedToNextStep() && currentStep < totalSteps) {
+                goToStep(currentStep + 1);
+            } else if (target.id === "btnBook" && currentStep === totalSteps && totalPrice > 0) {
                 if (typeof window.openRequestForm === 'function') {
                     window.openRequestForm();
                 }
             }
         }, { passive: false });
     }
+
 }
 
 // Привязываем обработчики сразу (если элементы уже загружены)
