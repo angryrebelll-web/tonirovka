@@ -1082,6 +1082,9 @@ function selectModelUI(div) {
 
 function renderPackages() {
     if (!packageList) return;
+    
+    // ОЧИСТКА перед рендерингом - убираем дублирование
+    packageList.innerHTML = '';
 
     packages.forEach(pkg => {
         const div = document.createElement("div");
