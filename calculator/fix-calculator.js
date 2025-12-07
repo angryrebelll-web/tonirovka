@@ -68,18 +68,25 @@ function closeCalculator() {
 }
 
 function attachCloseHandlers() {
+    // Привязываем обработчики ТОЛЬКО к кнопкам закрытия, НЕ к кнопкам навигации
     document.querySelectorAll(`
         .close-btn,
         .close,
         .modal-close,
         .btn-close,
         .close-icon,
-        .x-btn
+        .x-btn,
+        .calculator-close,
+        .request-close
     `).forEach(btn => {
-        btn.addEventListener('click', () => {
-            closeRequestForm();
-            closeCalculator();
-        });
+        // Проверяем, что это не кнопка навигации
+        if (btn.id !== 'btnNext' && btn.id !== 'btnBack' && !btn.classList.contains('btn-primary') && !btn.classList.contains('btn-secondary')) {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeRequestForm();
+                closeCalculator();
+            });
+        }
     });
 
     window.closeForm = closeRequestForm;
