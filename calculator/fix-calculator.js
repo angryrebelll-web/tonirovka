@@ -90,5 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // НЕ вызываем hideAllOverlays() при загрузке - это скрывает калькулятор
     // hideAllOverlays() вызывается только при закрытии
     attachCloseHandlers();
+    
+    // Убеждаемся, что калькулятор открывается правильно
+    setTimeout(() => {
+        const calc = document.getElementById('calculatorFullscreen');
+        if (calc && calc.classList.contains('active')) {
+            // Калькулятор активен - не скрываем overlay
+            const overlay = calc.querySelector('.calculator-overlay');
+            if (overlay) {
+                overlay.style.display = 'block';
+                overlay.style.opacity = '0.5';
+                overlay.style.visibility = 'visible';
+            }
+        }
+    }, 100);
 });
 
