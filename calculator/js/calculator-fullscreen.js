@@ -169,7 +169,18 @@ function resetCalculator() {
    ============================= */
 
 function goToStep(step) {
-    if (step < 1 || step > totalSteps) return;
+    // Валидация шага
+    if (step < 1 || step > totalSteps) {
+        return;
+    }
+    
+    // Проверка возможности перехода вперед
+    if (step > currentStep) {
+        if (!canProceedToNextStep()) {
+            alert("Заполните все обязательные поля для перехода на следующий шаг!");
+            return;
+        }
+    }
     
     const prevStep = currentStep;
     currentStep = step;
@@ -186,6 +197,7 @@ function goToStep(step) {
     if (currentStepEl) {
         currentStepEl.classList.add("active");
         
+        // Анимация перехода
         if (step > prevStep) {
             currentStepEl.classList.add("slide-left");
         } else if (step < prevStep) {
@@ -204,42 +216,61 @@ function goToStep(step) {
     // Обновить кнопки навигации
     updateNavigationButtons();
     
-    // При переходе на шаг 2 - перерисовать бренды с учетом выбранного типа
-    if (step === 2) {
-        // Сбросить выбранную марку и модель, если они не соответствуют новому типу
-        if (selectedBrand && carDatabase[selectedBrand]) {
-            if (carDatabase[selectedBrand].class !== selectedType) {
-                selectedBrand = null;
-                selectedModel = null;
-                selectedClass = null;
-                if (modelsSection) {
-                    modelsSection.style.display = "none";
-                }
-                if (modelList) {
-                    modelList.innerHTML = "";
-                }
-                if (selectedClassText) {
-                    selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
+    // Логика для каждого шага
+    switch(step) {
+        case 1:
+            // При возврате на шаг 1 - сбросить выбранную марку и модель
+            selectedBrand = null;
+            selectedModel = null;
+            selectedClass = null;
+            if (modelsSection) {
+                modelsSection.style.display = "none";
+            }
+            if (modelList) {
+                modelList.innerHTML = "";
+            }
+            if (selectedClassText) {
+                selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
+            }
+            break;
+            
+        case 2:
+            // При переходе на шаг 2 - перерисовать бренды с учетом выбранного типа
+            if (selectedBrand && carDatabase[selectedBrand]) {
+                // Сбросить выбранную марку и модель, если они не соответствуют новому типу
+                if (carDatabase[selectedBrand].class !== selectedType) {
+                    selectedBrand = null;
+                    selectedModel = null;
+                    selectedClass = null;
+                    if (modelsSection) {
+                        modelsSection.style.display = "none";
+                    }
+                    if (modelList) {
+                        modelList.innerHTML = "";
+                    }
+                    if (selectedClassText) {
+                        selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
+                    }
                 }
             }
-        }
-        renderBrands();
-    }
-    
-    // При возврате на шаг 1 - сбросить выбранную марку и модель
-    if (step === 1) {
-        selectedBrand = null;
-        selectedModel = null;
-        selectedClass = null;
-        if (modelsSection) {
-            modelsSection.style.display = "none";
-        }
-        if (modelList) {
-            modelList.innerHTML = "";
-        }
-        if (selectedClassText) {
-            selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
-        }
+            renderBrands();
+            break;
+            
+        case 3:
+            // При переходе на шаг 3 - убедиться, что цены обновлены
+            if (selectedClass) {
+                renderPackages();
+                renderRiskZones();
+                renderAdditionalServices();
+                calculateTotal();
+            }
+            break;
+            
+        case 4:
+            // При переходе на шаг 4 - обновить итоговую информацию
+            calculateTotal();
+            updateSummaryStep();
+            break;
     }
     
     // Прокрутить вверх
