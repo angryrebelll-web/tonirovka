@@ -296,32 +296,41 @@ function updateStepsIndicator() {
 }
 
 function updateNavigationButtons() {
+    // Получаем элементы каждый раз заново для надежности
+    const btnBackEl = document.getElementById("btnBack");
+    const btnNextEl = document.getElementById("btnNext");
+    const btnBookEl = document.getElementById("btnBook");
+    
     // Кнопка "Назад"
-    if (btnBack) {
+    if (btnBackEl) {
         if (currentStep === 1) {
-            btnBack.style.display = "none";
+            btnBackEl.style.display = "none";
         } else {
-            btnBack.style.display = "flex";
+            btnBackEl.style.display = "flex";
+            btnBackEl.style.pointerEvents = "auto";
+            btnBackEl.style.cursor = "pointer";
         }
     }
     
     // Кнопка "Далее" / "Записаться"
-    if (btnNext && btnBook) {
+    if (btnNextEl && btnBookEl) {
         if (currentStep === totalSteps) {
             // На последнем шаге скрываем "Далее" и показываем "Записаться"
-            btnNext.style.display = "none";
+            btnNextEl.style.display = "none";
             if (totalPrice > 0) {
-                btnBook.style.display = "flex";
-                btnBook.style.pointerEvents = "auto";
-                btnBook.style.cursor = "pointer";
-                btnBook.style.zIndex = "1000";
+                btnBookEl.style.display = "flex";
+                btnBookEl.style.pointerEvents = "auto";
+                btnBookEl.style.cursor = "pointer";
+                btnBookEl.style.zIndex = "1000";
             } else {
-                btnBook.style.display = "none";
+                btnBookEl.style.display = "none";
             }
         } else {
             // На других шагах показываем "Далее" и скрываем "Записаться"
-            btnNext.style.display = "flex";
-            btnBook.style.display = "none";
+            btnNextEl.style.display = "flex";
+            btnNextEl.style.pointerEvents = "auto";
+            btnNextEl.style.cursor = "pointer";
+            btnBookEl.style.display = "none";
         }
     }
 }
