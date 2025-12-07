@@ -1637,6 +1637,39 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavigationButtons();
     updateStepsIndicator();
     
+    // КРИТИЧЕСКИ ВАЖНО: Переинициализация обработчиков кнопок навигации
+    // на случай, если они не были привязаны при первой загрузке
+    const btnBackEl = document.getElementById("btnBack");
+    const btnNextEl = document.getElementById("btnNext");
+    
+    if (btnBackEl) {
+        // Удаляем все старые обработчики через клонирование
+        btnBackEl.replaceWith(btnBackEl.cloneNode(true));
+        const newBtnBack = document.getElementById("btnBack");
+        newBtnBack.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentStep > 1) {
+                goToStep(currentStep - 1);
+            }
+        });
+    }
+    
+    if (btnNextEl) {
+        // Удаляем все старые обработчики через клонирование
+        btnNextEl.replaceWith(btnNextEl.cloneNode(true));
+        const newBtnNext = document.getElementById("btnNext");
+        newBtnNext.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (canProceedToNextStep() && currentStep < totalSteps) {
+                goToStep(currentStep + 1);
+            } else {
+                alert("Заполните все обязательные поля!");
+            }
+        });
+    }
+    
     // Инициализация новой формы заявки
     const requestCloseBtn = document.getElementById('requestCloseBtn');
     if (requestCloseBtn) {
