@@ -325,13 +325,14 @@ function updateNavigationButtons() {
             btnBackEl.style.display = "flex";
             btnBackEl.style.pointerEvents = "auto";
             btnBackEl.style.cursor = "pointer";
+            btnBackEl.style.zIndex = "1000";
         }
     }
     
     // Кнопка "Далее" / "Записаться"
     if (btnNextEl && btnBookEl) {
         if (currentStep === totalSteps) {
-            // На последнем шаге скрываем "Далее" и показываем "Записаться"
+            // На последнем шаге (шаг 4) скрываем "Далее" и показываем "Записаться"
             btnNextEl.style.display = "none";
             if (totalPrice > 0) {
                 btnBookEl.style.display = "flex";
@@ -346,6 +347,7 @@ function updateNavigationButtons() {
             btnNextEl.style.display = "flex";
             btnNextEl.style.pointerEvents = "auto";
             btnNextEl.style.cursor = "pointer";
+            btnNextEl.style.zIndex = "1000";
             btnBookEl.style.display = "none";
         }
     }
@@ -485,15 +487,22 @@ function closeCalculator() {
     }, 100);
 }
 
+// Флаг для предотвращения дублирования обработчиков
+let handlersAttached = false;
+
 // Функция для привязки всех обработчиков кнопок
 function attachButtonHandlers() {
-    // Обработчики закрытия - ТОЧНАЯ КОПИЯ ИЗ ОРИГИНАЛА
+    // Предотвращаем дублирование обработчиков
+    if (handlersAttached) {
+        return;
+    }
+    handlersAttached = true;
+
+    // Обработчики закрытия
     const calcClose = document.getElementById("calculatorClose");
-    if (calcClose) {
-        // Удаляем старые обработчики
-        const newClose = calcClose.cloneNode(true);
-        calcClose.parentNode.replaceChild(newClose, calcClose);
-        newClose.addEventListener("click", (e) => {
+    if (calcClose && !calcClose.dataset.handlerAttached) {
+        calcClose.dataset.handlerAttached = 'true';
+        calcClose.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             closeCalculator();
@@ -501,7 +510,8 @@ function attachButtonHandlers() {
     }
 
     const calcOverlay = document.querySelector(".calculator-overlay");
-    if (calcOverlay) {
+    if (calcOverlay && !calcOverlay.dataset.handlerAttached) {
+        calcOverlay.dataset.handlerAttached = 'true';
         calcOverlay.addEventListener("click", (e) => {
             if (e.target === calcOverlay) {
                 e.preventDefault();
@@ -511,12 +521,11 @@ function attachButtonHandlers() {
         });
     }
 
-    // Навигация по шагам - ТОЧНАЯ КОПИЯ ИЗ ОРИГИНАЛА
+    // Навигация по шагам
     const backBtn = document.getElementById("btnBack");
-    if (backBtn) {
-        const newBack = backBtn.cloneNode(true);
-        backBtn.parentNode.replaceChild(newBack, backBtn);
-        newBack.addEventListener("click", (e) => {
+    if (backBtn && !backBtn.dataset.handlerAttached) {
+        backBtn.dataset.handlerAttached = 'true';
+        backBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             if (currentStep > 1) {
@@ -526,10 +535,9 @@ function attachButtonHandlers() {
     }
 
     const nextBtn = document.getElementById("btnNext");
-    if (nextBtn) {
-        const newNext = nextBtn.cloneNode(true);
-        nextBtn.parentNode.replaceChild(newNext, nextBtn);
-        newNext.addEventListener("click", (e) => {
+    if (nextBtn && !nextBtn.dataset.handlerAttached) {
+        nextBtn.dataset.handlerAttached = 'true';
+        nextBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
             if (canProceedToNextStep() && currentStep < totalSteps) {
@@ -540,14 +548,20 @@ function attachButtonHandlers() {
         });
     }
 
-    // Кнопка "Записаться" - ТОЧНАЯ КОПИЯ ИЗ ОРИГИНАЛА (адаптировано под requestModal)
+    // Кнопка "Записаться" - открывает форму заявки
     const bookBtn = document.getElementById("btnBook");
-    if (bookBtn) {
-        const newBook = bookBtn.cloneNode(true);
-        bookBtn.parentNode.replaceChild(newBook, bookBtn);
-        newBook.addEventListener("click", (e) => {
+    if (bookBtn && !bookBtn.dataset.handlerAttached) {
+        bookBtn.dataset.handlerAttached = 'true';
+        bookBtn.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
+            
+            // Проверяем что мы на последнем шаге и есть выбранные услуги
+            if (currentStep !== totalSteps) {
+                console.warn("Кнопка 'Записаться' нажата не на последнем шаге!");
+                return;
+            }
+            
             if (totalPrice <= 0) {
                 alert("Сначала выберите автомобиль и услуги!");
                 return;
@@ -557,11 +571,16 @@ function attachButtonHandlers() {
             if (typeof window.openRequestForm === 'function') {
                 window.openRequestForm();
             } else {
+                console.error("Функция openRequestForm не найдена!");
                 // Fallback: открываем requestModal напрямую
                 const requestModal = document.getElementById('requestModal');
                 if (requestModal) {
                     requestModal.classList.remove('hidden');
                     requestModal.style.display = 'flex';
+                    requestModal.style.opacity = '1';
+                    requestModal.style.visibility = 'visible';
+                    requestModal.style.pointerEvents = 'auto';
+                    requestModal.style.zIndex = '999999';
                     document.body.style.overflow = "hidden";
                 }
             }
@@ -570,7 +589,11 @@ function attachButtonHandlers() {
 }
 
 // Привязываем обработчики сразу (если элементы уже загружены)
-attachButtonHandlers();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachButtonHandlers);
+} else {
+    attachButtonHandlers();
+}
 
 /* =============================
    1) ВЫБОР ТИПА АВТО
@@ -1565,6 +1588,14 @@ function updateSummaryStep() {
 
 // Функция открытия формы заявки
 window.openRequestForm = function() {
+    // Проверяем что мы на последнем шаге
+    if (currentStep !== totalSteps) {
+        console.warn("Попытка открыть форму заявки не на последнем шаге!");
+        // Переходим на последний шаг если не на нем
+        goToStep(totalSteps);
+        return;
+    }
+    
     if (totalPrice <= 0) {
         alert("Сначала выберите автомобиль и услуги!");
         return;
@@ -1615,15 +1646,18 @@ ${selectedAdditionalServices.length > 0 ? "Дополнительные услу
         }
     }
 
-    // Открываем модалку - убираем hidden и показываем явно
+    // Открываем модалку - убираем hidden и показываем явно с высоким z-index
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
-    modal.style.opacity = '1';
-    modal.style.visibility = 'visible';
-    modal.style.pointerEvents = 'auto';
-    modal.style.zIndex = '999999';
+    modal.style.setProperty('display', 'flex', 'important');
+    modal.style.setProperty('opacity', '1', 'important');
+    modal.style.setProperty('visibility', 'visible', 'important');
+    modal.style.setProperty('pointer-events', 'auto', 'important');
+    modal.style.setProperty('z-index', '999999', 'important');
     
+    // Блокируем скролл фона
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
     
     // Фокус на первое поле
     setTimeout(() => {
@@ -1759,7 +1793,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavigationButtons();
     updateStepsIndicator();
     
-    // Перепривязываем обработчики на случай если элементы загрузились позже
+    // Привязываем обработчики (если еще не привязаны)
     attachButtonHandlers();
     
     // Инициализация новой формы заявки
