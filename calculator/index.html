@@ -337,18 +337,38 @@
             setTimeout(() => {
                 const calc = document.getElementById("calculatorFullscreen");
                 if (calc) {
+                    // Принудительно показываем калькулятор
+                    calc.classList.add("active");
+                    calc.style.setProperty('display', 'block', 'important');
+                    calc.style.setProperty('opacity', '1', 'important');
+                    calc.style.setProperty('visibility', 'visible', 'important');
+                    calc.style.setProperty('pointer-events', 'auto', 'important');
+                    calc.style.setProperty('z-index', '9999', 'important');
+                    
+                    // Показываем overlay
+                    const overlay = calc.querySelector('.calculator-overlay');
+                    if (overlay) {
+                        overlay.style.display = 'block';
+                        overlay.style.opacity = '0.5';
+                        overlay.style.visibility = 'visible';
+                    }
+                    
+                    // Показываем модальный контент
+                    const modal = calc.querySelector('.calculator-modal');
+                    if (modal) {
+                        modal.style.display = 'flex';
+                        modal.style.opacity = '1';
+                        modal.style.visibility = 'visible';
+                    }
+                    
+                    document.body.style.overflow = "hidden";
+                    
+                    // Вызываем openCalculator если функция доступна
                     if (typeof window.openCalculator === 'function') {
                         window.openCalculator();
-                    } else {
-                        calc.classList.add("active");
-                        calc.style.display = "block";
-                        calc.style.opacity = "1";
-                        calc.style.visibility = "visible";
-                        calc.style.pointerEvents = "auto";
-                        document.body.style.overflow = "hidden";
                     }
                 }
-            }, 200);
+            }, 300);
         });
     </script>
     
