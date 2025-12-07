@@ -465,27 +465,16 @@ function closeCalculator() {
         requestModal.style.display = 'none';
     }
     
-    // Скрываем все overlay
-    hideAllOverlays();
-    
-    // Убираем активный класс с калькулятора и принудительно скрываем
+    // Убираем активный класс с калькулятора
     if (calculatorFullscreen) {
         calculatorFullscreen.classList.remove("active");
         calculatorFullscreen.style.setProperty('display', 'none', 'important');
-        calculatorFullscreen.style.setProperty('opacity', '0', 'important');
-        calculatorFullscreen.style.setProperty('visibility', 'hidden', 'important');
-        calculatorFullscreen.style.setProperty('pointer-events', 'none', 'important');
-        calculatorFullscreen.style.setProperty('z-index', '-1', 'important');
-        calculatorFullscreen.style.setProperty('background', 'transparent', 'important');
     }
     
     // Восстанавливаем скролл
-    document.body.style.overflow = '';
-    document.body.style.height = '';
-    document.body.style.position = '';
-    document.documentElement.style.overflow = '';
+    document.body.style.overflow = "";
     
-    // Сбрасываем калькулятор ПЕРЕД редиректом
+    // Сбрасываем калькулятор
     resetCalculator();
     
     // Возврат на главную страницу сайта
@@ -1677,97 +1666,40 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavigationButtons();
     updateStepsIndicator();
     
-    // КРИТИЧЕСКИ ВАЖНО: Надежная привязка обработчиков
-    // Используем и делегирование, и прямую привязку для максимальной надежности
-    
-    function attachAllHandlers() {
-        // Получаем элементы
-        const btnBackEl = document.getElementById("btnBack");
-        const btnNextEl = document.getElementById("btnNext");
-        const btnBookEl = document.getElementById("btnBook");
-        const calculatorCloseEl = document.getElementById("calculatorClose");
-        const calculatorOverlayEl = document.querySelector(".calculator-overlay");
-        const bottomActions = document.querySelector('.bottom-actions');
-        
-        // Делегирование для кнопок навигации через bottom-actions
-        if (bottomActions) {
-            // Удаляем старые обработчики через клонирование
-            const newBottomActions = bottomActions.cloneNode(true);
-            bottomActions.parentNode.replaceChild(newBottomActions, bottomActions);
-            
-            newBottomActions.addEventListener('click', function(e) {
-                const target = e.target.closest('button');
-                if (!target) return;
-                
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (target.id === 'btnBack') {
-                    prevStep();
-                } else if (target.id === 'btnNext') {
-                    nextStep();
-                } else if (target.id === 'btnBook') {
-                    if (typeof window.openRequestForm === 'function') {
-                        window.openRequestForm();
-                    }
+    // Обработчики уже привязаны в глобальной области выше
+    // Дополнительная проверка на случай если элементы еще не загружены
+    setTimeout(() => {
+        if (btnBack && !btnBack.onclick) {
+            btnBack.addEventListener("click", () => {
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
                 }
             });
         }
-        
-        // Прямая привязка кнопки "Назад"
-        if (btnBackEl) {
-            btnBackEl.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                prevStep();
-            };
+        if (btnNext && !btnNext.onclick) {
+            btnNext.addEventListener("click", () => {
+                if (canProceedToNextStep() && currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else {
+                    alert("Заполните все обязательные поля!");
+                }
+            });
         }
-        
-        // Прямая привязка кнопки "Далее"
-        if (btnNextEl) {
-            btnNextEl.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                nextStep();
-            };
-        }
-        
-        // Прямая привязка кнопки "Записаться"
-        if (btnBookEl) {
-            btnBookEl.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        if (btnBook && !btnBook.onclick) {
+            btnBook.addEventListener("click", () => {
+                if (totalPrice <= 0) {
+                    alert("Сначала выберите автомобиль и услуги!");
+                    return;
+                }
                 if (typeof window.openRequestForm === 'function') {
                     window.openRequestForm();
                 }
-            };
+            });
         }
-        
-        // Обработчик крестика закрытия
-        if (calculatorCloseEl) {
-            calculatorCloseEl.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                closeCalculator(); // resetCalculator() уже вызывается внутри closeCalculator()
-            };
+        if (calculatorClose && !calculatorClose.onclick) {
+            calculatorClose.addEventListener("click", closeCalculator);
         }
-        
-        // Обработчик клика на overlay
-        if (calculatorOverlayEl) {
-            calculatorOverlayEl.onclick = function(e) {
-                if (e.target === calculatorOverlayEl) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    closeCalculator();
-                }
-            };
-        }
-    }
-    
-    // Привязываем обработчики несколько раз для надежности
-    attachAllHandlers();
-    setTimeout(attachAllHandlers, 100);
-    setTimeout(attachAllHandlers, 300);
+    }, 100);
     
     // Инициализация новой формы заявки
     const requestCloseBtn = document.getElementById('requestCloseBtn');
