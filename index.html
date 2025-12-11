@@ -257,71 +257,24 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            overflow: hidden;
-            background: #0a0a0a;
             background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg');
             background-size: cover;
-            background-position: center center;
+            background-position: center;
             background-repeat: no-repeat;
-        }
-        
-        @media (max-width: 768px) {
-            .hero-bg {
-                background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg');
-            }
-        }
-
-        .hero-bg picture {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
+            background-attachment: fixed;
         }
 
         .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-            filter: none !important;
-            image-rendering: auto;
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Затемнение через псевдоэлемент */
-        .hero-bg::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        @media (min-width: 1025px) {
-            .hero-bg::after {
-                background: rgba(0, 0, 0, 0.3);
-            }
+            display: none;
         }
 
         @media (max-width: 768px) {
-            .hero-bg img {
-                object-position: center center;
-            }
-            
-            .hero-bg::after {
-                background: rgba(0, 0, 0, 0.25) !important;
-            }
-            
-            .hero-overlay {
-                background: linear-gradient(180deg, rgba(10, 10, 10, 0.15) 0%, rgba(10, 10, 10, 0.45) 100%) !important;
+            .hero-bg {
+                background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg');
+                background-attachment: scroll;
             }
         }
+
 
         .hero-overlay {
             position: absolute;
@@ -329,7 +282,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.75) 100%);
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.05) 0%, rgba(10, 10, 10, 0.25) 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -337,10 +290,14 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            text-align: center;
-            padding: 120px 20px 80px;
+            text-align: left;
+            padding: 100px 20px 80px;
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: calc(100vh - 200px);
         }
 
 
@@ -429,50 +386,138 @@
 
         
 
+        /* Кнопки в hero */
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: auto;
+        }
+
+        .btn-phone {
+            display: flex;
+            align-items: center;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(22, 132, 145, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-phone:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-color: var(--propellini-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Нижняя часть hero */
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: auto;
+            padding-top: 40px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .hero-footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .hero-footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
+        .hero-address {
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .hero-social {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .hero-social a {
+            color: #ffffff;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-social a:hover {
+            color: var(--propellini-primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 100px 20px 60px;
+                min-height: calc(100vh - 160px);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-phone,
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-footer-right {
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .hero-address {
+                text-align: left;
+            }
+        }
+        
+
         .hero-title {
             font-family: 'Unbounded', sans-serif;
             font-weight: 400;
             font-size: 60px;
-            line-height: 60px;
+            line-height: 1.2;
             color: #ffffff;
             margin-bottom: 24px;
+            text-align: left;
         }
 
         .hero-description {
             font-family: 'Roboto', sans-serif;
             font-size: 18px;
             line-height: 1.8;
-            color: var(--propellini-text-secondary);
+            color: #ffffff;
             margin-bottom: 32px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-contacts {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 40px;
-            font-family: 'Roboto', sans-serif;
-            color: var(--propellini-text-secondary);
-        }
-
-        .hero-contacts div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 32px;
-                line-height: 36px;
-            }
-            .hero-description {
-                font-size: 16px;
-            }
+            text-align: left;
         }
 
         /* Акция в hero */
@@ -2228,40 +2273,60 @@
     <main id="main-content">
     <!-- Hero секция -->
     <section class="hero" id="hero">
-        <div class="hero-bg" id="hero-bg">
+        <div class="hero-bg">
             <picture>
-                <!-- Мобильная версия: Mercedes AMG GT63 Raw Power -->
-                <source srcset="https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg" media="(max-width: 768px)" type="image/jpeg">
-                <!-- Десктопная версия: Mercedes AMG GT 63 Pro 4MATIC -->
-                <source srcset="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" media="(min-width: 769px)" type="image/jpeg">
-                <!-- Fallback -->
-                <img id="hero-bg-img" 
-                     src="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" 
-                     alt="Propellini - Профессиональная тонировка стекол автомобиля" 
-                     loading="eager" 
-                     fetchpriority="high" 
-                     decoding="async"
-                     sizes="100vw"
-                     style="width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;"
-                     onload="this.style.opacity='1';">
+                <source media="(max-width: 768px)" srcset="https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg">
+                <img src="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" alt="Тонировка автомобиля" id="heroImage">
             </picture>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Профессиональная тонировка стекол автомобиля</h1>
-            <p class="hero-description" style="font-size: 20px; font-weight: 500; margin-bottom: 16px;">
+            <!-- Заголовок -->
+            <h1 class="hero-title">Профессиональная<br>тонировка в Москве</h1>
+            
+            <!-- Подзаголовок -->
+            <p class="hero-description" style="font-size: 20px; font-weight: 500; margin-bottom: 32px;">
                 LLumar USA. Хамелеон все оттенки. Атермалка.
             </p>
-            <p class="hero-description">
-                Предлагаем профессиональную тонировку стекол автомобиля с использованием премиальных пленок. Обеспечиваем защиту салона, комфорт вождения и профессиональную установку.
-            </p>
-
-            <div class="hero-contacts" style="margin-top: 32px;">
-                <div>+7(991)936-14-89</div>
-                <div>info@proppelini.ru</div>
-                <div>Москва, ул. Авиационная, 79 к. 1</div>
+            
+            <!-- Кнопки -->
+            <div class="hero-buttons">
+                <a href="tel:+79919361489" class="btn-phone">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                        <path d="M18.3333 14.075V16.575C18.3333 17.1417 18.1083 17.675 17.7167 18.0667C17.325 18.4583 16.7917 18.6833 16.225 18.6833C7.08333 18.6833 1.31667 12.9167 1.31667 3.775C1.31667 3.20833 1.54167 2.675 1.93333 2.28333C2.325 1.89167 2.85833 1.66667 3.425 1.66667H5.925C6.49167 1.66667 7.025 1.89167 7.41667 2.28333C7.80833 2.675 8.03333 3.20833 8.03333 3.775V6.275C8.03333 6.84167 7.80833 7.375 7.41667 7.76667L5.80833 9.375C6.80833 11.6667 8.33333 13.1917 10.625 14.1917L12.2333 12.5833C12.625 12.1917 13.1583 11.9667 13.725 11.9667H16.225C16.7917 11.9667 17.325 12.1917 17.7167 12.5833C18.1083 12.975 18.3333 13.5083 18.3333 14.075Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    +7(991)936-14-89
+                </a>
+                <button class="btn-primary btn-shimmer" onclick="window.openModal()">Получить консультацию</button>
             </div>
-            <button class="btn-primary btn-shimmer" onclick="window.openModal()" style="margin-top: 24px;">Получить консультацию</button>
+
+            <!-- Нижняя часть: контакты и адрес -->
+            <div class="hero-footer">
+                <div class="hero-footer-left">
+                    <div>+7(991)936-14-89</div>
+                    <div>info@proppelini.ru</div>
+                </div>
+                <div class="hero-footer-right">
+                    <div class="hero-address">Москва, ул. Авиационная, 79 к. 1</div>
+                    <div class="hero-social">
+                        <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.01 14.09 10.67 13.73 11.24 13.12C11.39 12.96 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.13 14.93 9.05C14.84 8.97 14.7 9 14.6 9.02C14.46 9.05 12.41 10.24 8.45 12.51C7.87 12.83 7.33 12.99 6.84 12.98C6.3 12.97 5.24 12.72 4.4 12.51C3.42 12.26 2.64 12.13 2.71 11.5C2.74 11.22 3.08 10.89 3.75 10.53C6.8 8.95 9.45 7.7 11.64 6.78C14.61 5.55 15.41 5.22 15.82 5.21C15.92 5.21 16.15 5.25 16.32 5.39C16.47 5.51 16.52 5.67 16.54 5.77C16.56 5.87 16.59 6.09 16.57 6.26C16.54 6.48 16.64 8.8 16.64 8.8Z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.785 16.241C7.563 16.241 4.062 12.769 3.937 7.241H6.375C6.45 11.516 8.85 13.641 10.563 14.016V7.241H12.85V10.891C14.525 10.691 16.3 8.716 16.9 7.241H19.1C18.675 8.966 17.05 10.691 15.975 11.391C17.05 11.966 18.85 13.516 19.5 16.241H17.125C16.6 14.141 15.025 12.691 12.85 12.466V16.241H12.785Z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382C17.292 14.212 15.282 13.182 14.952 13.052C14.622 12.922 14.382 12.857 14.142 13.027C13.902 13.197 13.092 13.857 12.882 14.092C12.672 14.327 12.462 14.362 12.132 14.232C11.802 14.102 10.512 13.707 9.002 12.292C7.792 11.177 7.002 9.882 6.792 9.552C6.582 9.222 6.717 9.027 6.857 8.887C6.987 8.757 7.152 8.537 7.312 8.357C7.472 8.177 7.532 8.037 7.662 7.807C7.792 7.577 7.727 7.367 7.627 7.177C7.527 6.987 6.777 5.307 6.507 4.617C6.242 3.937 5.972 4.037 5.772 4.027C5.572 4.017 5.352 4.012 5.132 4.012C4.912 4.012 4.642 4.077 4.392 4.337C4.142 4.597 3.502 5.237 3.502 6.567C3.502 7.897 4.362 9.197 4.502 9.387C4.642 9.577 6.202 12.057 8.792 13.207C10.072 13.757 11.052 14.052 11.792 14.252C12.532 14.452 13.212 14.412 13.752 14.322C14.292 14.232 15.572 13.502 15.832 13.702C16.092 13.902 16.352 14.232 16.632 14.322C16.912 14.412 17.312 14.412 17.472 14.382ZM12 2C6.477 2 2 6.477 2 12C2 13.582 2.39 15.08 3.08 16.39L2 22L7.61 20.92C8.92 21.61 10.418 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2920,20 +2985,30 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Обработка загрузки hero изображения
-            const heroImg = document.getElementById('hero-bg-img');
-            if (heroImg) {
-                if (heroImg.complete && heroImg.naturalHeight !== 0) {
-                    heroImg.style.opacity = '1';
-                } else {
-                    heroImg.addEventListener('load', function() {
-                        this.style.opacity = '1';
-                    });
-                    heroImg.addEventListener('error', function() {
-                        console.error('Hero image failed to load');
-                        this.style.opacity = '0';
-                    });
-                }
+            // Проверка загрузки изображений hero
+            const heroImageDesktop = document.getElementById('heroImage');
+            const heroImageMobile = document.getElementById('heroImageMobile');
+            
+            if (heroImageDesktop) {
+                heroImageDesktop.onload = function() {
+                    this.style.display = 'block';
+                    this.style.opacity = '1';
+                };
+                heroImageDesktop.onerror = function() {
+                    console.error('Hero desktop image failed to load');
+                    this.style.display = 'none';
+                };
+            }
+            
+            if (heroImageMobile) {
+                heroImageMobile.onload = function() {
+                    this.style.display = 'block';
+                    this.style.opacity = '1';
+                };
+                heroImageMobile.onerror = function() {
+                    console.error('Hero mobile image failed to load');
+                    this.style.display = 'none';
+                };
             }
             
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
