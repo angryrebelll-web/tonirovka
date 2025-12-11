@@ -1294,23 +1294,55 @@
         /* Все кнопки используют цвет Propellini */
 
         @media (max-width: 768px) {
+            .hero-buttons-wrapper {
+                margin-top: 60px;
+                margin-bottom: 50px;
+            }
+
             .hero-footer-contacts {
                 flex-direction: column;
                 gap: 20px;
-                padding: 0 20px;
+                padding: 0 20px 0 20px;
                 bottom: 20px;
                 position: relative;
                 margin-top: 40px;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .hero-footer-left,
             .hero-footer-right {
-                text-align: center;
-                align-items: center;
+                text-align: left;
+                align-items: flex-start;
+                width: 100%;
+                padding-left: 0;
             }
 
             .hero-footer-socials {
-                justify-content: center;
+                justify-content: flex-start;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons-wrapper {
+                margin-top: 50px;
+                margin-bottom: 40px;
+            }
+
+            .hero-footer-contacts {
+                padding: 0 15px 0 15px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .hero-buttons-wrapper {
+                margin-top: 40px;
+                margin-bottom: 30px;
+            }
+
+            .hero-footer-contacts {
+                padding: 0 12px 0 12px;
             }
         }
         
