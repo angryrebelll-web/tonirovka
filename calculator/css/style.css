@@ -43,24 +43,24 @@ dialog::backdrop,
 
 /* Глобальное отключение backdrop-filter для всех элементов */
 * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 /* ПОЛНОЕ отключение backdrop-filter для калькуляторного overlay */
 .calculator-overlay {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .calculator-overlay.active {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .calculator-overlay:not(.active) {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 :root {
@@ -91,7 +91,7 @@ body {
    =============================== */
 
 .calculator-fullscreen {
-    display: none !important;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -99,21 +99,21 @@ body {
     height: 100vh;
     z-index: 9999;
     overflow: hidden;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    background: transparent !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    background: transparent;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* КРИТИЧЕСКИ ВАЖНО: Принудительное скрытие когда не активен */
 .calculator-fullscreen:not(.active) {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    z-index: -1 !important;
-    background: transparent !important;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: -1;
+    background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -140,12 +140,12 @@ body {
 }
 
 .calculator-fullscreen.active {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    z-index: 9999 !important;
-    background: transparent !important;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 9999;
+    background: transparent;
 }
 
 .calculator-overlay {
@@ -155,33 +155,32 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     animation: fadeIn 0.3s ease;
-    /* Убеждаемся, что overlay не создаёт полностью чёрный экран */
     opacity: 0.5;
-    z-index: 10000 !important;
-    pointer-events: auto !important;
+    z-index: 10000;
+    pointer-events: auto;
 }
 
 /* Overlay не должен блокировать клики на modal */
 .calculator-modal {
-    pointer-events: auto !important;
+    pointer-events: auto;
 }
 
 .calculator-modal * {
-    pointer-events: auto !important;
+    pointer-events: auto;
 }
 
 /* КРИТИЧЕСКИ ВАЖНО: Принудительное скрытие overlay когда калькулятор закрыт */
 .calculator-fullscreen:not(.active) .calculator-overlay,
 .calculator-fullscreen[style*="display: none"] .calculator-overlay {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    z-index: -1 !important;
-    background: transparent !important;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: -1;
+    background: transparent;
 }
 
 .calculator-modal {
@@ -189,21 +188,21 @@ body {
     width: 100%;
     height: 100vh;
     background: var(--propellini-bg);
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     animation: slideUp 0.4s ease;
     overflow: hidden;
-    z-index: 10001 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
+    z-index: 10001;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .calculator-fullscreen.active .calculator-modal {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 10001 !important;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    z-index: 10001;
 }
 
 @media (max-width: 768px) {
@@ -218,7 +217,7 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    z-index: 10003 !important;
+    z-index: 10003;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -230,9 +229,9 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    pointer-events: auto !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    pointer-events: auto;
 }
 
 .calculator-close:hover {
@@ -242,21 +241,21 @@ body {
 
 .calculator-content {
     flex: 1;
-    display: flex !important;
+    display: flex;
     overflow: hidden;
     padding-top: 20px;
     padding-bottom: 120px;
-    z-index: 1 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .calculator-fullscreen.active .calculator-content {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 10002 !important;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    z-index: 10002;
 }
 
 @media (min-width: 1024px) {
@@ -287,14 +286,9 @@ body {
 
 @media (min-width: 1024px) {
     .calculator-steps-indicator {
+        display: block;
         padding: 15px 15px;
         width: 200px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .calculator-steps-indicator {
-        display: block;
     }
 }
 
@@ -391,11 +385,18 @@ body {
     }
 }
 
+@media (min-width: 1400px) {
+    .calculator-steps-container {
+        padding: 0 40px 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .calculator-steps-container {
         overflow-y: visible;
-        overflow-x: visible;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
     }
 }
 
@@ -465,12 +466,20 @@ body {
 .step-content {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 @media (min-width: 1024px) {
     .step-content {
         max-width: 1100px;
         width: 100%;
+        padding: 0 20px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .step-content {
+        max-width: 1200px;
     }
 }
 
@@ -483,18 +492,17 @@ body {
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 16px;
-    /* Плавная анимация появления */
     animation: fadeInUp 0.4s ease-out;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translate3d(0, 10px, 0);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -537,46 +545,44 @@ body {
 @media (max-width: 768px) {
     /* Вертикальная сетка 2 колонки для типов авто на мобильных */
     #carTypeSelect.chips {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-        margin-top: 16px !important;
-        padding-bottom: 0 !important;
-        padding-right: 0 !important;
-        overflow-x: visible !important;
-        overflow-y: visible !important;
-        /* Убираем дергание */
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+        padding-bottom: 0;
+        padding-right: 0;
+        overflow-x: visible;
+        overflow-y: visible;
         will-change: auto;
         transform: none;
     }
     
     #carTypeSelect .chip {
-        width: 100% !important;
-        min-width: auto !important;
-        max-width: 100% !important;
-        flex-shrink: 1 !important;
-        padding: 20px 12px !important;
-        min-height: 100px !important;
-        /* Убираем дергание */
-        will-change: auto !important;
-        transform: none !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        width: 100%;
+        min-width: auto;
+        max-width: 100%;
+        flex-shrink: 1;
+        padding: 20px 12px;
+        min-height: 100px;
+        will-change: auto;
+        transform: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Скрываем иконки на мобильных */
     #carTypeSelect .chip-icon {
-        display: none !important;
+        display: none;
     }
     
     #carTypeSelect .chip-text {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-        gap: 4px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 4px;
     }
     
     #carTypeSelect .chip-text strong {
@@ -592,45 +598,45 @@ body {
     /* Вертикальная сетка для марок и моделей на мобильных */
     #brandList.chips,
     #modelList.chips {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-        margin-top: 12px !important;
-        padding-bottom: 0 !important;
-        overflow-x: visible !important;
-        overflow-y: visible !important;
-        max-height: none !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+        padding-bottom: 0;
+        overflow-x: visible;
+        overflow-y: visible;
+        max-height: none;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
     }
     
     #brandList .chip,
     #modelList .chip {
-        width: 100% !important;
-        min-width: auto !important;
-        flex-shrink: 1 !important;
-        padding: 12px 14px !important;
+        width: 100%;
+        min-width: auto;
+        flex-shrink: 1;
+        padding: 12px 14px;
         text-align: center;
     }
     
     /* Вертикальная сетка в модальном окне моделей */
     .model-body .chips {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-        padding-bottom: 0 !important;
-        overflow-x: visible !important;
-        overflow-y: visible !important;
-        max-height: none !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding-bottom: 0;
+        overflow-x: visible;
+        overflow-y: visible;
+        max-height: none;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
     }
     
     .model-body .chip {
-        width: 100% !important;
-        min-width: auto !important;
-        flex-shrink: 1 !important;
-        padding: 12px 14px !important;
+        width: 100%;
+        min-width: auto;
+        flex-shrink: 1;
+        padding: 12px 14px;
         text-align: center;
     }
 }
@@ -652,8 +658,8 @@ body {
         scrollbar-width: thin;
         scrollbar-color: var(--propellini-primary) transparent;
         scroll-behavior: smooth;
-        /* Улучшаем плавность скролла */
         scroll-snap-type: x proximity;
+        overscroll-behavior-x: contain;
     }
     
     .scrollable-horizontal::-webkit-scrollbar {
@@ -676,8 +682,8 @@ body {
     #modelListModal.scrollable-horizontal {
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
-        /* Ускоряем скролл */
         overscroll-behavior-x: contain;
+        overscroll-behavior-y: none;
     }
 }
 
@@ -686,7 +692,7 @@ body {
     background: var(--propellini-dark-secondary);
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     border: 2px solid rgba(255, 255, 255, 0.1);
     user-select: none;
     display: flex;
@@ -695,7 +701,6 @@ body {
     position: relative;
     flex-shrink: 0;
     min-width: 120px;
-    position: relative;
     overflow: hidden;
     --elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --x: 0px;
@@ -1019,7 +1024,7 @@ body {
 
 @media (min-width: 1024px) {
     .search-container {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 }
 
@@ -1169,12 +1174,12 @@ body {
    =============================== */
 
 .section-block {
-    margin-bottom: 14px;
+    margin-bottom: 20px;
 }
 
 @media (min-width: 1024px) {
     .section-block {
-        margin-bottom: 10px;
+        margin-bottom: 24px;
     }
 }
 
@@ -1223,8 +1228,14 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
     margin-top: 20px;
-    /* Плавная анимация появления */
     animation: fadeInUp 0.5s ease-out;
+}
+
+@media (min-width: 1200px) {
+    .package-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 28px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1241,6 +1252,8 @@ body {
         scroll-snap-type: x mandatory;
         scrollbar-width: thin;
         scrollbar-color: var(--propellini-primary) transparent;
+        overscroll-behavior-x: contain;
+        overscroll-behavior-y: none;
     }
     
     .package-list::-webkit-scrollbar {
@@ -1268,149 +1281,134 @@ body {
         width: 280px;
         flex-shrink: 0;
         scroll-snap-align: start;
-        transform: none !important;
+        transform: none;
         margin-bottom: 0;
-        /* Убираем дергание - фиксируем размеры */
-        will-change: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        /* Стабильность */
-        contain: layout style paint !important;
-        backface-visibility: hidden !important;
-        -webkit-backface-visibility: hidden !important;
+        will-change: auto;
+        display: flex;
+        flex-direction: column;
+        contain: layout style paint;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
     }
     
     .package-item:hover {
-        transform: none !important;
+        transform: none;
     }
     
     .package-item.active {
-        transform: none !important;
-        /* Убираем подсветку вокруг пакета */
-        box-shadow: none !important;
-        border-color: transparent !important;
+        transform: none;
+        box-shadow: none;
+        border-color: transparent;
     }
     
     .package-header {
-        height: 95px !important;
-        min-height: 95px !important;
-        max-height: 95px !important;
-        padding: 10px 12px 8px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-shrink: 0 !important;
-        /* Стабильность текста */
-        contain: layout style paint !important;
-        /* Прозрачный фон чтобы цветная шапка из ::after была видна */
-        background: transparent !important;
+        height: 95px;
+        min-height: 95px;
+        max-height: 95px;
+        padding: 10px 12px 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        contain: layout style paint;
+        background: transparent;
     }
     
     .package-name {
-        font-size: 0.9em !important;
-        line-height: 1.25 !important;
-        margin-bottom: 6px !important;
-        margin-top: 0 !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        hyphens: auto !important;
-        text-align: center !important;
-        /* Стабильность */
-        white-space: normal !important;
-        min-height: 2.5em !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        font-size: 0.9em;
+        line-height: 1.25;
+        margin-bottom: 6px;
+        margin-top: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        text-align: center;
+        white-space: normal;
+        min-height: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .package-cost {
-        font-size: 0.9em !important;
-        line-height: 1.3 !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        text-align: center !important;
-        /* Стабильность */
-        white-space: nowrap !important;
-        min-height: 1.3em !important;
+        font-size: 0.9em;
+        line-height: 1.3;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: center;
+        white-space: nowrap;
+        min-height: 1.3em;
     }
     
     .package-features {
-        margin-top: 0 !important;
-        padding: 10px 12px !important;
-        min-height: 140px !important;
-        max-height: 200px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        flex: 1 1 auto !important;
-        flex-shrink: 1 !important;
-        /* Стабильность текста */
-        contain: layout style paint !important;
-        -webkit-overflow-scrolling: touch !important;
-        /* Фиксируем размеры чтобы текст не расплывался */
-        position: relative !important;
+        margin-top: 0;
+        padding: 10px 12px;
+        min-height: 140px;
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1 1 auto;
+        flex-shrink: 1;
+        contain: layout style paint;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
     }
     
     .package-features ul {
-        margin: 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 5px !important;
-        /* Стабильность */
-        width: 100% !important;
-        /* Фиксируем размеры */
-        position: relative !important;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        position: relative;
     }
     
     .package-features li {
-        font-size: 11px !important;
-        padding: 4px 0 !important;
-        line-height: 1.4 !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        /* Стабильность текста - фиксируем все размеры */
-        white-space: normal !important;
-        min-height: 1.4em !important;
-        height: auto !important;
-        max-height: none !important;
-        text-align: left !important;
-        width: 100% !important;
-        /* Предотвращаем расплывание */
-        display: block !important;
-        position: relative !important;
-        contain: layout style !important;
-        /* Фиксируем цвет и стиль */
-        color: var(--propellini-text) !important;
-        font-weight: 400 !important;
-        letter-spacing: 0 !important;
-        text-rendering: optimizeLegibility !important;
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
+        font-size: 11px;
+        padding: 4px 0;
+        line-height: 1.4;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        min-height: 1.4em;
+        height: auto;
+        max-height: none;
+        text-align: left;
+        width: 100%;
+        display: block;
+        position: relative;
+        contain: layout style;
+        color: var(--propellini-text);
+        font-weight: 400;
+        letter-spacing: 0;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Фиксируем стили при активном пакете */
     .package-item.active .package-features li {
-        font-size: 11px !important;
-        line-height: 1.4 !important;
-        padding: 4px 0 !important;
-        color: var(--propellini-text) !important;
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 4px 0;
+        color: var(--propellini-text);
     }
     
     .package-footer {
-        padding: 10px 12px !important;
-        flex-shrink: 0 !important;
-        min-height: 50px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        padding: 10px 12px;
+        flex-shrink: 0;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .package-button {
-        font-size: 0.75em !important;
-        padding: 8px 16px !important;
-        white-space: nowrap !important;
+        font-size: 0.75em;
+        padding: 8px 16px;
+        white-space: nowrap;
     }
 }
 
@@ -1790,11 +1788,11 @@ body {
 @keyframes packageAppear {
     from {
         opacity: 0;
-        transform: translateY(20px) scale(0.95);
+        transform: translate3d(0, 20px, 0) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
     }
 }
 
@@ -1939,6 +1937,7 @@ body {
     border-radius: 12px;
     padding: 16px;
     border: 2px solid rgba(22, 132, 145, 0.2);
+    max-width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -1950,7 +1949,13 @@ body {
 
 @media (min-width: 1024px) {
     .summary-card {
-        padding: 12px;
+        padding: 16px 20px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .summary-card {
+        padding: 20px 24px;
     }
 }
 
@@ -2008,13 +2013,13 @@ body {
     left: 0;
     right: 0;
     background: rgba(11, 15, 15, 0.95);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-top: 1px solid rgba(22, 132, 145, 0.3);
     padding: 20px;
-    z-index: 99999 !important;
+    z-index: 99999;
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
-    pointer-events: auto !important;
+    pointer-events: auto;
 }
 
 .bottom-panel-content {
@@ -2024,6 +2029,20 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+@media (min-width: 1024px) {
+    .bottom-panel-content {
+        padding: 0 30px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .bottom-panel-content {
+        padding: 0 40px;
+    }
 }
 
 .price-display {
@@ -2046,25 +2065,25 @@ body {
 .bottom-actions {
     display: flex;
     gap: 12px;
-    pointer-events: auto !important;
-    z-index: 99999 !important;
+    pointer-events: auto;
+    z-index: 99999;
     position: relative;
 }
 
 .bottom-actions * {
-    pointer-events: auto !important;
+    pointer-events: auto;
 }
 
 .bottom-actions button {
-    pointer-events: auto !important;
-    z-index: 99999 !important;
+    pointer-events: auto;
+    z-index: 99999;
     position: relative;
 }
 
 .btn-primary,
 .btn-secondary {
     all: unset;
-    cursor: pointer !important;
+    cursor: pointer;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     position: relative;
     border-radius: 999vw;
@@ -2077,11 +2096,11 @@ body {
     letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    pointer-events: auto !important;
-    z-index: 10002 !important;
+    pointer-events: auto;
+    z-index: 10002;
     user-select: none;
-    opacity: 1 !important;
-    visibility: visible !important;
+    opacity: 1;
+    visibility: visible;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -2094,15 +2113,15 @@ body {
     border-radius: inherit;
     transition: box-shadow 300ms ease;
     will-change: box-shadow;
-    pointer-events: none !important;
-    cursor: pointer !important;
+    pointer-events: none;
+    cursor: pointer;
 }
 
 .btn-primary .button-inner,
 .btn-secondary .button-inner {
     --inset: 0.035em;
-    pointer-events: none !important;
-    cursor: pointer !important;
+    pointer-events: none;
+    cursor: pointer;
     position: relative;
     z-index: 1;
     border-radius: inherit;
@@ -2329,11 +2348,10 @@ body {
         padding: 8px 16px;
     }
     
-    /* Убираем дергание кнопок */
+    /* Оптимизация производительности кнопок */
     .btn-primary,
     .btn-secondary {
-        will-change: transform;
-        transform: translateZ(0);
+        will-change: auto;
     }
 }
 
@@ -2366,8 +2384,8 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     animation: fadeIn 0.15s ease-out;
 }
 
@@ -2466,8 +2484,10 @@ body {
         padding: 24px;
         max-height: 90vh;
         overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+        overscroll-behavior: contain;
     }
     
     .model-title {
@@ -2481,13 +2501,16 @@ body {
     .model-body {
         max-height: calc(90vh - 120px);
         overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+        overscroll-behavior-y: contain;
     }
     
     .model-body .chips {
         max-height: none;
-        overflow-y: hidden;
+        overflow-y: visible;
+        overflow-x: hidden;
     }
 }
 
@@ -2511,12 +2534,12 @@ body {
 }
 
 .booking-modal.active {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    z-index: 10001 !important;
-    background: transparent !important;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 10001;
+    background: transparent;
 }
 
 /* Принудительное скрытие на мобильных при отсутствии класса active */
@@ -2558,11 +2581,11 @@ body {
     /* Обеспечиваем доступность полей на мобильных */
     .booking-modal.active .form-group input,
     .booking-modal.active .form-group textarea {
-        pointer-events: auto !important;
-        -webkit-user-select: text !important;
-        user-select: text !important;
-        touch-action: manipulation !important;
-        -webkit-tap-highlight-color: rgba(22, 132, 145, 0.3) !important;
+        pointer-events: auto;
+        -webkit-user-select: text;
+        user-select: text;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(22, 132, 145, 0.3);
     }
     
     /* Убираем body-lock на мобильных после закрытия */
@@ -2624,10 +2647,10 @@ body {
 }
 
 .request-modal.hidden {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .request-overlay {
@@ -2780,6 +2803,10 @@ body {
         max-height: 100vh;
         border-radius: 0;
         padding: 20px 16px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
     
     .request-title {
@@ -2877,18 +2904,17 @@ body {
     border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.1);
     background: var(--propellini-dark-secondary);
-    /* Обеспечиваем доступность полей */
-    pointer-events: auto !important;
-    -webkit-user-select: text !important;
-    user-select: text !important;
+    pointer-events: auto;
+    -webkit-user-select: text;
+    user-select: text;
     touch-action: manipulation;
     color: var(--propellini-text);
     font-size: 16px;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     font-family: inherit;
-    /* Убираем дергание */
     will-change: auto;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -2947,44 +2973,44 @@ body {
 
 @keyframes slideUp {
     from {
-        transform: translateY(20px);
+        transform: translate3d(0, 20px, 0);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
     }
 }
 
 @keyframes modalAppear {
     from {
-        transform: translate(-50%, -50%) scale(0.95);
+        transform: translate3d(-50%, -50%, 0) scale(0.95);
         opacity: 0;
     }
     to {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate3d(-50%, -50%, 0) scale(1);
         opacity: 1;
     }
 }
 
 @keyframes slideLeft {
     from {
-        transform: translateX(100%);
+        transform: translate3d(100%, 0, 0);
         opacity: 0;
     }
     to {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
     }
 }
 
 @keyframes slideRight {
     from {
-        transform: translateX(-100%);
+        transform: translate3d(-100%, 0, 0);
         opacity: 0;
     }
     to {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
     }
 }
@@ -3001,7 +3027,7 @@ body {
     }
     
     .step-content {
-        padding-bottom: 120px !important;
+        padding-bottom: 120px;
     }
 
     .step-title {
@@ -3095,7 +3121,7 @@ body {
 
     .step-content {
         padding: 0;
-        padding-bottom: 110px !important;
+        padding-bottom: 110px;
     }
 
     .chips {
@@ -3144,28 +3170,27 @@ body {
     }
 
     .booking-content {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        padding: 14px 16px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        max-height: 100vh !important;
-        height: 100vh !important;
-        border-radius: 0 !important;
-        /* Убираем дергание - полностью фиксируем */
-        will-change: auto !important;
-        backface-visibility: hidden !important;
-        -webkit-backface-visibility: hidden !important;
-        /* Предотвращаем перетаскивание */
-        touch-action: pan-y !important;
-        -webkit-user-select: none !important;
-        user-select: none !important;
-        /* Фиксируем позицию */
-        contain: layout style paint !important;
-        overflow-y: auto !important;
-        -webkit-overflow-scrolling: touch !important;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 14px 16px;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+        will-change: auto;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        touch-action: pan-y;
+        -webkit-user-select: none;
+        user-select: none;
+        contain: layout style paint;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
     
     .booking-content h2 {
@@ -3216,14 +3241,13 @@ body {
     }
     
     .booking-close {
-        top: 8px !important;
-        right: 8px !important;
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 20px !important;
-        z-index: 10003 !important;
-        /* Предотвращаем перетаскивание */
-        touch-action: manipulation !important;
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        z-index: 10003;
+        touch-action: manipulation;
     }
 }
 
