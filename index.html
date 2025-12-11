@@ -170,6 +170,13 @@
             padding-left: 24px;
             background: rgba(255, 255, 255, 0.1);
         }
+        
+        .mobile-menu .btn-primary {
+            font-size: 14px;
+            padding: 12px 24px;
+            margin: 16px 0;
+            width: 100%;
+        }
 
         /* Адаптивность навигации */
         @media (max-width: 1024px) {
@@ -191,61 +198,69 @@
                 display: flex;
             }
             .nav-container {
-                padding-top: 8px !important;
-                padding-bottom: 8px !important;
+                padding-top: 16px !important;
+                padding-bottom: 16px !important;
             }
             .propellini-logo {
-                height: 9px;
+                height: 16px;
             }
             .nav-logo-text {
-                font-size: 9px !important;
+                font-size: 14px !important;
             }
             .nav-link {
                 font-size: 11px;
             }
+            .nav .btn-primary {
+                padding: 6px 16px;
+                font-size: 12px;
+            }
             .mobile-menu {
-                top: 24px;
-                max-height: calc(100vh - 24px);
+                top: 48px;
+                max-height: calc(100vh - 48px);
             }
         }
 
         @media (max-width: 480px) {
             .nav-container {
-                padding-top: 6px !important;
-                padding-bottom: 6px !important;
+                padding-top: 16px !important;
+                padding-bottom: 16px !important;
             }
             .propellini-logo {
-                height: 8px;
+                height: 16px;
             }
             .nav-logo-text {
-                font-size: 8px !important;
+                font-size: 14px !important;
             }
             .nav-link {
                 font-size: 10px;
             }
+            .nav .btn-primary {
+                padding: 6px 16px;
+                font-size: 12px;
+            }
             .mobile-menu {
-                top: 22px;
-                max-height: calc(100vh - 22px);
+                top: 48px;
+                max-height: calc(100vh - 48px);
             }
         }
 
         @media (max-width: 375px) {
             .nav-container {
-                padding-top: 6px !important;
-                padding-bottom: 6px !important;
+                padding-top: 16px !important;
+                padding-bottom: 16px !important;
             }
             .propellini-logo {
-                height: 7px;
+                height: 14px;
             }
             .nav-logo-text {
-                font-size: 7px !important;
+                font-size: 13px !important;
             }
             .nav-link {
                 font-size: 9px;
             }
             .mobile-menu {
-                top: 20px;
-                max-height: calc(100vh - 20px);
+                top: 48px;
+                max-height: calc(100vh - 48px);
                 padding: 15px;
             }
             .mobile-menu a {
@@ -253,8 +268,8 @@
                 font-size: 14px;
             }
             .nav .btn-primary {
-                padding: 1px 6px;
-                font-size: 7px;
+                padding: 6px 14px;
+                font-size: 11px;
             }
         }
 
@@ -1223,10 +1238,12 @@
         .reviews-carousel-wrapper {
             display: flex;
             transition: transform 0.5s ease;
+            width: 100%;
         }
 
         .review-card {
             min-width: 100%;
+            width: 100%;
             flex-shrink: 0;
         }
 
@@ -1362,10 +1379,17 @@
         @media (max-width: 768px) {
             .reviews-carousel {
                 max-width: 100%;
+                overflow: hidden;
+            }
+            
+            .reviews-carousel-wrapper {
+                width: 100%;
             }
 
             .review-card {
                 padding: 24px;
+                min-width: 100%;
+                width: 100%;
             }
 
             .reviews-carousel-btn {
@@ -1976,14 +2000,21 @@
 
         @media (max-width: 480px) {
             .tinting-title {
-                font-size: 18px;
-                line-height: 1.3;
+                font-size: 14px;
+                line-height: 1.4;
                 margin-bottom: 24px;
                 padding: 0 12px;
                 letter-spacing: 0.01em;
                 word-wrap: break-word;
                 hyphens: auto;
                 overflow-wrap: break-word;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .tinting-title {
+                font-size: 13px;
+                line-height: 1.4;
             }
         }
 
@@ -2714,7 +2745,10 @@
                     </p>
                     <div class="socials">
                         <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" class="tg">Telegram</a>
-                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="vk">ВКонтакте</a>
+                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="vk" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <img src="https://w7.pngwing.com/pngs/430/375/png-transparent-vk-social-media-logo-social-media-logo-social-brand-3d-icon.png" alt="ВКонтакте" style="width: 24px; height: 24px; display: block; flex-shrink: 0;">
+                            <span>ВКонтакте</span>
+                        </a>
                         <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" class="wa">WhatsApp: +7 968 664-88-88</a>
                     </div>
                 </div>
@@ -2743,7 +2777,7 @@
     <!-- Карта -->
     <section class="map-section">
         <div class="map-container">
-            <iframe src="https://yandex.ru/map-widget/v1/?ll=37.530000%2C55.800000&z=17&pt=37.530000%2C55.800000"
+            <iframe src="https://yandex.ru/map-widget/v1/?text=Propellini+Москва+Авиационная+79&ll=37.5173%2C55.8020&z=17&pt=37.5173%2C55.8020,pm2rdm"
                     width="100%"
                     height="100%"
                     frameborder="0"
