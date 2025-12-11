@@ -1,0 +1,2715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum. Гарантия 5 лет.">
+    <meta name="keywords" content="тонировка автомобиля, тонировка стекол, Llumar, Solarnex, Quantum, Москва, Propellini">
+    <title>Propellini - Профессиональная тонировка стекол автомобиля | Премиум пленки</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@400;500&family=Unbounded:wght@400;500;600;700;800;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
+    <!-- Preload критичных изображений -->
+    <link rel="preload" as="image" href="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg">
+    <link rel="dns-prefetch" href="https://images.hdqwalls.com">
+    <link rel="preconnect" href="https://images.hdqwalls.com" crossorigin>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --propellini-primary: #168491;
+            --propellini-primary-dark: #126d77;
+            --propellini-primary-light: #1aa5b5;
+            --propellini-neon: #168491;
+            --propellini-neon-glow: rgba(22, 132, 145, 0.4);
+            --propellini-dark: #0a0a0a;
+            --propellini-dark-secondary: #111111;
+            --propellini-dark-tertiary: #1a1a1a;
+            --propellini-text: #ffffff;
+            --propellini-text-secondary: #e0e0e0;
+            --propellini-text-muted: #808080;
+            --propellini-glass-bg: rgba(18, 18, 18, 0.8);
+            --propellini-glass-border: rgba(22, 132, 145, 0.22);
+            --propellini-glass-blur: blur(20px);
+            --propellini-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --propellini-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --propellini-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --propellini-shadow-neon: 0 0 20px rgba(22, 132, 145, 0.6), 0 0 40px rgba(22, 132, 145, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: var(--propellini-dark);
+            color: var(--propellini-text);
+            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Навигация */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--propellini-primary);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(22, 132, 145, 0.3);
+            box-shadow: 0 2px 10px rgba(22, 132, 145, 0.3);
+            transition: transform 0.3s ease;
+            min-height: 60px;
+        }
+
+        .propellini-logo {
+            height: 24px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .propellini-logo:hover {
+            opacity: 0.9;
+        }
+        
+        /* Улучшение видимости логотипа на светлом фоне */
+        .nav .propellini-logo {
+            filter: brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--propellini-primary);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(22, 132, 145, 0.3);
+            padding: 20px;
+            z-index: 999;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            padding-left: 24px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+
+        /* Кнопки */
+        .btn-primary {
+            background: var(--propellini-primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--propellini-shadow-md);
+        }
+        
+        .nav .btn-primary {
+            padding: 8px 20px;
+            font-size: 13px;
+        }
+
+        .btn-primary:hover {
+            background: var(--propellini-primary-light);
+            box-shadow: var(--propellini-shadow-neon);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid rgba(22, 132, 145, 0.3);
+            border-radius: 8px;
+            color: var(--propellini-text);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(18, 18, 18, 1);
+            border-color: rgba(22, 132, 145, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 132, 145, 0.2);
+        }
+
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+            animation: shimmerGlow 2.5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmerGlow {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Hero секция */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #0a0a0a;
+            background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-image: url('https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg');
+            }
+        }
+
+        .hero-bg picture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            filter: none !important;
+            image-rendering: auto;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Затемнение через псевдоэлемент */
+        .hero-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (min-width: 1025px) {
+            .hero-bg::after {
+                background: rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg img {
+                object-position: center center;
+            }
+            
+            .hero-bg::after {
+                background: rgba(0, 0, 0, 0.25) !important;
+            }
+            
+            .hero-overlay {
+                background: linear-gradient(180deg, rgba(10, 10, 10, 0.15) 0%, rgba(10, 10, 10, 0.45) 100%) !important;
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.75) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 120px 20px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-footer-contacts {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .hero-footer-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .hero-footer-left a,
+        .hero-footer-left div,
+        .hero-footer-right div {
+            color: var(--propellini-text);
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-footer-left a:hover {
+            opacity: 1;
+        }
+
+        .hero-footer-socials {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hero-footer-socials a {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(22, 132, 145, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hero-footer-socials a:hover {
+            background: rgba(22, 132, 145, 0.4);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-footer-contacts {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 20px;
+                bottom: 20px;
+            }
+
+            .hero-footer-left,
+            .hero-footer-right {
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero-footer-socials {
+                justify-content: center;
+            }
+        }
+        
+
+        /* Премиальная таблица прайса */
+        .premium-pricing-table-wrapper {
+            margin: 40px 0 60px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .premium-price-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: linear-gradient(135deg, 
+                rgba(17, 17, 17, 0.98) 0%, 
+                rgba(18, 18, 18, 0.95) 50%,
+                rgba(22, 132, 145, 0.08) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(22, 132, 145, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(22, 132, 145, 0.3);
+        }
+        
+        .premium-price-table thead {
+            background: linear-gradient(135deg, 
+                rgba(22, 132, 145, 0.35) 0%, 
+                rgba(22, 132, 145, 0.25) 100%);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .premium-price-table th {
+            padding: 20px 16px;
+            text-align: left;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(22, 132, 145, 0.4);
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.4;
+        }
+        
+        .premium-price-table th:first-child {
+            padding-left: 24px;
+        }
+        
+        .premium-price-table th:last-child {
+            padding-right: 24px;
+        }
+        
+        .premium-price-table tbody tr {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .premium-price-table tbody tr:hover {
+            background: rgba(22, 132, 145, 0.12);
+        }
+        
+        .premium-price-table tbody tr:hover td {
+            color: #ffffff;
+        }
+        
+        .premium-price-table tbody tr:hover td:not(:first-child) {
+            color: #1ba5b3;
+        }
+        
+        .premium-price-table tbody tr.premium-row {
+            background: linear-gradient(135deg, 
+                rgba(249, 174, 57, 0.25) 0%, 
+                rgba(254, 207, 59, 0.15) 100%);
+            border-left: 4px solid #f9ae39;
+            box-shadow: inset 0 0 30px rgba(249, 174, 57, 0.15);
+        }
+        
+        .premium-price-table tbody tr.premium-row:hover {
+            background: linear-gradient(135deg, 
+                rgba(249, 174, 57, 0.3) 0%, 
+                rgba(254, 207, 59, 0.2) 100%);
+            box-shadow: inset 0 0 40px rgba(249, 174, 57, 0.25);
+        }
+        
+        .premium-price-table tbody tr.category-header {
+            background: linear-gradient(135deg, 
+                rgba(22, 132, 145, 0.3) 0%, 
+                rgba(22, 132, 145, 0.2) 100%);
+            font-weight: 800;
+            color: #1ba5b3;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .premium-price-table tbody tr.category-header td {
+            color: #1ba5b3;
+            font-weight: 800;
+            padding: 18px 24px;
+            font-size: 17px;
+            text-shadow: 0 2px 8px rgba(22, 132, 145, 0.4);
+        }
+        
+        .premium-price-table tbody tr.category-header:hover {
+            background: linear-gradient(135deg, 
+                rgba(22, 132, 145, 0.35) 0%, 
+                rgba(22, 132, 145, 0.25) 100%);
+        }
+        
+        .premium-price-table td {
+            padding: 18px 16px;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(22, 132, 145, 0.15);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        .premium-price-table td:first-child {
+            padding-left: 24px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 15px;
+            min-width: 200px;
+            max-width: 350px;
+        }
+        
+        .premium-price-table td:not(:first-child) {
+            text-align: center;
+            color: #1ba5b3;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            white-space: nowrap;
+            min-width: 100px;
+        }
+        
+        .premium-price-table tbody tr.premium-row td {
+            color: #ffffff;
+            background: linear-gradient(135deg, 
+                rgba(249, 174, 57, 0.25) 0%, 
+                rgba(254, 207, 59, 0.15) 100%);
+        }
+        
+        .premium-price-table tbody tr.premium-row td:first-child {
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .premium-price-table tbody tr.premium-row td:not(:first-child) {
+            color: #f9ae39;
+            font-weight: 800;
+            text-shadow: 0 2px 8px rgba(249, 174, 57, 0.6);
+            font-size: 16px;
+        }
+        
+        .premium-price-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        @media (max-width: 1024px) {
+            .premium-price-table th {
+                font-size: 13px;
+                padding: 16px 12px;
+                line-height: 1.3;
+            }
+            
+            .premium-price-table td {
+                padding: 14px 12px;
+                font-size: 13px;
+            }
+            
+            .premium-price-table td:first-child {
+                min-width: 180px;
+                max-width: 300px;
+            }
+            
+            .premium-price-table tbody tr.category-header td {
+                font-size: 15px;
+            }
+            
+            .premium-price-table tbody tr.premium-row td:not(:first-child) {
+                font-size: 14px;
+            }
+            
+            .premium-price-table th:first-child,
+            .premium-price-table td:first-child {
+                padding-left: 16px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .premium-pricing-table-wrapper {
+                margin: 24px -20px 40px;
+                padding: 0 20px;
+            }
+            
+            .premium-price-table th {
+                font-size: 11px;
+                padding: 12px 8px;
+                line-height: 1.2;
+            }
+            
+            .premium-price-table td {
+                padding: 12px 8px;
+                font-size: 11px;
+            }
+            
+            .premium-price-table td:first-child {
+                min-width: 150px;
+                max-width: 250px;
+                font-size: 11px;
+            }
+            
+            .premium-price-table tbody tr.category-header td {
+                font-size: 12px;
+                padding: 14px 12px;
+            }
+            
+            .premium-price-table tbody tr.premium-row td:not(:first-child) {
+                font-size: 12px;
+            }
+            
+            .premium-price-table th:first-child,
+            .premium-price-table td:first-child {
+                padding-left: 12px;
+            }
+        }
+
+        .hero-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 400;
+            font-size: 60px;
+            line-height: 60px;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .hero-description {
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--propellini-text-secondary);
+            margin-bottom: 32px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+            color: var(--propellini-text-secondary);
+        }
+
+        .hero-contacts div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+                line-height: 36px;
+            }
+            .hero-description {
+                font-size: 16px;
+            }
+        }
+
+        /* Секции */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 100;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(22, 132, 145, 0.8), transparent);
+            animation: titleShimmer 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes titleShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border-radius: 8px;
+            background: transparent;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            will-change: transform;
+        }
+
+        .gallery-item img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            z-index: 0;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(22, 132, 145, 0.3);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(22, 132, 145, 0.95) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(22, 132, 145, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .gallery-item {
+                aspect-ratio: 16/9;
+                border-radius: 10px;
+                will-change: auto;
+            }
+            
+            .gallery-item:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(22, 132, 145, 0.25);
+            }
+            
+            .gallery-item:hover img {
+                transform: scale(1.03);
+            }
+            
+            .gallery-overlay {
+                padding: 16px;
+            }
+            
+            .gallery-overlay div {
+                font-size: 14px;
+                text-align: center;
+                width: 100%;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .gallery-overlay div {
+                font-size: 16px;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+        
+        @media (min-width: 1025px) and (max-width: 1399px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+        }
+
+        /* Галерея салона ожидания */
+        .showroom-gallery {
+            margin-top: 40px;
+        }
+        
+        .showroom-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 4/3;
+            background: #e8e8e8;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            min-height: 200px;
+        }
+        
+        .showroom-gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .showroom-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 12px;
+            z-index: 0;
+        }
+        
+        .showroom-gallery-item:hover .showroom-image {
+            transform: scale(1.1);
+        }
+        
+        .showroom-gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0) 0%, 
+                rgba(0, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 12px;
+        }
+        
+        .showroom-gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8e8e8;
+            color: #999;
+            border-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .image-placeholder svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .showroom-gallery {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 24px;
+            }
+            
+            .showroom-gallery-item {
+                border-radius: 10px;
+                min-height: 250px;
+            }
+        }
+
+
+        /* Отзывы */
+        .reviews-section {
+            background: var(--propellini-dark-secondary);
+        }
+
+        .reviews-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .review-card {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid rgba(22, 132, 145, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .review-card:hover {
+            border-color: rgba(22, 132, 145, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(22, 132, 145, 0.2);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .review-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--propellini-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+            font-family: 'Montserrat', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-name {
+            color: var(--propellini-text);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .review-date {
+            color: var(--propellini-text-muted);
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            font-size: 18px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            color: var(--propellini-text-secondary);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .reviews-carousel {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .review-card {
+                padding: 24px;
+            }
+        }
+
+        /* Бонусы - Премиальные карточки в стиле прайса */
+        .bonuses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .bonus-card-premium {
+            background: linear-gradient(135deg, 
+                rgba(18, 18, 18, 0.95) 0%, 
+                rgba(22, 132, 145, 0.05) 100%);
+            border: 2px solid rgba(22, 132, 145, 0.2);
+            border-radius: 20px;
+            padding: 32px 24px;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .bonus-card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(22, 132, 145, 0.1), 
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        .bonus-card-premium:hover::before {
+            left: 100%;
+        }
+
+        .bonus-card-premium:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--propellini-primary);
+            box-shadow: 
+                0 16px 48px rgba(22, 132, 145, 0.4),
+                0 0 0 1px rgba(22, 132, 145, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .bonus-card-premium.featured {
+            border-color: var(--propellini-primary);
+            background: linear-gradient(135deg, 
+                rgba(22, 132, 145, 0.15) 0%, 
+                rgba(18, 18, 18, 0.95) 100%);
+            box-shadow: 
+                0 12px 40px rgba(22, 132, 145, 0.3),
+                inset 0 0 60px rgba(22, 132, 145, 0.05);
+        }
+
+        .bonus-card-premium .bonus-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--propellini-text);
+            line-height: 1.5;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .bonuses-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+            }
+            
+            .bonus-card-premium {
+                min-height: 160px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bonuses-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .bonus-card-premium {
+                padding: 24px 20px;
+                min-height: 140px;
+            }
+
+            .bonus-card-premium .bonus-title {
+                font-size: 16px;
+            }
+        }
+
+        /* Контакты */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #fff;
+        }
+
+        .contacts-section {
+            background: #0e0e0e;
+            padding-bottom: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle,
+        .subtitle-mini {
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .contacts-wrap {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-top: 40px;
+            gap: 80px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .contacts-left {
+            width: auto;
+            min-width: 300px;
+            font-size: 16px;
+            flex-shrink: 0;
+            padding-right: 20px;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .contact-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        .contacts-left p {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        .contacts-left p a {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--propellini-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            margin-top: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contacts-left p a:hover {
+            color: var(--propellini-primary);
+        }
+
+        .socials {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .socials a {
+            color: var(--propellini-primary);
+            text-decoration: none;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .socials a:hover {
+            color: var(--propellini-primary-light);
+            transform: translateX(4px);
+        }
+
+        .socials a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--propellini-primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover::before {
+            background: var(--propellini-primary-light);
+            transform: scale(1.3);
+        }
+
+        .contacts-right {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #168491;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-btn {
+            background: #168491;
+            border: none;
+            color: #fff;
+            padding: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1ba5b3;
+        }
+
+        .policy-text {
+            margin-top: 10px;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        /* Модальное окно - улучшенный дизайн */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.98) 0%, rgba(22, 22, 22, 0.95) 100%);
+            border: 1px solid rgba(22, 132, 145, 0.3);
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(22, 132, 145, 0.2);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(22, 132, 145, 0.1);
+            border: 1px solid rgba(22, 132, 145, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--propellini-text);
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .modal-close:hover {
+            background: rgba(22, 132, 145, 0.2);
+            border-color: rgba(22, 132, 145, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 32px;
+            color: var(--propellini-text);
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--propellini-text);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.01em;
+        }
+
+        .form-label .required {
+            color: var(--propellini-primary);
+            margin-left: 2px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(18, 18, 18, 0.8);
+            border: 2px solid rgba(22, 132, 145, 0.2);
+            border-radius: 12px;
+            color: var(--propellini-text);
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--propellini-primary);
+            background: rgba(18, 18, 18, 1);
+            box-shadow: 0 0 0 4px rgba(22, 132, 145, 0.1), 0 4px 12px rgba(22, 132, 145, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 15px;
+        }
+
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: rgba(255, 77, 77, 0.5);
+        }
+
+        .form-input:valid:not(:placeholder-shown) {
+            border-color: rgba(22, 132, 145, 0.5);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--propellini-primary) 0%, var(--propellini-primary-light) 100%);
+            border: none;
+            color: white;
+            padding: 18px 32px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(22, 132, 145, 0.3);
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .form-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(22, 132, 145, 0.4);
+            background: linear-gradient(135deg, var(--propellini-primary-light) 0%, var(--propellini-primary) 100%);
+        }
+
+        .form-submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .form-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-privacy {
+            margin-top: 16px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+        }
+
+        .form-group-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(22, 132, 145, 0.05);
+            border: 1px solid rgba(22, 132, 145, 0.15);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group-checkbox:hover {
+            background: rgba(22, 132, 145, 0.08);
+            border-color: rgba(22, 132, 145, 0.25);
+        }
+
+        .form-group-checkbox input[type="checkbox"] {
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--propellini-primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .form-group-checkbox label {
+            color: var(--propellini-text-secondary);
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 32px 24px;
+                max-width: 95%;
+                border-radius: 16px;
+            }
+
+            .modal-content h2 {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+
+            .form-input {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+
+            .form-submit-btn {
+                padding: 16px 24px;
+                font-size: 15px;
+            }
+        }
+
+        /* Карта */
+        .map-title-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .map-title {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .map-address {
+            opacity: 0.8;
+        }
+
+        .map-section {
+            background: #0e0e0e;
+            padding: 0;
+        }
+
+        .map-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 1024px) {
+            .map-container iframe {
+                height: 700px;
+            }
+        }
+
+        /* Футер */
+        .footer {
+            background: #0d0d0d;
+            padding: 25px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto 15px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo {
+            height: 26px;
+            margin-right: 6px;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-logo:hover {
+            opacity: 1;
+        }
+        
+        .contact-logo {
+            height: 30px;
+            margin-right: 8px;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-logo:hover {
+            opacity: 1;
+        }
+
+        .footer-menu {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .footer-menu a {
+            margin-left: 0;
+            color: #fff;
+            opacity: 0.9;
+            text-decoration: none;
+        }
+
+        .copy {
+            opacity: 0.5;
+            font-size: 12px;
+        }
+
+        /* Анимации */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+            .contacts-wrap {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .contacts-left,
+            .contacts-right {
+                width: 100%;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .footer-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .footer-menu a {
+                margin-left: 0;
+            }
+            .map-container iframe {
+                height: 400px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6" style="padding-top: 8px; padding-bottom: 8px;">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <a href="#hero" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <img src="https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png" alt="Propellini" class="propellini-logo">
+                        <div style="color: #ffffff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18px;">
+                            Propellini
+                        </div>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#services" class="nav-link">Услуги</a>
+                    <a href="#films" class="nav-link">Плёнки</a>
+                    <a href="#gallery" class="nav-link">Работы</a>
+                    <a href="#bonuses" class="nav-link">Бонусы</a>
+                    <a href="#showroom" class="nav-link">Салон</a>
+                    <a href="#contacts" class="nav-link">Контакты</a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button class="btn-primary btn-shimmer hidden md:block" onclick="window.openModal()">Записаться</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#services">Услуги</a>
+            <a href="#films">Плёнки</a>
+            <a href="#gallery">Работы</a>
+            <a href="#bonuses">Бонусы</a>
+            <a href="#showroom">Салон</a>
+            <a href="#contacts">Контакты</a>
+            <button class="btn-primary btn-shimmer w-full mt-4" onclick="window.openModal()" style="text-decoration: none; display: block; text-align: center; border: none; cursor: pointer; width: 100%;">Записаться</button>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="hero-bg">
+            <picture>
+                <!-- Мобильная версия: Mercedes AMG GT63 Raw Power -->
+                <source srcset="https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg" media="(max-width: 768px)" type="image/jpeg">
+                <!-- Десктопная версия: Mercedes AMG GT 63 Pro 4MATIC -->
+                <source srcset="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" media="(min-width: 769px)" type="image/jpeg">
+                <!-- Fallback -->
+                <img id="hero-bg-img" 
+                     src="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" 
+                     alt="Propellini - Профессиональная тонировка стекол автомобиля" 
+                     loading="eager" 
+                     fetchpriority="high" 
+                     decoding="async"
+                     sizes="100vw"
+                     style="width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;"
+                     onload="this.style.opacity='1';">
+            </picture>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Профессиональная тонировка в Москве</h1>
+            <p class="hero-description" style="font-size: 20px; font-weight: 500; margin-bottom: 16px;">
+                LLumar USA. Хамелеон все оттенки. Атермалка.
+            </p>
+            <p class="hero-description">
+                Предлагаем профессиональную тонировку стекол автомобиля с использованием премиальных пленок. Обеспечиваем защиту салона, комфорт вождения и профессиональную установку.
+            </p>
+
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
+                <a href="tel:+79919361489" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: rgba(18, 18, 18, 0.9); border: 1px solid rgba(22, 132, 145, 0.3); border-radius: 8px; color: var(--propellini-text); text-decoration: none; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    +7(991)936-14-89
+                </a>
+                <button class="btn-primary btn-shimmer" onclick="window.openModal()">Получить консультацию</button>
+            </div>
+            
+            <!-- Контакты внизу Hero секции -->
+            <div class="hero-footer-contacts">
+                <div class="hero-footer-left">
+                    <a href="tel:+79919361489">+7(991)936-14-89</a>
+                    <a href="mailto:info@proppelini.ru">info@proppelini.ru</a>
+                </div>
+                <div class="hero-footer-right">
+                    <div>Москва, ул. Авиационная, 79 к. 1</div>
+                    <div class="hero-footer-socials">
+                        <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                            </svg>
+                        </a>
+                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.584-1.612-2.9-.831-3.347 0-.303.57-.394 1.062-1.12 1.062-.9 0-2.4-1.516-3.35-3.26C6.84 10.36 5.31 6.52 5.31 6.52s-.14-.315.315-.315h1.744c.66 0 .9.435 1.164.9.9 1.8 2.094 3.48 2.7 3.48.42 0 .588-.262.588-.9v-2.7c-.06-1.14-.63-1.26-.63-1.68.06-.21.42-.42.9-.42h2.7c.66 0 .9.315.9.9v4.5c0 .472.21.63.525.63.42 0 .735-.21 1.68-1.68.9-1.5 1.56-2.7 1.68-3.18.12-.42.42-.63.9-.63h1.744c.66 0 .9.315.78.9-.12.42-1.05 2.7-2.94 5.4-1.8 2.4-2.52 3.48-3.12 3.48-.42 0-.63-.21-.63-.63v-2.7c0-1.14-.24-1.26-.24-1.68.06-.21.42-.42.9-.42h2.7c.66 0 .9.315.9.9v4.5c0 .66-.21.9-.63.9z"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О тонировке -->
+    <section class="section" id="services" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-title slide-up" style="font-size: 48px; font-weight: 800; text-align: center; margin-bottom: 48px; letter-spacing: 0.02em;">
+                НЕ ПРОСТО ТЁМНЫЕ СТЕКЛА, А ВЫСОКОТЕХНОЛОГИЧНАЯ ЗАЩИТА
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center slide-up" style="animation-delay: 0.1s;">
+                <div>
+                    <p style="color: var(--propellini-text-secondary); line-height: 1.8; margin-bottom: 24px; font-family: 'Roboto', sans-serif;">
+                        Мы работаем только с премиальными пленками Llumar, Solarnex, Quantum. Мастера с многолетним опытом обеспечивают идеальную термоформовку и чистый монтаж без пузырей, складок и дефектов.
+                    </p>
+                    <p style="color: var(--propellini-text-secondary); line-height: 1.8; font-family: 'Roboto', sans-serif;">
+                        Мы соблюдаем нормы светопропускания и гарантируем долговечность покрытия. Ваш автомобиль получает защиту от перегрева, выгорания салона и посторонних взглядов.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- Llumar Logo -->
+                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
+                        <img src="./assets/logos/llumar-logo.svg" alt="Llumar" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy">
+                    </div>
+                    <!-- Solarnex Logo -->
+                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
+                        <img src="https://solarnex.ru/assets/images/logo-light-2.svg" alt="Solarnex" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://solarnex.ru/assets/images/logo.png'; this.style.filter='brightness(0) invert(1)'; if(this.complete && this.naturalWidth === 0) { this.style.display='none'; const fallback=document.createElement('div'); fallback.style.cssText='color: var(--propellini-text-secondary); font-size: 18px; font-weight: 700; font-family: Montserrat, sans-serif; letter-spacing: 0.05em; text-align: center;'; fallback.textContent='SOLARNEX'; this.parentElement.appendChild(fallback); }">
+                    </div>
+                    <!-- Quantum Logo -->
+                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
+                        <img src="https://quantumppf.ru/assets/images/logo.png" alt="Quantum" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://quantumppf.ru/webp/assets/images/logo.png.webp'; this.style.filter='brightness(0) invert(1)';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Плёнки -->
+    <section class="section" id="films" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-title slide-up">Плёнки</h2>
+            <div class="text-center mb-16 slide-up" style="animation-delay: 0.1s;">
+                <p style="color: var(--propellini-text-secondary); line-height: 1.8; font-family: 'Roboto', sans-serif; max-width: 800px; margin: 0 auto;">
+                    Мы работаем с премиальными пленками Llumar, Solarnex, Quantum для обеспечения высочайшего качества тонировки.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 slide-up" style="animation-delay: 0.2s;">
+                <div style="background: rgba(18, 18, 18, 0.8); border: 1px solid rgba(22, 132, 145, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+                    <div style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                        <img src="./assets/logos/llumar-logo.svg" alt="Llumar" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy">
+                    </div>
+                    <p style="color: var(--propellini-text-secondary); font-family: 'Roboto', sans-serif; line-height: 1.8; margin: 0;">Премиальная пленка с отличными характеристиками защиты и долговечности.</p>
+                </div>
+                <div style="background: rgba(18, 18, 18, 0.8); border: 1px solid rgba(22, 132, 145, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+                    <div style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                        <img src="https://solarnex.ru/assets/images/logo-light-2.svg" alt="Solarnex" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://solarnex.ru/assets/images/logo.png'; this.style.filter='brightness(0) invert(1)'; if(this.complete && this.naturalWidth === 0) { this.style.display='none'; const fallback=document.createElement('div'); fallback.style.cssText='color: var(--propellini-text-secondary); font-size: 18px; font-weight: 700; font-family: Montserrat, sans-serif; letter-spacing: 0.05em; text-align: center;'; fallback.textContent='SOLARNEX'; this.parentElement.appendChild(fallback); }">
+                    </div>
+                    <p style="color: var(--propellini-text-secondary); font-family: 'Roboto', sans-serif; line-height: 1.8; margin: 0;">Высококачественная пленка с превосходной защитой от ультрафиолета.</p>
+                </div>
+                <div style="background: rgba(18, 18, 18, 0.8); border: 1px solid rgba(22, 132, 145, 0.2); border-radius: 12px; padding: 30px; text-align: center;">
+                    <div style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                        <img src="https://quantumppf.ru/assets/images/logo.png" alt="Quantum" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://quantumppf.ru/webp/assets/images/logo.png.webp'; this.style.filter='brightness(0) invert(1)';">
+                    </div>
+                    <p style="color: var(--propellini-text-secondary); font-family: 'Roboto', sans-serif; line-height: 1.8; margin: 0;">Инновационная пленка с максимальной защитой и стильным внешним видом.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Прайс -->
+    <section class="section" id="pricing" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-title slide-up">Прайс</h2>
+            
+            <!-- Премиальная таблица прайса -->
+            <div class="premium-pricing-table-wrapper slide-up" style="animation-delay: 0.05s;">
+                <table class="premium-price-table">
+                    <thead>
+                        <tr>
+                            <th>Услуги</th>
+                            <th>A-класс</th>
+                            <th>C, E-класс</th>
+                            <th>S-класс, Минивэны, Кроссоверы, Универсалы</th>
+                            <th>Спорткары, Внедорожники, Микроавтобусы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="category-header">
+                            <td colspan="5">Тонировка задней полусферы</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка задней полусферы (Корея)</td>
+                            <td>от 9 000</td>
+                            <td>от 10 000</td>
+                            <td>от 12 000</td>
+                            <td>от 14 000</td>
+                        </tr>
+                        <tr class="premium-row">
+                            <td>Тонировка задней полусферы (Корея, премиум)</td>
+                            <td>от 10 000</td>
+                            <td>от 11 000</td>
+                            <td>от 12 000</td>
+                            <td>от 14 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка задней полусферы (Люммар)</td>
+                            <td>от 14 000</td>
+                            <td>от 15 000</td>
+                            <td>от 16 000</td>
+                            <td>от 17 000</td>
+                        </tr>
+                        <tr class="category-header">
+                            <td colspan="5">Тонировка передней полусферы</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка передней полусферы (Корея)</td>
+                            <td>от 9 000</td>
+                            <td>от 10 000</td>
+                            <td>от 12 000</td>
+                            <td>от 14 000</td>
+                        </tr>
+                        <tr class="premium-row">
+                            <td>Тонировка передней полусферы (Корея, премиум)</td>
+                            <td>от 10 000</td>
+                            <td>от 11 000</td>
+                            <td>от 12 000</td>
+                            <td>от 14 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка передней полусферы (Корея, атермальная)</td>
+                            <td>от 14 000</td>
+                            <td>от 15 000</td>
+                            <td>от 17 000</td>
+                            <td>от 18 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка передней полусферы (Корея, хамелеон)</td>
+                            <td>от 14 000</td>
+                            <td>от 15 000</td>
+                            <td>от 17 000</td>
+                            <td>от 18 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка передней полусферы (Люммар)</td>
+                            <td>от 15 000</td>
+                            <td>от 16 000</td>
+                            <td>от 17 000</td>
+                            <td>от 18 000</td>
+                        </tr>
+                        <tr class="category-header">
+                            <td colspan="5">Тонировка лобового стекла</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка лобового стекла (Корея)</td>
+                            <td>от 5 000</td>
+                            <td>от 6 000</td>
+                            <td>от 7 000</td>
+                            <td>от 8 000</td>
+                        </tr>
+                        <tr class="premium-row">
+                            <td>Тонировка лобового стекла (Корея, премиум)</td>
+                            <td>от 6 000</td>
+                            <td>от 7 000</td>
+                            <td>от 8 000</td>
+                            <td>от 9 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка лобового стекла (Корея, атермальная)</td>
+                            <td>от 7 000</td>
+                            <td>от 8 000</td>
+                            <td>от 10 000</td>
+                            <td>от 11 000</td>
+                        </tr>
+                        <tr>
+                            <td>Тонировка лобового стекла (Корея, хамелеон)</td>
+                            <td>от 12 000</td>
+                            <td>от 13 000</td>
+                            <td>от 14 000</td>
+                            <td>от 15 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section class="section" id="gallery" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-title slide-up">Портфолио</h2>
+            <div class="gallery-grid slide-up" style="animation-delay: 0.1s;">
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/736x/e6/5d/7e/e65d7e8b4596cde542541da0dc021fe2.jpg" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Профессиональная тонировка</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/736x/89/8e/cd/898ecde0101dc9172983f153cf6bb599.jpg" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Качественные материалы</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/736x/8a/6d/bd/8a6dbd054da35dd2ef20bda9cb19326f.jpg" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Премиум пленки</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/1200x/a0/bd/4b/a0bd4b72abb7a55440756295f63f6391.jpg" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Опытные мастера</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.pinimg.com/736x/19/21/d5/1921d5c61adc3a58375ae8ec64a3ecf9.jpg" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Гарантия качества</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://propellini.ru/wp-content/uploads/2025/09/image44.webp" 
+                         alt="Работа по тонировке автомобиля Propellini" 
+                         loading="lazy">
+                    <div class="gallery-overlay">
+                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Современное оборудование</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Бонусы -->
+    <section class="section" id="bonuses" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="section-title">Бонусы</h2>
+                <h3 style="color: var(--propellini-text); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 36px; margin-top: 24px; margin-bottom: 16px; letter-spacing: 0.01em;">
+                    Забота о клиентах — наш приоритет
+                </h3>
+            </div>
+            <div class="bonuses-grid">
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.1s;">
+                    <h3 class="bonus-title">Рассрочка от компании на все виды услуг</h3>
+                </div>
+                
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.2s;">
+                    <h3 class="bonus-title">Работаем с юридическими лицами</h3>
+                </div>
+                
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.3s;">
+                    <h3 class="bonus-title">Опытные мастера</h3>
+                </div>
+                
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.4s;">
+                    <h3 class="bonus-title">Подарки каждому клиенту</h3>
+                </div>
+                
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.5s;">
+                    <h3 class="bonus-title">Премиальные качественные материалы</h3>
+                </div>
+                
+                <div class="bonus-card-premium slide-up" style="animation-delay: 0.6s;">
+                    <h3 class="bonus-title">Угощаем ароматным кофе</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="section reviews-section" id="reviews" style="background: var(--propellini-dark-secondary);">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="section-title">ОТЗЫВЫ НАШИХ КЛИЕНТОВ</h2>
+                <p style="color: var(--propellini-text-secondary); font-size: 18px; margin-top: 16px; font-family: 'Roboto', sans-serif;">
+                    Более 29 отзывов с рейтингом 5.0
+                </p>
+            </div>
+            
+            <div class="reviews-carousel slide-up" style="animation-delay: 0.1s;">
+                <!-- Отзыв 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">AV</div>
+                        <div class="review-info">
+                            <div class="review-name">Alexey Volkov</div>
+                            <div class="review-date">16 ноября</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">★★★★★</div>
+                    <div class="review-text">
+                        Отличная мойка! Очень тщательно помыли машину, уделили внимание стеклам, колесам, салону. Персонал внимательный, цены адекватные. Обязательно вернусь!
+                    </div>
+                </div>
+
+                <!-- Отзыв 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">АШ</div>
+                        <div class="review-info">
+                            <div class="review-name">Артём Ширманкин</div>
+                            <div class="review-date">18 ноября</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">★★★★★</div>
+                    <div class="review-text">
+                        Отличная мойка автомобиля! Качественная работа, убрали пятно от кофе. Всё чисто, аккуратно. Рекомендую!
+                    </div>
+                </div>
+
+                <!-- Отзыв 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">СЖ</div>
+                        <div class="review-info">
+                            <div class="review-name">Сергей Ж.</div>
+                            <div class="review-date">14 мая</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">★★★★★</div>
+                    <div class="review-text">
+                        Современное оборудование, двухэтапная мойка, сохранение лакокрасочного покрытия. Используют качественную химию. Очень доволен результатом!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 slide-up" style="animation-delay: 0.2s;">
+                <a href="https://yandex.ru/maps/org/propellini/1124717893/?ll=37.530000%2C55.800000&z=16" 
+                   class="btn-primary btn-shimmer" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   style="text-decoration: none; display: inline-block;">
+                    Читать все отзывы на Яндекс.Картах
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Салон ожидания -->
+    <section class="section" id="showroom" style="background: #f8f9fa; color: #0a0a0a;">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-8 slide-up">
+                <div class="text-sm mb-2" style="color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.02em; font-family: 'Montserrat', sans-serif; font-weight: 800;">Салон</div>
+                <h2 class="text-4xl font-light mb-4" style="color: #0a0a0a; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: 0.02em;">Комфортная зона ожидания</h2>
+                <p style="color: #1a1a1a; font-family: 'Roboto', sans-serif; margin-top: 16px;">
+                    В Propellini доступна комфортная зона ожидания с напитками, мягкой мебелью и приятной атмосферой.
+                </p>
+            </div>
+            
+            <div class="showroom-gallery grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="showroom-gallery-item slide-up">
+                    <img src="https://propellini.ru/wp-content/uploads/2025/09/image_21_.webp" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.1s;">
+                    <img src="https://propellini.ru/wp-content/uploads/2025/09/image_24_.webp" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.2s;">
+                    <img src="https://avatars.mds.yandex.net/get-altay/14312158/2a00000192b89a15cac62d28fd92791816cc/XXXL" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.3s;">
+                    <img src="https://propellini.ru/wp-content/uploads/2025/09/image_19_.webp" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.4s;">
+                    <img src="https://avatars.mds.yandex.net/get-altay/14730529/2a0000019492e9a17d22bc1b7283b35ec358/XXXL" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.5s;">
+                    <img src="https://avatars.mds.yandex.net/get-altay/15081387/2a0000019455cfd7f3dd717af76c00c0e3f8/XXXL" 
+                         alt="Комфортная зона ожидания Propellini" 
+                         loading="lazy"
+                         class="showroom-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts" class="contacts-section">
+        <div class="container">
+            <h2 class="section-title">КОНТАКТЫ</h2>
+            <p class="subtitle">Нет нерешаемых задач, есть разные подходы к их решению.</p>
+            <p class="subtitle-mini">
+                Вы можете оставить заявку по форме обратной связи или связаться с нами любым другим удобным способом.
+            </p>
+            <div class="contacts-wrap">
+                <!-- Левый блок -->
+                <div class="contacts-left">
+                    <div class="logo-block">
+                        <img src="https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png" alt="Propellini" class="contact-logo">
+                        <span class="logo-text">Propellini</span>
+                    </div>
+                    <p style="margin-top: 24px; margin-bottom: 24px;">
+                        <a href="tel:+79919361489" style="color: var(--propellini-text); text-decoration: none; font-size: 18px; font-weight: 500;">+7 (991) 936-14-89</a>
+                    </p>
+                    <div class="socials">
+                        <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" class="tg">Telegram</a>
+                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="vk">ВКонтакте</a>
+                        <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" class="wa">WhatsApp: +7 968 664-88-88</a>
+                    </div>
+                </div>
+                <!-- Правая форма -->
+                <div class="contacts-right">
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" name="name" placeholder="Ваше имя *" required>
+                        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required>
+                        <textarea name="message" placeholder="Опишите ваш вопрос или пожелание"></textarea>
+                        <button type="submit" class="submit-btn">Отправить</button>
+                    </form>
+                    <p class="policy-text">
+                        Нажимая кнопку "отправить", вы соглашаетесь с политикой конфиденциальности.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок Мы на карте -->
+    <section class="map-title-section">
+        <h3 class="map-title">Мы на карте</h3>
+        <p class="map-address">Москва, ул. Авиационная, 79 к. 1</p>
+    </section>
+
+    <!-- Карта -->
+    <section class="map-section">
+        <div class="map-container">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Amap"
+                    frameborder="0"
+                    allowfullscreen="true">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <img src="https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png" class="footer-logo" alt="Propellini">
+                <span class="footer-brand">Propellini</span>
+            </div>
+            <div class="footer-menu">
+                <a href="#">Услуги</a>
+                <a href="#">Калькулятор</a>
+                <a href="#">Работы</a>
+                <a href="#">Акции</a>
+                <a href="#">Контакты</a>
+            </div>
+        </div>
+        <p class="copy">© 2024 Propellini. Все права защищены.</p>
+    </footer>
+
+    <!-- Модальное окно -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal" onclick="window.closeModal()" aria-label="Закрыть">&times;</button>
+            <h2>Оставить заявку</h2>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        Ваше имя <span class="required">*</span>
+                    </label>
+                    <input type="text" class="form-input" name="name" placeholder="Введите ваше имя" required minlength="2">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        Ваш телефон <span class="required">*</span>
+                    </label>
+                    <input type="tel" class="form-input" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required>
+                </div>
+                <div class="form-group-checkbox">
+                    <input type="checkbox" id="modalConsent" name="consent" required>
+                    <label for="modalConsent">
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+                <button type="submit" class="form-submit-btn">Отправить</button>
+                <p class="form-privacy">
+                    Нажимая кнопку "отправить", вы соглашаетесь с политикой конфиденциальности.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Мобильное меню
+        function toggleMobileMenu() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (menuBtn && menu) {
+                menuBtn.classList.toggle('active');
+                menu.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+            }
+        }
+
+        function closeMobileMenu() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (menuBtn && menu) {
+                menuBtn.classList.remove('active');
+                menu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+
+            // Intersection Observer для анимаций
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            document.querySelectorAll('.slide-up').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Обработка загрузки hero изображения
+            const heroImg = document.getElementById('hero-bg-img');
+            if (heroImg) {
+                if (heroImg.complete && heroImg.naturalHeight !== 0) {
+                    heroImg.style.opacity = '1';
+                } else {
+                    heroImg.addEventListener('load', function() {
+                        this.style.opacity = '1';
+                    });
+                    heroImg.addEventListener('error', function() {
+                        console.error('Hero image failed to load');
+                        this.style.opacity = '0';
+                    });
+                }
+            }
+
+            // Проверка загрузки изображений портфолио
+            const galleryImages = document.querySelectorAll('#gallery .gallery-item img');
+            galleryImages.forEach((img, index) => {
+                img.removeAttribute('crossorigin');
+                img.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+                
+                img.style.opacity = '1';
+                img.style.display = 'block';
+                img.style.visibility = 'visible';
+                img.style.transition = 'opacity 0.5s ease';
+                
+                const parent = img.parentElement;
+                if (parent) {
+                    parent.style.background = 'transparent';
+                    parent.style.backgroundColor = 'transparent';
+                }
+                
+                img.onload = function() {
+                    this.style.opacity = '1';
+                    this.style.display = 'block';
+                    this.style.visibility = 'visible';
+                    const parent = this.parentElement;
+                    if (parent) {
+                        parent.style.background = 'transparent';
+                        parent.style.backgroundColor = 'transparent';
+                    }
+                };
+                
+                img.onerror = function() {
+                    console.warn('Gallery image failed to load:', this.src);
+                    this.style.opacity = '0.3';
+                    const parent = this.parentElement;
+                    if (parent && !parent.querySelector('.image-placeholder')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'image-placeholder';
+                        placeholder.style.zIndex = '1';
+                        placeholder.style.background = 'rgba(22, 132, 145, 0.1)';
+                        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        svg.setAttribute('viewBox', '0 0 24 24');
+                        svg.setAttribute('fill', 'none');
+                        svg.setAttribute('stroke', '#999');
+                        svg.setAttribute('stroke-width', '2');
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', '3');
+                        rect.setAttribute('y', '3');
+                        rect.setAttribute('width', '18');
+                        rect.setAttribute('height', '18');
+                        rect.setAttribute('rx', '2');
+                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        circle.setAttribute('cx', '8.5');
+                        circle.setAttribute('cy', '8.5');
+                        circle.setAttribute('r', '1.5');
+                        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path.setAttribute('d', 'M21 15l-5-5L5 21');
+                        svg.appendChild(rect);
+                        svg.appendChild(circle);
+                        svg.appendChild(path);
+                        placeholder.appendChild(svg);
+                        parent.appendChild(placeholder);
+                    }
+                };
+                
+                if (img.complete) {
+                    if (img.naturalHeight > 0) {
+                        img.onload();
+                    } else {
+                        const originalSrc = img.src;
+                        img.src = '';
+                        setTimeout(() => {
+                            img.src = originalSrc;
+                        }, 100);
+                    }
+                }
+            });
+
+            // Проверка загрузки изображений галереи салона
+            const showroomImages = document.querySelectorAll('.showroom-image');
+            showroomImages.forEach((img, index) => {
+                // Устанавливаем начальную прозрачность для плавного появления
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                
+                // Принудительно устанавливаем размеры и позиционирование
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.style.position = 'absolute';
+                img.style.top = '0';
+                img.style.left = '0';
+                img.style.zIndex = '0';
+                
+                // Добавляем referrerpolicy для лучшей совместимости
+                img.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+                
+                img.onload = function() {
+                    this.style.opacity = '1';
+                    // Убираем фон контейнера когда изображение загружено
+                    const parent = this.parentElement;
+                    if (parent) {
+                        parent.style.background = 'transparent';
+                    }
+                };
+                
+                img.onerror = function() {
+                    console.warn('Showroom image failed to load:', this.src);
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    if (parent && !parent.querySelector('.image-placeholder')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'image-placeholder';
+                        placeholder.style.zIndex = '1';
+                        placeholder.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+                        parent.appendChild(placeholder);
+                    }
+                };
+                
+                // Проверка, загружено ли изображение уже
+                if (img.complete) {
+                    if (img.naturalHeight > 0) {
+                        img.onload();
+                    } else {
+                        // Пробуем перезагрузить изображение
+                        const originalSrc = img.src;
+                        img.src = '';
+                        setTimeout(() => {
+                            img.src = originalSrc;
+                        }, 50);
+                    }
+                }
+            });
+
+            // Sticky навигация
+            let lastScroll = 0;
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(22, 132, 145, 0.4)';
+                } else {
+                    navbar.style.boxShadow = '0 2px 10px rgba(22, 132, 145, 0.3)';
+                }
+                lastScroll = currentScroll;
+            });
+        });
+
+        // Модальное окно
+        window.openModal = function() {
+            const modal = document.getElementById('applicationModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Фокус на первое поле
+                setTimeout(() => {
+                    const firstInput = modal.querySelector('.form-input');
+                    if (firstInput) firstInput.focus();
+                }, 100);
+            }
+        };
+
+        window.closeModal = function() {
+            const modal = document.getElementById('applicationModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                // Сброс формы
+                const form = document.getElementById('applicationForm');
+                if (form) form.reset();
+            }
+        };
+
+        // Закрытие модального окна при клике вне его
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('applicationModal');
+            if (modal && e.target === modal) {
+                window.closeModal();
+            }
+        });
+
+        // Закрытие модального окна по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('applicationModal');
+                if (modal && modal.classList.contains('active')) {
+                    window.closeModal();
+                }
+            }
+        });
+
+        // Обработка форм
+        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        document.getElementById('applicationForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Валидация
+            const name = this.querySelector('[name="name"]').value.trim();
+            const phone = this.querySelector('[name="phone"]').value.trim();
+            const consent = this.querySelector('[name="consent"]').checked;
+            
+            if (!name || name.length < 2) {
+                alert('Пожалуйста, введите ваше имя (минимум 2 символа)');
+                return;
+            }
+            
+            if (!phone || !phone.match(/\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}/)) {
+                alert('Пожалуйста, введите корректный номер телефона');
+                return;
+            }
+            
+            if (!consent) {
+                alert('Необходимо согласие на обработку персональных данных');
+                return;
+            }
+            
+            // Блокировка кнопки
+            const submitBtn = this.querySelector('.form-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            // Имитация отправки
+            setTimeout(() => {
+                alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+                this.reset();
+                window.closeModal();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+
