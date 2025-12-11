@@ -1072,25 +1072,28 @@
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 0;
+                padding: 0;
             }
             
             .gallery-item {
                 aspect-ratio: 16/9;
-                border-radius: 10px;
-                will-change: auto;
+                border-radius: 0;
+                margin: 0;
+                --progress: 0;
+                position: relative;
+                will-change: transform, opacity;
             }
             
-            .gallery-item:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 12px 24px rgba(22, 132, 145, 0.25);
-            }
-            
-            .gallery-item:hover img {
-                transform: scale(1.03);
+            .gallery-item img {
+                transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
+                opacity: var(--progress);
+                transition: transform 0.1s ease-out, opacity 0.1s ease-out;
             }
             
             .gallery-overlay {
+                opacity: var(--progress);
+                transition: opacity 0.1s ease-out;
                 padding: 16px;
             }
             
@@ -1098,6 +1101,15 @@
                 font-size: 14px;
                 text-align: center;
                 width: 100%;
+            }
+            
+            .gallery-item:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .gallery-item:hover img {
+                transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
             }
         }
         
@@ -2979,6 +2991,65 @@
                     }
                 }
             });
+
+            // Эффект прокрутки для галереи в мобильной версии
+            function initGalleryScrollEffect() {
+                if (window.innerWidth <= 768) {
+                    const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+                    const gallerySection = document.getElementById('gallery');
+                    
+                    if (galleryItems.length > 0 && gallerySection) {
+                        function updateGalleryProgress() {
+                            const scrollPosition = window.pageYOffset;
+                            const sectionTop = gallerySection.offsetTop;
+                            const sectionHeight = gallerySection.offsetHeight;
+                            const viewportHeight = window.innerHeight;
+                            
+                            const sectionStart = sectionTop - viewportHeight;
+                            const sectionEnd = sectionTop + sectionHeight;
+                            
+                            if (scrollPosition >= sectionStart && scrollPosition <= sectionEnd) {
+                                const sectionProgress = (scrollPosition - sectionStart) / (sectionEnd - sectionStart);
+                                const total = 1 / galleryItems.length;
+                                
+                                galleryItems.forEach((item, index) => {
+                                    const start = total * index;
+                                    const end = total * (index + 1);
+                                    
+                                    let progress = (sectionProgress - start) / (end - start);
+                                    progress = Math.max(0, Math.min(1, progress));
+                                    
+                                    item.style.setProperty('--progress', progress);
+                                });
+                            } else if (scrollPosition < sectionStart) {
+                                galleryItems.forEach(item => {
+                                    item.style.setProperty('--progress', '0');
+                                });
+                            } else {
+                                galleryItems.forEach(item => {
+                                    item.style.setProperty('--progress', '1');
+                                });
+                            }
+                        }
+                        
+                        document.addEventListener('scroll', updateGalleryProgress);
+                        window.addEventListener('resize', () => {
+                            if (window.innerWidth <= 768) {
+                                updateGalleryProgress();
+                            } else {
+                                galleryItems.forEach(item => {
+                                    item.style.setProperty('--progress', '1');
+                                });
+                            }
+                        });
+                        
+                        // Инициализация при загрузке
+                        updateGalleryProgress();
+                    }
+                }
+            }
+            
+            initGalleryScrollEffect();
 
             // Проверка загрузки изображений галереи салона
             const showroomImages = document.querySelectorAll('.showroom-image');
