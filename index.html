@@ -21,6 +21,17 @@
     <meta name="twitter:title" content="Propellini - Профессиональная тонировка стекол">
     <meta name="twitter:description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum.">
     <meta name="twitter:image" content="https://propellini.ru/twitter-image.jpg">
+    
+    <!-- Дополнительные мета-теги (Apple Standards) -->
+    <link rel="canonical" href="https://propellini.ru/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#168491">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Propellini">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@400;500&family=Unbounded:wght@400;500;600;700;800;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
@@ -368,6 +379,107 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+        }
+
+        .contact-phone-link {
+            color: var(--propellini-text);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .vk-icon-img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .btn-link-inline {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Классы для animation-delay (замена inline стилей) */
+        .slide-up[data-delay="0.05"] {
+            animation-delay: 0.05s;
+        }
+
+        .slide-up[data-delay="0.1"] {
+            animation-delay: 0.1s;
+        }
+
+        .slide-up[data-delay="0.2"] {
+            animation-delay: 0.2s;
+        }
+
+        .slide-up[data-delay="0.3"] {
+            animation-delay: 0.3s;
+        }
+
+        .slide-up[data-delay="0.4"] {
+            animation-delay: 0.4s;
+        }
+
+        .slide-up[data-delay="0.5"] {
+            animation-delay: 0.5s;
+        }
+
+        .slide-up[data-delay="0.6"] {
+            animation-delay: 0.6s;
+        }
+
+        /* Классы для showroom секции */
+        .showroom-section {
+            background: #f8f9fa;
+            color: #0a0a0a;
+        }
+
+        .showroom-label {
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        .showroom-title {
+            color: #0a0a0a;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .showroom-description {
+            color: #1a1a1a;
+            font-family: 'Roboto', sans-serif;
+            margin-top: 16px;
+        }
+
+        .gallery-section-custom {
+            background: var(--propellini-dark-secondary);
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        /* Класс для max-width контейнера */
+        .container-narrow {
+            max-width: 896px;
+        }
+
+        /* Скрытие элементов без inline стилей */
+        .display-none {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .md\:display-flex {
+                display: flex;
+            }
+
+            .md\:display-block {
+                display: block;
+            }
         }
 
         body {
@@ -2923,7 +3035,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="hidden md:flex items-center gap-6 nav-links-wrapper" style="display: none;">
+                <div class="display-none md:display-flex items-center gap-6 nav-links-wrapper">
                     <a href="#services" class="nav-link">Услуги</a>
                     <a href="#films" class="nav-link">Плёнки</a>
                     <a href="#gallery" class="nav-link">Работы</a>
@@ -2932,7 +3044,7 @@
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </div>
                 <div class="flex items-center gap-3 nav-actions-wrapper">
-                    <button class="btn-primary btn-shimmer hidden md:block" onclick="window.openModal()" style="display: none;">Записаться</button>
+                    <button class="btn-primary btn-shimmer display-none md:display-block" onclick="window.openModal()">Записаться</button>
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
                         <span></span>
                         <span></span>
@@ -3003,7 +3115,7 @@
                         <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                             <div class="button-outer">
                                 <div class="button-inner">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: rgba(25, 25, 25, 1);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="social-icon">
                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
                                     </svg>
                                 </div>
@@ -3019,7 +3131,7 @@
                         <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                             <div class="button-outer">
                                 <div class="button-inner">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: rgba(25, 25, 25, 1);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="social-icon">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                                     </svg>
                                 </div>
@@ -3033,7 +3145,7 @@
 
     <!-- Описание услуг -->
     <section class="section services-description-section services-section-bg">
-        <div class="container" style="max-width: 896px;">
+        <div class="container container-narrow">
             <p class="services-description-text services-description-text-custom">
                 Предлагаем профессиональную тонировку стекол автомобиля с использованием премиальных пленок. Обеспечиваем защиту салона, комфорт вождения и профессиональную установку.
             </p>
@@ -3046,27 +3158,27 @@
             <h2 class="section-title slide-up tinting-title tinting-title-custom">
                 НЕ ПРОСТО ТЁМНЫЕ СТЕКЛА, А ЗАЩИТА С ХАРАКТЕРОМ
             </h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center slide-up" style="animation-delay: 0.1s;">
+            <div class="grid md:grid-cols-2 gap-12 items-center slide-up" data-delay="0.1">
                 <div>
-                    <p style="color: var(--propellini-text-secondary); line-height: 1.8; margin-bottom: 24px; font-family: 'Roboto', sans-serif;">
+                    <p class="text-secondary-margin">
                         Мы работаем только с премиальными пленками Llumar, Solarnex, Quantum. Мастера с многолетним опытом обеспечивают идеальную термоформовку и чистый монтаж без пузырей, складок и дефектов.
                     </p>
-                    <p style="color: var(--propellini-text-secondary); line-height: 1.8; font-family: 'Roboto', sans-serif;">
+                    <p class="text-secondary-custom">
                         Мы соблюдаем нормы светопропускания и гарантируем долговечность покрытия. Ваш автомобиль получает защиту от перегрева, выгорания салона и посторонних взглядов.
                     </p>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
                     <!-- Llumar Logo -->
-                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
-                        <img src="./assets/logos/llumar-logo.svg" alt="Llumar" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy">
+                    <div class="logo-container">
+                        <img src="./assets/logos/llumar-logo.svg" alt="Llumar" class="logo-img" loading="lazy">
                     </div>
                     <!-- Solarnex Logo -->
-                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
-                        <img src="https://solarnex.ru/assets/images/logo-light-2.svg" alt="Solarnex" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://solarnex.ru/assets/images/logo.png'; this.style.filter='brightness(0) invert(1)'; if(this.complete && this.naturalWidth === 0) { this.style.display='none'; const fallback=document.createElement('div'); fallback.style.cssText='color: var(--propellini-text-secondary); font-size: 18px; font-weight: 700; font-family: Montserrat, sans-serif; letter-spacing: 0.05em; text-align: center;'; fallback.textContent='SOLARNEX'; this.parentElement.appendChild(fallback); }">
+                    <div class="logo-container">
+                        <img src="https://solarnex.ru/assets/images/logo-light-2.svg" alt="Solarnex" class="logo-img" loading="lazy" onerror="this.onerror=null; this.src='https://solarnex.ru/assets/images/logo.png'; this.style.filter='brightness(0) invert(1)'; if(this.complete && this.naturalWidth === 0) { this.style.display='none'; const fallback=document.createElement('div'); fallback.style.cssText='color: var(--propellini-text-secondary); font-size: 18px; font-weight: 700; font-family: Montserrat, sans-serif; letter-spacing: 0.05em; text-align: center;'; fallback.textContent='SOLARNEX'; this.parentElement.appendChild(fallback); }">
                     </div>
                     <!-- Quantum Logo -->
-                    <div style="aspect-ratio: 1; background: var(--propellini-dark-tertiary); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(22, 132, 145, 0.2);">
-                        <img src="https://quantumppf.ru/assets/images/logo.png" alt="Quantum" style="max-width: 90%; max-height: 90%; object-fit: contain; filter: brightness(0) invert(1);" loading="lazy" onerror="this.onerror=null; this.src='https://quantumppf.ru/webp/assets/images/logo.png.webp'; this.style.filter='brightness(0) invert(1)';">
+                    <div class="logo-container">
+                        <img src="https://quantumppf.ru/assets/images/logo.png" alt="Quantum" class="logo-img" loading="lazy" onerror="this.onerror=null; this.src='https://quantumppf.ru/webp/assets/images/logo.png.webp'; this.style.filter='brightness(0) invert(1)';">
                     </div>
                 </div>
             </div>
@@ -3077,12 +3189,12 @@
     <section class="section section-bg-dark" id="films">
         <div class="container">
             <h2 class="section-title slide-up">Плёнки</h2>
-            <div class="text-center mb-16 slide-up" style="animation-delay: 0.1s;">
+            <div class="text-center mb-16 slide-up" data-delay="0.1">
                 <p class="text-secondary-custom" style="max-width: 800px; margin: 0 auto;">
                     Мы работаем с премиальными пленками Llumar, Solarnex, Quantum для обеспечения высочайшего качества тонировки.
                 </p>
             </div>
-            <div class="grid md:grid-cols-3 gap-8 slide-up" style="animation-delay: 0.2s;">
+            <div class="grid md:grid-cols-3 gap-8 slide-up" data-delay="0.2">
                 <div class="film-card">
                     <div class="film-logo-container">
                         <img src="./assets/logos/llumar-logo.svg" alt="Llumar" class="logo-img" loading="lazy">
@@ -3111,7 +3223,7 @@
             <h2 class="section-title slide-up">Прайс</h2>
             
             <!-- Премиальная таблица прайса -->
-            <div class="premium-pricing-table-wrapper slide-up" style="animation-delay: 0.05s;">
+            <div class="premium-pricing-table-wrapper slide-up" data-delay="0.05">
                 <table class="premium-price-table">
                     <thead>
                         <tr>
@@ -3223,10 +3335,10 @@
     </section>
 
     <!-- Портфолио -->
-    <section class="section" id="gallery" style="background: var(--propellini-dark-secondary); padding-top: 60px; padding-bottom: 60px;">
+    <section class="section gallery-section-custom" id="gallery">
         <div class="container">
             <h2 class="section-title slide-up">Портфолио</h2>
-            <div class="gallery-grid slide-up" id="galleryCarousel" style="animation-delay: 0.1s;">
+            <div class="gallery-grid slide-up" id="galleryCarousel" data-delay="0.1">
                 <div class="gallery-item">
                     <img src="https://i.pinimg.com/736x/e6/5d/7e/e65d7e8b4596cde542541da0dc021fe2.jpg" 
                          alt="Работа по тонировке автомобиля Propellini" 
@@ -3290,7 +3402,7 @@
                 </h3>
             </div>
             <div class="bonuses-grid">
-                <div class="bonus-card-premium slide-up" style="animation-delay: 0.1s;">
+                <div class="bonus-card-premium slide-up" data-delay="0.1">
                     <h3 class="bonus-title">Рассрочка от компании на все виды услуг</h3>
                 </div>
                 
@@ -3322,12 +3434,12 @@
         <div class="container">
             <div class="text-center mb-16 slide-up">
                 <h2 class="section-title">ОТЗЫВЫ НАШИХ КЛИЕНТОВ</h2>
-                <p style="color: var(--propellini-text-secondary); font-size: 18px; margin-top: 16px; font-family: 'Roboto', sans-serif;">
+                <p class="text-secondary-custom" style="font-size: 18px; margin-top: 16px;">
                     Более 29 отзывов с рейтингом 5.0
                 </p>
             </div>
             
-            <div class="reviews-carousel slide-up" style="animation-delay: 0.1s;">
+            <div class="reviews-carousel slide-up" data-delay="0.1">
                 <div class="reviews-carousel-wrapper" id="reviewsCarouselWrapper">
                     <!-- Отзыв 1 -->
                     <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
@@ -3427,12 +3539,12 @@
                 </div>
             </div>
             
-            <div class="text-center mt-12 slide-up" style="animation-delay: 0.2s;">
+            <div class="text-center mt-12 slide-up" data-delay="0.2">
                 <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" 
                    class="btn-primary btn-shimmer" 
                    target="_blank" 
                    rel="noopener noreferrer"
-                   style="text-decoration: none; display: inline-block;">
+                   class="btn-link-inline">
                     Читать все отзывы на Яндекс.Картах
                 </a>
             </div>
@@ -3440,12 +3552,12 @@
     </section>
 
     <!-- Салон ожидания -->
-    <section class="section" id="showroom" style="background: #f8f9fa; color: #0a0a0a;">
+    <section class="section showroom-section" id="showroom">
         <div class="container">
             <div class="text-center mb-8 slide-up">
-                <div class="text-sm mb-2" style="color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.02em; font-family: 'Montserrat', sans-serif; font-weight: 800;">Салон</div>
-                <h2 class="text-4xl font-light mb-4" style="color: #0a0a0a; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: 0.02em;">Комфортная зона ожидания</h2>
-                <p style="color: #1a1a1a; font-family: 'Roboto', sans-serif; margin-top: 16px;">
+                <div class="text-sm mb-2 showroom-label">Салон</div>
+                <h2 class="text-4xl font-light mb-4 showroom-title">Комфортная зона ожидания</h2>
+                <p class="showroom-description">
                     В Propellini доступна комфортная зона ожидания с напитками, мягкой мебелью и приятной атмосферой.
                 </p>
             </div>
@@ -3457,7 +3569,7 @@
                          loading="lazy"
                          class="showroom-image">
                 </div>
-                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.1s;">
+                <div class="showroom-gallery-item slide-up" data-delay="0.1">
                     <img src="https://propellini.ru/wp-content/uploads/2025/09/image_24_.webp" 
                          alt="Комфортная зона ожидания Propellini" 
                          loading="lazy"
@@ -3507,12 +3619,12 @@
                         <span class="logo-text">Propellini</span>
                     </div>
                     <p style="margin-top: 24px; margin-bottom: 24px;">
-                        <a href="tel:+79919361489" style="color: var(--propellini-text); text-decoration: none; font-size: 18px; font-weight: 500;">+7 (991) 936-14-89</a>
+                        <a href="tel:+79919361489" class="contact-phone-link">+7 (991) 936-14-89</a>
                     </p>
                     <div class="socials">
                         <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" class="tg">Telegram</a>
                         <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="vk contact-link-custom">
-                            <img src="https://w7.pngwing.com/pngs/430/375/png-transparent-vk-social-media-logo-social-media-logo-social-brand-3d-icon.png" alt="ВКонтакте" style="width: 24px; height: 24px; display: block; flex-shrink: 0;">
+                            <img src="https://w7.pngwing.com/pngs/430/375/png-transparent-vk-social-media-logo-social-media-logo-social-brand-3d-icon.png" alt="ВКонтакте" class="vk-icon-img">
                             <span>ВКонтакте</span>
                         </a>
                         <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" class="wa">WhatsApp: +7 968 664-88-88</a>
