@@ -203,12 +203,66 @@
 
         /* Специфичные классы для замены inline стилей */
         .nav-container-custom {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+
+        /* Утилитные классы для animation-delay */
+        .animation-delay-03 {
+            animation-delay: 0.3s;
+        }
+
+        .animation-delay-04 {
+            animation-delay: 0.4s;
+        }
+
+        .animation-delay-05 {
+            animation-delay: 0.5s;
+        }
+
+        .animation-delay-06 {
+            animation-delay: 0.6s;
+        }
+
+        /* Стиль для текста в gallery-overlay */
+        .gallery-overlay-text {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Общие стили focus-visible для всех интерактивных элементов (Apple Standards) */
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+        }
+
+        /* Skip link для доступности (Apple Standards) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--propellini-primary);
+            color: var(--propellini-text);
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 10000;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 0;
         }
 
         .nav-header-wrapper {
-            min-height: 20px;
+            min-height: auto;
+            height: auto;
         }
 
         .nav-logo-link {
@@ -222,8 +276,8 @@
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 14px;
-            line-height: 1;
+            font-size: 13px;
+            line-height: 1.2;
         }
 
         .hero-buttons-wrapper {
@@ -536,10 +590,11 @@
             box-shadow: 0 2px 10px rgba(22, 132, 145, 0.3);
             transition: transform 0.3s ease;
             height: auto;
+            min-height: 40px;
         }
 
         .propellini-logo {
-            height: 10px;
+            height: 18px;
             width: auto;
             filter: brightness(0) invert(1);
             opacity: 1;
@@ -567,6 +622,12 @@
 
         .nav-link:hover {
             color: rgba(255, 255, 255, 0.95);
+        }
+
+        .nav-link:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 4px;
+            border-radius: 4px;
         }
 
         /* Мобильное меню */
@@ -601,6 +662,12 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
+        .mobile-menu-btn:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
         .mobile-menu {
             display: none;
             position: fixed;
@@ -633,6 +700,11 @@
             padding-left: 24px;
             background: rgba(255, 255, 255, 0.1);
         }
+
+        .mobile-menu a:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.8);
+            outline-offset: -2px;
+        }
         
         .mobile-menu .btn-primary {
             font-size: 14px;
@@ -659,37 +731,45 @@
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: flex;
-                min-width: 44px;
-                min-height: 44px;
-                padding: 10px;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 8px;
             }
             .nav-container {
-                padding-top: 8px !important;
-                padding-bottom: 8px !important;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
+            }
+            .nav-container-custom {
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
             }
             .nav {
                 height: auto;
+                min-height: 36px;
             }
             .propellini-logo {
-                height: 12px;
+                height: 16px;
             }
             .nav-logo-text {
-                font-size: 12px !important;
+                font-size: 11px !important;
+            }
+            .nav-logo-text-custom {
+                font-size: 11px !important;
             }
             .nav-link {
-                font-size: 12px;
+                font-size: 11px;
             }
             .nav .btn-primary {
-                padding: 6px 14px !important;
-                font-size: 12px;
-                min-height: 28px;
+                padding: 4px 10px !important;
+                font-size: 11px;
+                min-height: 24px;
             }
             .mobile-menu {
-                top: 28px;
-                max-height: calc(100vh - 28px);
+                top: 36px;
+                max-height: calc(100vh - 36px);
             }
             .mobile-menu a {
-                padding: 14px 16px !important;
+                padding: 12px 16px !important;
                 min-height: 44px;
                 display: flex;
                 align-items: center;
@@ -701,106 +781,133 @@
 
         @media (max-width: 480px) {
             .nav-container {
-                padding-top: 8px !important;
-                padding-bottom: 8px !important;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
+            }
+            .nav-container-custom {
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
             }
             .nav {
                 height: auto;
+                min-height: 34px;
             }
             .propellini-logo {
-                height: 12px;
+                height: 15px;
             }
             .nav-logo-text {
-                font-size: 12px !important;
+                font-size: 10px !important;
+            }
+            .nav-logo-text-custom {
+                font-size: 10px !important;
             }
             .nav-link {
-                font-size: 12px;
+                font-size: 11px;
             }
             .nav .btn-primary {
-                padding: 6px 14px !important;
-                font-size: 12px;
-                min-height: 28px;
+                padding: 4px 10px !important;
+                font-size: 11px;
+                min-height: 24px;
             }
             .mobile-menu {
-                top: 28px;
-                max-height: calc(100vh - 28px);
+                top: 34px;
+                max-height: calc(100vh - 34px);
             }
             .mobile-menu a {
-                padding: 14px 16px !important;
+                padding: 12px 16px !important;
                 min-height: 44px;
                 display: flex;
                 align-items: center;
             }
             .mobile-menu-btn {
-                min-width: 44px;
-                min-height: 44px;
-                padding: 10px;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 8px;
             }
         }
 
         @media (max-width: 375px) {
             .nav-container {
-                padding-top: 7px !important;
-                padding-bottom: 7px !important;
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
+            }
+            .nav-container-custom {
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
             }
             .nav {
                 height: auto;
+                min-height: 32px;
             }
             .propellini-logo {
-                height: 11px;
+                height: 14px;
             }
             .nav-logo-text {
-                font-size: 11px !important;
+                font-size: 10px !important;
+            }
+            .nav-logo-text-custom {
+                font-size: 10px !important;
             }
             .nav-link {
-                font-size: 11px;
+                font-size: 10px;
             }
             .mobile-menu {
-                top: 26px;
-                max-height: calc(100vh - 26px);
+                top: 32px;
+                max-height: calc(100vh - 32px);
                 padding: 15px;
             }
             .mobile-menu a {
-                padding: 14px 16px !important;
+                padding: 12px 16px !important;
                 font-size: 14px;
                 min-height: 44px;
                 display: flex;
                 align-items: center;
             }
             .nav .btn-primary {
-                padding: 5px 12px !important;
-                font-size: 11px;
-                min-height: 26px;
+                padding: 4px 10px !important;
+                font-size: 10px;
+                min-height: 24px;
             }
             .mobile-menu-btn {
-                min-width: 44px;
-                min-height: 44px;
-                padding: 10px;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 8px;
             }
         }
 
         @media (min-width: 769px) {
             .nav-container {
-                padding-top: 10px;
-                padding-bottom: 10px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+            }
+            .nav-container-custom {
+                padding-top: 6px;
+                padding-bottom: 6px;
+            }
+            .nav {
+                min-height: 42px;
             }
             .nav-logo-wrapper {
                 gap: 4px;
             }
             .nav-logo-text {
-                font-size: 14px !important;
+                font-size: 13px !important;
+            }
+            .nav-logo-text-custom {
+                font-size: 13px !important;
             }
             .nav-links-wrapper {
                 gap: 6px;
             }
             .nav-link {
-                font-size: 14px !important;
+                font-size: 13px !important;
             }
             .nav-actions-wrapper {
                 gap: 3px;
             }
             .nav .btn-primary {
-                font-size: 14px !important;
+                font-size: 13px !important;
+                padding: 6px 16px;
             }
         }
 
@@ -2582,6 +2689,13 @@
             border-color: #168491;
         }
 
+        .contact-form input:focus-visible,
+        .contact-form textarea:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+            border-color: var(--propellini-primary);
+        }
+
         .contact-form input::placeholder,
         .contact-form textarea::placeholder {
             color: rgba(255, 255, 255, 0.5);
@@ -2600,6 +2714,12 @@
 
         .submit-btn:hover {
             background: #1ba5b3;
+        }
+
+        .submit-btn:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 4px;
+            border-radius: 6px;
         }
 
         .policy-text {
@@ -2686,6 +2806,12 @@
             transform: rotate(90deg);
         }
 
+        .modal-close:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 4px;
+            border-radius: 50%;
+        }
+
         .modal-content h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
@@ -2735,6 +2861,12 @@
             box-shadow: 0 0 0 4px rgba(22, 132, 145, 0.1), 0 4px 12px rgba(22, 132, 145, 0.2);
         }
 
+        .form-input:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+            border-color: var(--propellini-primary);
+        }
+
         .form-input::placeholder {
             color: rgba(255, 255, 255, 0.4);
             font-size: 15px;
@@ -2782,6 +2914,12 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 24px rgba(22, 132, 145, 0.4);
             background: linear-gradient(135deg, var(--propellini-primary-light) 0%, var(--propellini-primary) 100%);
+        }
+
+        .form-submit-btn:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 4px;
+            border-radius: 12px;
         }
 
         .form-submit-btn:hover::before {
@@ -3129,6 +3267,9 @@
     </style>
 </head>
 <body>
+    <!-- Skip link для доступности -->
+    <a href="#hero" class="skip-link">Перейти к основному контенту</a>
+    
     <!-- Навигация -->
     <nav class="nav" id="navbar">
         <div class="container nav-container nav-container-custom">
@@ -3490,7 +3631,7 @@
                          alt="Работа по тонировке автомобиля Propellini" 
                          loading="lazy">
                     <div class="gallery-overlay">
-                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Современное оборудование</div>
+                        <div class="gallery-overlay-text">Современное оборудование</div>
                     </div>
                 </div>
             </div>
@@ -3524,11 +3665,11 @@
                     <h3 class="bonus-title">Подарки каждому клиенту</h3>
                 </div>
                 
-                <div class="bonus-card-premium slide-up" style="animation-delay: 0.5s;">
+                <div class="bonus-card-premium slide-up animation-delay-05">
                     <h3 class="bonus-title">Премиальные качественные материалы</h3>
                 </div>
                 
-                <div class="bonus-card-premium slide-up" style="animation-delay: 0.6s;">
+                <div class="bonus-card-premium slide-up animation-delay-06">
                     <h3 class="bonus-title">Угощаем ароматным кофе</h3>
                 </div>
             </div>
@@ -3687,19 +3828,19 @@
                          loading="lazy"
                          class="showroom-image">
                 </div>
-                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.3s;">
+                <div class="showroom-gallery-item slide-up animation-delay-03">
                     <img src="https://propellini.ru/wp-content/uploads/2025/09/image_19_.webp" 
                          alt="Комфортная зона ожидания Propellini" 
                          loading="lazy"
                          class="showroom-image">
                 </div>
-                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.4s;">
+                <div class="showroom-gallery-item slide-up animation-delay-04">
                     <img src="https://avatars.mds.yandex.net/get-altay/14730529/2a0000019492e9a17d22bc1b7283b35ec358/XXXL" 
                          alt="Комфортная зона ожидания Propellini" 
                          loading="lazy"
                          class="showroom-image">
                 </div>
-                <div class="showroom-gallery-item slide-up" style="animation-delay: 0.5s;">
+                <div class="showroom-gallery-item slide-up animation-delay-05">
                     <img src="https://avatars.mds.yandex.net/get-altay/15081387/2a0000019455cfd7f3dd717af76c00c0e3f8/XXXL" 
                          alt="Комфортная зона ожидания Propellini" 
                          loading="lazy"
@@ -3792,10 +3933,10 @@
     </footer>
 
     <!-- Модальное окно -->
-    <div class="modal-overlay" id="applicationModal">
+    <div class="modal-overlay" id="applicationModal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <button class="modal-close" id="closeModal" onclick="window.closeModal()" aria-label="Закрыть">&times;</button>
-            <h2>Оставить заявку</h2>
+            <h2 id="modal-title">Оставить заявку</h2>
             <form id="applicationForm">
                 <div class="form-group">
                     <label for="modalName" class="form-label">
@@ -3929,10 +4070,7 @@
                         this.style.opacity = '1';
                     });
                     heroImg.addEventListener('error', function() {
-                        // В продакшене не логируем ошибки в консоль
-                        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-                            console.error('Hero image failed to load');
-                        }
+                        // Ошибка загрузки изображения обрабатывается без логирования
                         this.style.opacity = '0';
                     });
                 }
@@ -3967,10 +4105,7 @@
                 };
                 
                 img.onerror = function() {
-                    // В продакшене не логируем предупреждения
-                    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-                        console.warn('Gallery image failed to load:', this.src);
-                    }
+                    // Ошибка загрузки изображения обрабатывается без логирования
                     this.style.opacity = '0.3';
                     const parent = this.parentElement;
                     if (parent && !parent.querySelector('.image-placeholder')) {
@@ -4154,10 +4289,7 @@
                 };
                 
                 img.onerror = function() {
-                    // В продакшене не логируем предупреждения
-                    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-                        console.warn('Showroom image failed to load:', this.src);
-                    }
+                    // Ошибка загрузки изображения обрабатывается без логирования
                     this.style.display = 'none';
                     const parent = this.parentElement;
                     if (parent && !parent.querySelector('.image-placeholder')) {
@@ -4199,17 +4331,48 @@
             });
         });
 
-        // Модальное окно
+        // Модальное окно с ловушками фокуса (Apple Standards)
+        let modalFocusableElements = [];
+        let firstFocusableElement = null;
+        let lastFocusableElement = null;
+        let previousActiveElement = null;
+
+        function trapFocus(modal) {
+            // Получаем все фокусируемые элементы внутри модального окна
+            const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            modalFocusableElements = Array.from(modal.querySelectorAll(focusableSelectors))
+                .filter(el => !el.disabled && el.offsetParent !== null);
+            
+            if (modalFocusableElements.length === 0) return;
+            
+            firstFocusableElement = modalFocusableElements[0];
+            lastFocusableElement = modalFocusableElements[modalFocusableElements.length - 1];
+            
+            // Сохраняем предыдущий активный элемент
+            previousActiveElement = document.activeElement;
+            
+            // Фокусируем первый элемент
+            firstFocusableElement.focus();
+        }
+
+        function releaseFocus() {
+            // Возвращаем фокус на предыдущий элемент
+            if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+                previousActiveElement.focus();
+            }
+            previousActiveElement = null;
+            modalFocusableElements = [];
+            firstFocusableElement = null;
+            lastFocusableElement = null;
+        }
+
         window.openModal = function() {
             const modal = document.getElementById('applicationModal');
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                // Фокус на первое поле
-                setTimeout(() => {
-                    const firstInput = modal.querySelector('.form-input');
-                    if (firstInput) firstInput.focus();
-                }, 100);
+                // Устанавливаем ловушку фокуса
+                setTimeout(() => trapFocus(modal), 100);
             }
         };
 
@@ -4218,6 +4381,8 @@
             if (modal) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
+                // Освобождаем фокус
+                releaseFocus();
                 // Сброс формы
                 const form = document.getElementById('applicationForm');
                 if (form) form.reset();
@@ -4232,12 +4397,31 @@
             }
         });
 
-        // Закрытие модального окна по Escape
+        // Закрытие модального окна по Escape и ловушка Tab
         document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('applicationModal');
+            if (!modal || !modal.classList.contains('active')) return;
+            
             if (e.key === 'Escape') {
-                const modal = document.getElementById('applicationModal');
-                if (modal && modal.classList.contains('active')) {
-                    window.closeModal();
+                window.closeModal();
+            } else if (e.key === 'Tab') {
+                // Ловушка фокуса внутри модального окна
+                if (modalFocusableElements.length === 0) {
+                    trapFocus(modal);
+                }
+                
+                if (e.shiftKey) {
+                    // Shift + Tab
+                    if (document.activeElement === firstFocusableElement) {
+                        e.preventDefault();
+                        lastFocusableElement.focus();
+                    }
+                } else {
+                    // Tab
+                    if (document.activeElement === lastFocusableElement) {
+                        e.preventDefault();
+                        firstFocusableElement.focus();
+                    }
                 }
             }
         });

@@ -86,6 +86,86 @@ const summaryAdditionalServices = document.getElementById("summaryAdditionalServ
 const summaryAdditionalServicesValue = document.getElementById("summaryAdditionalServicesValue");
 
 /* =============================
+   TOAST УВЕДОМЛЕНИЯ (Apple Standards)
+   ============================= */
+
+function showToast(message, type = 'error', duration = 3000) {
+    // Проверяем, есть ли уже функция showToast в глобальной области (из index.html)
+    if (typeof window.showToast === 'function') {
+        window.showToast(message, type, duration);
+        return;
+    }
+    
+    // Создаем toast элемент
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    toast.textContent = message;
+    
+    // Добавляем стили если их нет
+    if (!document.getElementById('toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-styles';
+        style.textContent = `
+            .toast {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                background: var(--propellini-dark-secondary, #111);
+                color: var(--propellini-text, #fff);
+                border: 1px solid var(--propellini-primary, #168491);
+                border-radius: 8px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+                z-index: 10000;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 14px;
+                max-width: 400px;
+                animation: toastSlideIn 0.3s ease-out;
+            }
+            .toast-error {
+                border-color: #e74c3c;
+            }
+            .toast-success {
+                border-color: #27ae60;
+            }
+            .toast.hiding {
+                animation: toastSlideOut 0.3s ease-in forwards;
+            }
+            @keyframes toastSlideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes toastSlideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('hiding');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+/* =============================
    ФУНКЦИЯ RESET CALCULATOR
    ============================= */
 
@@ -175,7 +255,7 @@ function nextStep() {
     if (canProceedToNextStep() && currentStep < totalSteps) {
         goToStep(currentStep + 1);
     } else {
-        alert("Заполните все обязательные поля!");
+        showToast("Заполните все обязательные поля!", 'error');
     }
 }
 
@@ -194,7 +274,7 @@ function goToStep(step) {
     // Проверка возможности перехода вперед (только при переходе ВПЕРЕД)
     if (step > currentStep) {
         if (!canProceedToNextStep()) {
-            alert("Заполните все обязательные поля для перехода на следующий шаг!");
+            showToast("Заполните все обязательные поля для перехода на следующий шаг!", 'error');
             return;
         }
     }
@@ -647,7 +727,7 @@ function attachButtonHandlers() {
             if (canProceedToNextStep() && currentStep < totalSteps) {
                 goToStep(currentStep + 1);
             } else {
-                alert("Заполните все обязательные поля!");
+                showToast("Заполните все обязательные поля!", 'error');
             }
             return false;
         };
@@ -658,7 +738,7 @@ function attachButtonHandlers() {
             if (canProceedToNextStep() && currentStep < totalSteps) {
                 goToStep(currentStep + 1);
             } else {
-                alert("Заполните все обязательные поля!");
+                showToast("Заполните все обязательные поля!", 'error');
             }
             return false;
         };
@@ -676,14 +756,13 @@ function attachButtonHandlers() {
             }
             
             if (totalPrice <= 0) {
-                alert("Сначала выберите автомобиль и услуги!");
+                showToast("Сначала выберите автомобиль и услуги!", 'error');
                 return false;
             }
 
             if (typeof window.openRequestForm === 'function') {
                 window.openRequestForm();
             } else {
-                console.error("Функция openRequestForm не найдена!");
                 const requestModal = document.getElementById('requestModal');
                 if (requestModal) {
                     requestModal.classList.remove('hidden');
@@ -1009,7 +1088,7 @@ function openModelModal(brand) {
     
     // Проверяем, что тип выбран
     if (!selectedType) {
-        alert("Пожалуйста, сначала выберите тип автомобиля");
+        showToast("Пожалуйста, сначала выберите тип автомобиля", 'error');
         return;
     }
     
@@ -1204,7 +1283,7 @@ function renderModelsModal(brand) {
 function selectModelUI(div) {
     // КРИТИЧЕСКАЯ ПРОВЕРКА: selectedType должен быть установлен
     if (!selectedType) {
-        alert("Ошибка: тип автомобиля не выбран. Пожалуйста, вернитесь к выбору типа.");
+        showToast("Ошибка: тип автомобиля не выбран. Пожалуйста, вернитесь к выбору типа.", 'error');
         return;
     }
     
@@ -1213,7 +1292,7 @@ function selectModelUI(div) {
     const allowedTypes = typeCategoryMapping[selectedType] || [];
     
     if (modelType && !allowedTypes.includes(modelType)) {
-        alert(`Ошибка: модель "${div.dataset.model}" не соответствует выбранному типу "${selectedType}". Пожалуйста, выберите другую модель.`);
+        showToast(`Ошибка: модель "${div.dataset.model}" не соответствует выбранному типу "${selectedType}". Пожалуйста, выберите другую модель.`, 'error');
         return;
     }
     
@@ -1770,14 +1849,13 @@ window.openRequestForm = function() {
     }
     
     if (totalPrice <= 0) {
-        alert("Сначала выберите автомобиль и услуги!");
+        showToast("Сначала выберите автомобиль и услуги!", 'error');
         return;
     }
 
     const modal = document.getElementById('requestModal');
     if (!modal) {
         // Форма должна быть в DOM, если её нет - это критическая ошибка структуры
-        console.error("Критическая ошибка: requestModal не найден в DOM!");
         return;
     }
 
@@ -2125,12 +2203,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             
             if (errorMessage) {
-                alert(errorMessage);
+                showToast(errorMessage, 'error');
                 return;
             }
             
             // Здесь можно добавить отправку данных на сервер
-            alert("Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.");
+            showToast("Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.", 'success');
             
             // Закрываем форму
             closeRequestForm();
