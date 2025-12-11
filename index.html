@@ -1169,30 +1169,44 @@
 
         @media (max-width: 768px) {
             .gallery-grid {
-                grid-template-columns: 1fr;
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
                 gap: 0;
                 padding: 0;
+                scroll-behavior: smooth;
+            }
+            
+            .gallery-grid::-webkit-scrollbar {
+                display: none;
             }
             
             .gallery-item {
+                flex: 0 0 100%;
+                width: 100%;
                 aspect-ratio: 16/9;
                 border-radius: 0;
                 margin: 0;
-                --progress: 0;
+                scroll-snap-align: start;
                 position: relative;
-                will-change: transform, opacity;
                 overflow: hidden;
             }
             
             .gallery-item img {
-                transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
-                opacity: var(--progress);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transform: none;
+                opacity: 1;
+                transition: none;
             }
             
             .gallery-overlay {
-                opacity: var(--progress);
-                transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 1;
                 padding: 16px;
             }
             
@@ -1208,7 +1222,31 @@
             }
             
             .gallery-item:hover img {
-                transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
+                transform: none;
+            }
+            
+            /* Точки навигации для карусели */
+            .gallery-dots {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 20px;
+                padding: 0 20px;
+            }
+            
+            .gallery-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .gallery-dot.active {
+                background: var(--propellini-primary);
+                width: 24px;
+                border-radius: 4px;
             }
         }
         
@@ -2618,7 +2656,7 @@
     <section class="section" id="gallery" style="background: var(--propellini-dark-secondary);">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="section-title slide-up">Портфолио</h2>
-            <div class="gallery-grid slide-up" style="animation-delay: 0.1s;">
+            <div class="gallery-grid slide-up" id="galleryCarousel" style="animation-delay: 0.1s;">
                 <div class="gallery-item">
                     <img src="https://i.pinimg.com/736x/e6/5d/7e/e65d7e8b4596cde542541da0dc021fe2.jpg" 
                          alt="Работа по тонировке автомобиля Propellini" 
@@ -3137,73 +3175,82 @@
                 }
             });
 
-            // Эффект прокрутки для галереи в мобильной версии
-            function initGalleryScrollEffect() {
-                function updateGalleryProgress() {
-                    if (window.innerWidth <= 768) {
-                        const galleryItems = document.querySelectorAll('#gallery .gallery-item');
-                        const gallerySection = document.getElementById('gallery');
+            // Свайп-карусель для галереи в мобильной версии
+            function initGalleryCarousel() {
+                if (window.innerWidth <= 768) {
+                    const galleryCarousel = document.getElementById('galleryCarousel');
+                    const galleryDots = document.getElementById('galleryDots');
+                    const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+                    
+                    if (!galleryCarousel || !galleryDots || galleryItems.length === 0) return;
+                    
+                    // Создаем точки навигации
+                    galleryItems.forEach((_, index) => {
+                        const dot = document.createElement('div');
+                        dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+                        dot.addEventListener('click', () => {
+                            scrollToSlide(index);
+                        });
+                        galleryDots.appendChild(dot);
+                    });
+                    
+                    function updateDots() {
+                        const scrollLeft = galleryCarousel.scrollLeft;
+                        const itemWidth = galleryCarousel.offsetWidth;
+                        const currentIndex = Math.round(scrollLeft / itemWidth);
                         
-                        if (galleryItems.length > 0 && gallerySection) {
-                            const scrollPosition = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
-                            const sectionTop = gallerySection.offsetTop;
-                            const sectionHeight = gallerySection.offsetHeight;
-                            const viewportHeight = window.innerHeight;
-                            
-                            const sectionStart = sectionTop - viewportHeight * 0.5;
-                            const sectionEnd = sectionTop + sectionHeight;
-                            
-                            if (scrollPosition >= sectionStart && scrollPosition <= sectionEnd) {
-                                const sectionProgress = (scrollPosition - sectionStart) / (sectionEnd - sectionStart);
-                                const total = 1 / galleryItems.length;
-                                
-                                galleryItems.forEach((item, index) => {
-                                    const start = total * index;
-                                    const end = total * (index + 1);
-                                    
-                                    let progress = (sectionProgress - start) / (end - start);
-                                    progress = Math.max(0, Math.min(1, progress));
-                                    
-                                    item.style.setProperty('--progress', progress);
-                                });
-                            } else if (scrollPosition < sectionStart) {
-                                galleryItems.forEach(item => {
-                                    item.style.setProperty('--progress', '0');
-                                });
-                            } else {
-                                galleryItems.forEach(item => {
-                                    item.style.setProperty('--progress', '1');
-                                });
-                            }
-                        }
-                    } else {
-                        const galleryItems = document.querySelectorAll('#gallery .gallery-item');
-                        galleryItems.forEach(item => {
-                            item.style.setProperty('--progress', '1');
+                        const dots = galleryDots.querySelectorAll('.gallery-dot');
+                        dots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentIndex);
                         });
                     }
-                }
-                
-                // Используем requestAnimationFrame для плавности
-                let ticking = false;
-                function onScroll() {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            updateGalleryProgress();
-                            ticking = false;
+                    
+                    function scrollToSlide(index) {
+                        const itemWidth = galleryCarousel.offsetWidth;
+                        galleryCarousel.scrollTo({
+                            left: index * itemWidth,
+                            behavior: 'smooth'
                         });
-                        ticking = true;
                     }
+                    
+                    // Обработка прокрутки
+                    galleryCarousel.addEventListener('scroll', updateDots);
+                    
+                    // Поддержка свайпа
+                    let startX = 0;
+                    let scrollLeft = 0;
+                    let isDown = false;
+                    
+                    galleryCarousel.addEventListener('touchstart', (e) => {
+                        isDown = true;
+                        startX = e.touches[0].pageX - galleryCarousel.offsetLeft;
+                        scrollLeft = galleryCarousel.scrollLeft;
+                    }, { passive: true });
+                    
+                    galleryCarousel.addEventListener('touchmove', (e) => {
+                        if (!isDown) return;
+                        e.preventDefault();
+                        const x = e.touches[0].pageX - galleryCarousel.offsetLeft;
+                        const walk = (x - startX) * 2;
+                        galleryCarousel.scrollLeft = scrollLeft - walk;
+                    });
+                    
+                    galleryCarousel.addEventListener('touchend', () => {
+                        isDown = false;
+                        updateDots();
+                    }, { passive: true });
+                    
+                    // Инициализация
+                    updateDots();
                 }
-                
-                window.addEventListener('scroll', onScroll, { passive: true });
-                window.addEventListener('resize', updateGalleryProgress);
-                
-                // Инициализация при загрузке
-                setTimeout(updateGalleryProgress, 100);
             }
             
-            initGalleryScrollEffect();
+            initGalleryCarousel();
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) {
+                    initGalleryCarousel();
+                }
+            });
 
             // Проверка загрузки изображений галереи салона
             const showroomImages = document.querySelectorAll('.showroom-image');
