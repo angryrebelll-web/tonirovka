@@ -6,9 +6,38 @@
     <meta name="description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum. Гарантия 5 лет.">
     <meta name="keywords" content="тонировка автомобиля, тонировка стекол, Llumar, Solarnex, Quantum, Москва, Propellini">
     <title>Propellini - Профессиональная тонировка стекол автомобиля | Премиум пленки</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://propellini.ru/">
+    <meta property="og:title" content="Propellini - Профессиональная тонировка стекол автомобиля">
+    <meta property="og:description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum. Гарантия 5 лет.">
+    <meta property="og:image" content="https://propellini.ru/og-image.jpg">
+    <meta property="og:locale" content="ru_RU">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://propellini.ru/">
+    <meta name="twitter:title" content="Propellini - Профессиональная тонировка стекол">
+    <meta name="twitter:description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum.">
+    <meta name="twitter:image" content="https://propellini.ru/twitter-image.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@400;500&family=Unbounded:wght@400;500;600;700;800;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Unbounded';
+            font-display: swap;
+        }
+    </style>
     <!-- Preload критичных изображений -->
     <link rel="preload" as="image" href="https://images.hdqwalls.com/download/mercedes-amg-gt-63-pro-4matic-motorsport-collectors-edition-0j-1920x1080.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="https://images.hdqwalls.com/download/mercedes-amg-gt63-raw-power-vt-1080x1920.jpg">
@@ -16,6 +45,8 @@
     <link rel="preconnect" href="https://images.hdqwalls.com" crossorigin>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- TODO: Оптимизировать - заменить Tailwind CDN на собственные CSS классы или настроить purge -->
+    <!-- Временно оставлен для совместимости, используется минимально (flex, grid, max-w утилиты) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
@@ -384,6 +415,30 @@
             transform: scale(0.95);
         }
 
+        /* Focus-visible стили для клавиатурной навигации (Apple Standards) */
+        *:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+        }
+
+        .nav-link:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.8);
+            outline-offset: 2px;
+        }
+
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--propellini-primary);
+            outline-offset: 2px;
+        }
+
         .btn-secondary {
             display: inline-flex;
             align-items: center;
@@ -429,6 +484,87 @@
             0% { left: -100%; }
             50% { left: 100%; }
             100% { left: 100%; }
+        }
+
+        /* Toast уведомления (Apple Standards) */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background: var(--propellini-dark-secondary);
+            border: 1px solid var(--propellini-primary);
+            border-radius: 8px;
+            color: var(--propellini-text);
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            z-index: 10000;
+            box-shadow: var(--propellini-shadow-lg);
+            animation: toastSlideIn 0.3s ease;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+
+        .toast-success {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .toast-error {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .toast-warning {
+            border-color: #ff9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toastSlideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .toast.hiding {
+            animation: toastSlideOut 0.3s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .toast {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        /* Скрытые label для доступности (Apple Standards) */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
 
         /* Hero секция */
@@ -3097,9 +3233,12 @@
                 <!-- Правая форма -->
                 <div class="contacts-right">
                     <form class="contact-form" id="contactForm">
-                        <input type="text" name="name" placeholder="Ваше имя *" required>
-                        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required>
-                        <textarea name="message" placeholder="Опишите ваш вопрос или пожелание"></textarea>
+                        <label for="contactName" class="sr-only">Ваше имя</label>
+                        <input type="text" id="contactName" name="name" placeholder="Ваше имя *" required aria-required="true">
+                        <label for="contactPhone" class="sr-only">Ваш телефон</label>
+                        <input type="tel" id="contactPhone" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true">
+                        <label for="contactMessage" class="sr-only">Ваше сообщение</label>
+                        <textarea id="contactMessage" name="message" placeholder="Опишите ваш вопрос или пожелание"></textarea>
                         <button type="submit" class="submit-btn">Отправить</button>
                     </form>
                     <p class="policy-text">
@@ -3143,7 +3282,7 @@
                 <a href="#">Контакты</a>
             </div>
         </div>
-        <p class="copy">© 2024 Propellini. Все права защищены.</p>
+        <p class="copy">© 2025 Propellini. Все права защищены.</p>
     </footer>
 
     <!-- Модальное окно -->
@@ -3153,16 +3292,16 @@
             <h2>Оставить заявку</h2>
             <form id="applicationForm">
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="modalName" class="form-label">
                         Ваше имя <span class="required">*</span>
                     </label>
-                    <input type="text" class="form-input" name="name" placeholder="Введите ваше имя" required minlength="2">
+                    <input type="text" id="modalName" class="form-input" name="name" placeholder="Введите ваше имя" required minlength="2" aria-required="true">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="modalPhone" class="form-label">
                         Ваш телефон <span class="required">*</span>
                     </label>
-                    <input type="tel" class="form-input" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required>
+                    <input type="tel" id="modalPhone" class="form-input" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true">
                 </div>
                 <div class="form-group-checkbox">
                     <input type="checkbox" id="modalConsent" name="consent" required>
@@ -3177,6 +3316,46 @@
             </form>
         </div>
     </div>
+
+    <!-- Структурированные данные Schema.org (Apple Standards) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Propellini",
+        "image": "https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png",
+        "@id": "https://propellini.ru",
+        "url": "https://propellini.ru",
+        "telephone": "+79919361489",
+        "email": "info@proppelini.ru",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. Авиационная, 79 к. 1",
+            "addressLocality": "Москва",
+            "addressCountry": "RU"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 55.8020,
+            "longitude": 37.5173
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "20:00"
+        },
+        "priceRange": "$$",
+        "description": "Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum."
+    }
+    </script>
 
     <script src="js/script.js"></script>
     <script>
@@ -3244,7 +3423,10 @@
                         this.style.opacity = '1';
                     });
                     heroImg.addEventListener('error', function() {
-                        console.error('Hero image failed to load');
+                        // В продакшене не логируем ошибки в консоль
+                        if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+                            console.error('Hero image failed to load');
+                        }
                         this.style.opacity = '0';
                     });
                 }
@@ -3279,7 +3461,10 @@
                 };
                 
                 img.onerror = function() {
-                    console.warn('Gallery image failed to load:', this.src);
+                    // В продакшене не логируем предупреждения
+                    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+                        console.warn('Gallery image failed to load:', this.src);
+                    }
                     this.style.opacity = '0.3';
                     const parent = this.parentElement;
                     if (parent && !parent.querySelector('.image-placeholder')) {
@@ -3463,7 +3648,10 @@
                 };
                 
                 img.onerror = function() {
-                    console.warn('Showroom image failed to load:', this.src);
+                    // В продакшене не логируем предупреждения
+                    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+                        console.warn('Showroom image failed to load:', this.src);
+                    }
                     this.style.display = 'none';
                     const parent = this.parentElement;
                     if (parent && !parent.querySelector('.image-placeholder')) {
@@ -3548,10 +3736,25 @@
             }
         });
 
+        // Toast уведомления (Apple Standards - замена alert)
+        function showToast(message, type = 'success', duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
         // Обработка форм
         document.getElementById('contactForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+            showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
             this.reset();
         });
 
@@ -3564,17 +3767,17 @@
             const consent = this.querySelector('[name="consent"]').checked;
             
             if (!name || name.length < 2) {
-                alert('Пожалуйста, введите ваше имя (минимум 2 символа)');
+                showToast('Пожалуйста, введите ваше имя (минимум 2 символа)', 'error');
                 return;
             }
             
             if (!phone || !phone.match(/\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}/)) {
-                alert('Пожалуйста, введите корректный номер телефона');
+                showToast('Пожалуйста, введите корректный номер телефона', 'error');
                 return;
             }
             
             if (!consent) {
-                alert('Необходимо согласие на обработку персональных данных');
+                showToast('Необходимо согласие на обработку персональных данных', 'warning');
                 return;
             }
             
@@ -3585,7 +3788,7 @@
             
             // Имитация отправки
             setTimeout(() => {
-                alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+                showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
                 this.reset();
                 window.closeModal();
                 submitBtn.disabled = false;
