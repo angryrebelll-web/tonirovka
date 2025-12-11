@@ -475,6 +475,11 @@
             justify-content: space-between;
             min-height: 100vh;
         }
+        
+        .hero-content .hero-buttons {
+            margin-top: auto;
+            margin-bottom: 40px;
+        }
 
         .hero-top {
             margin-top: 40px;
@@ -1083,17 +1088,18 @@
                 --progress: 0;
                 position: relative;
                 will-change: transform, opacity;
+                overflow: hidden;
             }
             
             .gallery-item img {
                 transform: scale(calc(1.8 - (0.8 * var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
                 opacity: var(--progress);
-                transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
             
             .gallery-overlay {
                 opacity: var(--progress);
-                transition: opacity 0.1s ease-out;
+                transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 padding: 16px;
             }
             
@@ -2018,8 +2024,9 @@
                 padding: 0 12px;
                 letter-spacing: 0.01em;
                 word-wrap: break-word;
-                hyphens: auto;
+                hyphens: none;
                 overflow-wrap: break-word;
+                white-space: normal;
             }
         }
         
@@ -2027,6 +2034,8 @@
             .tinting-title {
                 font-size: 13px;
                 line-height: 1.4;
+                hyphens: none;
+                white-space: normal;
             }
         }
 
@@ -2278,7 +2287,7 @@
                 </p>
             </div>
 
-            <div class="hero-buttons" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 40px 0;">
+            <div class="hero-buttons" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: auto; margin-bottom: 40px;">
                 <a href="tel:+79919361489" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: rgba(18, 18, 18, 0.9); border: 1px solid rgba(22, 132, 145, 0.3); border-radius: 8px; color: var(--propellini-text); text-decoration: none; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -2664,6 +2673,51 @@
                             Современное оборудование, двухэтапная мойка, сохранение лакокрасочного покрытия. Используют качественную химию. Очень доволен результатом!
                         </div>
                     </a>
+
+                    <!-- Отзыв 4 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">ДК</div>
+                            <div class="review-info">
+                                <div class="review-name">Дмитрий К.</div>
+                                <div class="review-date">12 ноября</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Отличный сервис! Тонировка выполнена качественно, без пузырей и дефектов. Мастера профессионалы своего дела. Рекомендую всем!
+                        </div>
+                    </a>
+
+                    <!-- Отзыв 5 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">МП</div>
+                            <div class="review-info">
+                                <div class="review-name">Мария П.</div>
+                                <div class="review-date">10 ноября</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Прекрасная работа! Использовали премиальную пленку Llumar, результат превзошел ожидания. Машина выглядит отлично, защита от солнца работает идеально.
+                        </div>
+                    </a>
+
+                    <!-- Отзыв 6 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">АВ</div>
+                            <div class="review-info">
+                                <div class="review-name">Андрей В.</div>
+                                <div class="review-date">8 ноября</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Быстро, качественно, недорого! Тонировка выполнена за один день, все аккуратно, без замечаний. Персонал вежливый, объяснили все нюансы. Спасибо!
+                        </div>
+                    </a>
                 </div>
                 
                 <div class="reviews-carousel-nav">
@@ -2994,18 +3048,18 @@
 
             // Эффект прокрутки для галереи в мобильной версии
             function initGalleryScrollEffect() {
-                if (window.innerWidth <= 768) {
-                    const galleryItems = document.querySelectorAll('#gallery .gallery-item');
-                    const gallerySection = document.getElementById('gallery');
-                    
-                    if (galleryItems.length > 0 && gallerySection) {
-                        function updateGalleryProgress() {
-                            const scrollPosition = window.pageYOffset;
+                function updateGalleryProgress() {
+                    if (window.innerWidth <= 768) {
+                        const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+                        const gallerySection = document.getElementById('gallery');
+                        
+                        if (galleryItems.length > 0 && gallerySection) {
+                            const scrollPosition = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
                             const sectionTop = gallerySection.offsetTop;
                             const sectionHeight = gallerySection.offsetHeight;
                             const viewportHeight = window.innerHeight;
                             
-                            const sectionStart = sectionTop - viewportHeight;
+                            const sectionStart = sectionTop - viewportHeight * 0.5;
                             const sectionEnd = sectionTop + sectionHeight;
                             
                             if (scrollPosition >= sectionStart && scrollPosition <= sectionEnd) {
@@ -3031,22 +3085,31 @@
                                 });
                             }
                         }
-                        
-                        document.addEventListener('scroll', updateGalleryProgress);
-                        window.addEventListener('resize', () => {
-                            if (window.innerWidth <= 768) {
-                                updateGalleryProgress();
-                            } else {
-                                galleryItems.forEach(item => {
-                                    item.style.setProperty('--progress', '1');
-                                });
-                            }
+                    } else {
+                        const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+                        galleryItems.forEach(item => {
+                            item.style.setProperty('--progress', '1');
                         });
-                        
-                        // Инициализация при загрузке
-                        updateGalleryProgress();
                     }
                 }
+                
+                // Используем requestAnimationFrame для плавности
+                let ticking = false;
+                function onScroll() {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            updateGalleryProgress();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }
+                
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', updateGalleryProgress);
+                
+                // Инициализация при загрузке
+                setTimeout(updateGalleryProgress, 100);
             }
             
             initGalleryScrollEffect();
