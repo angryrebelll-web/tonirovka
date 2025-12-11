@@ -417,6 +417,11 @@
             opacity: 1;
         }
 
+        .text-max-width-800 {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         /* Классы для animation-delay (замена inline стилей) */
         .slide-up[data-delay="0.05"] {
             animation-delay: 0.05s;
@@ -3207,7 +3212,7 @@
         <div class="container">
             <h2 class="section-title slide-up">Плёнки</h2>
             <div class="text-center mb-16 slide-up" data-delay="0.1">
-                <p class="text-secondary-custom" style="max-width: 800px; margin: 0 auto;">
+                <p class="text-secondary-custom text-max-width-800">
                     Мы работаем с премиальными пленками Llumar, Solarnex, Quantum для обеспечения высочайшего качества тонировки.
                 </p>
             </div>
@@ -3377,7 +3382,7 @@
                          alt="Работа по тонировке автомобиля Propellini" 
                          loading="lazy">
                     <div class="gallery-overlay">
-                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Премиум пленки</div>
+                        <div class="gallery-overlay-text">Премиум пленки</div>
                     </div>
                 </div>
                 <div class="gallery-item">
@@ -3423,7 +3428,7 @@
                     <h3 class="bonus-title">Рассрочка от компании на все виды услуг</h3>
                 </div>
                 
-                <div class="bonus-card-premium slide-up" style="animation-delay: 0.2s;">
+                <div class="bonus-card-premium slide-up" data-delay="0.2">
                     <h3 class="bonus-title">Работаем с юридическими лицами</h3>
                 </div>
                 
