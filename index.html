@@ -169,9 +169,99 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* Адаптивность навигации */
+        @media (max-width: 1024px) {
+            .nav-link {
+                font-size: 11px;
+            }
+            .nav .btn-primary {
+                padding: 4px 10px;
+                font-size: 10px;
+            }
+        }
+
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: flex;
+            }
+            .nav {
+                min-height: 15px;
+            }
+            .propellini-logo {
+                height: 12px;
+            }
+            .nav-link {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                min-height: 14px;
+            }
+            .propellini-logo {
+                height: 11px;
+            }
+            .nav-link {
+                font-size: 11px;
+            }
+            .mobile-menu {
+                top: 28px;
+                max-height: calc(100vh - 28px);
+            }
+        }
+
+        @media (max-width: 375px) {
+            .nav {
+                min-height: 13px;
+            }
+            .nav-container {
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
+            }
+            .propellini-logo {
+                height: 10px;
+            }
+            .nav-logo-text {
+                font-size: 10px !important;
+            }
+            .nav-link {
+                font-size: 10px;
+            }
+            .mobile-menu {
+                top: 26px;
+                max-height: calc(100vh - 26px);
+                padding: 15px;
+            }
+            .mobile-menu a {
+                padding: 12px;
+                font-size: 14px;
+            }
+            .nav .btn-primary {
+                padding: 3px 8px;
+                font-size: 9px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-container {
+                padding-top: 4px;
+                padding-bottom: 4px;
+            }
+            .nav-logo-wrapper {
+                gap: 4px;
+            }
+            .nav-links-wrapper {
+                gap: 6px;
+            }
+            .nav-actions-wrapper {
+                gap: 3px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .nav-links-wrapper {
+                gap: 8px;
             }
         }
 
@@ -1974,17 +2064,17 @@
 <body>
     <!-- Навигация -->
     <nav class="nav" id="navbar">
-        <div class="max-w-7xl mx-auto px-6" style="padding-top: 4px; padding-bottom: 4px;">
+        <div class="max-w-7xl mx-auto px-6 nav-container" style="padding-top: 4px; padding-bottom: 4px;">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 nav-logo-wrapper">
                     <a href="#hero" style="display: flex; align-items: center; gap: 4px; text-decoration: none;">
                         <img src="https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png" alt="Propellini" class="propellini-logo">
-                        <div style="color: #ffffff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;">
+                        <div class="nav-logo-text" style="color: #ffffff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;">
                             Propellini
                         </div>
                     </a>
                 </div>
-                <div class="hidden md:flex items-center gap-6">
+                <div class="hidden md:flex items-center gap-6 nav-links-wrapper">
                     <a href="#services" class="nav-link">Услуги</a>
                     <a href="#films" class="nav-link">Плёнки</a>
                     <a href="#gallery" class="nav-link">Работы</a>
@@ -1992,7 +2082,7 @@
                     <a href="#showroom" class="nav-link">Салон</a>
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 nav-actions-wrapper">
                     <button class="btn-primary btn-shimmer hidden md:block" onclick="window.openModal()">Записаться</button>
                     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
                         <span></span>
