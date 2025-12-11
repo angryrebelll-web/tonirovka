@@ -422,6 +422,16 @@
             margin: 0 auto;
         }
 
+        .text-secondary-large {
+            font-size: 18px;
+            margin-top: 16px;
+        }
+
+        .contact-paragraph {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
         /* Классы для animation-delay (замена inline стилей) */
         .slide-up[data-delay="0.05"] {
             animation-delay: 0.05s;
@@ -3398,7 +3408,7 @@
                          alt="Работа по тонировке автомобиля Propellini" 
                          loading="lazy">
                     <div class="gallery-overlay">
-                        <div style="color: white; font-family: 'Montserrat', sans-serif; font-weight: 600;">Гарантия качества</div>
+                        <div class="gallery-overlay-text">Гарантия качества</div>
                     </div>
                 </div>
                 <div class="gallery-item">
@@ -3436,7 +3446,7 @@
                     <h3 class="bonus-title">Опытные мастера</h3>
                 </div>
                 
-                <div class="bonus-card-premium slide-up" style="animation-delay: 0.4s;">
+                <div class="bonus-card-premium slide-up" data-delay="0.4">
                     <h3 class="bonus-title">Подарки каждому клиенту</h3>
                 </div>
                 
@@ -3456,7 +3466,7 @@
         <div class="container">
             <div class="text-center mb-16 slide-up">
                 <h2 class="section-title">ОТЗЫВЫ НАШИХ КЛИЕНТОВ</h2>
-                <p class="text-secondary-custom" style="font-size: 18px; margin-top: 16px;">
+                <p class="text-secondary-custom text-secondary-large">
                     Более 29 отзывов с рейтингом 5.0
                 </p>
             </div>
@@ -3640,7 +3650,7 @@
                         <img src="https://propellini.ru/wp-content/uploads/2025/10/cropped-chernaya-ikonka.png" alt="Propellini" class="contact-logo">
                         <span class="logo-text">Propellini</span>
                     </div>
-                    <p style="margin-top: 24px; margin-bottom: 24px;">
+                    <p class="contact-paragraph">
                         <a href="tel:+79919361489" class="contact-phone-link">+7 (991) 936-14-89</a>
                     </p>
                     <div class="socials">
