@@ -1136,7 +1136,7 @@
 
         .gallery-item:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(22, 132, 145, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .gallery-item:hover img {
@@ -1149,7 +1149,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to top, rgba(22, 132, 145, 0.95) 0%, transparent 60%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
             opacity: 0;
             transition: opacity 0.5s ease;
             display: flex;
@@ -1164,22 +1164,7 @@
         }
 
         .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(22, 132, 145, 0.4) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-            z-index: 1;
-        }
-
-        .gallery-item:hover::before {
-            width: 400px;
-            height: 400px;
+            display: none;
         }
 
         @media (max-width: 768px) {
