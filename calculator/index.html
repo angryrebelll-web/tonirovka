@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propellini — Калькулятор оклейки авто (Fullscreen)</title>
+    
+    <!-- Preload критичных ресурсов -->
+    <link rel="preload" as="style" href="./css/style.css">
+    <link rel="preload" as="script" href="./js/prices.js">
+    <link rel="preload" as="script" href="./js/cars.js">
+    <link rel="preload" as="script" href="./js/calculator-fullscreen.js">
+    <link rel="preload" as="image" href="./img/icons/sedan.svg">
+    <link rel="preload" as="image" href="./img/icons/suv.svg">
+    <link rel="preload" as="image" href="./img/icons/pickup.svg">
+    
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Skip link для доступности -->
+    <a href="#calculatorFullscreen" class="skip-link">Перейти к калькулятору</a>
+    
+    <!-- Fullscreen Modal Overlay -->
+    <div class="calculator-fullscreen" id="calculatorFullscreen" role="dialog" aria-modal="true" aria-labelledby="calculator-title">
+        <div class="calculator-overlay"></div>
+        
+        
+        <!-- Main Modal Container -->
+        <div class="calculator-modal">
+            <!-- Close Button -->
+            <button class="calculator-close" id="calculatorClose" aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Modal Content -->
+            <div class="calculator-content">
+                <!-- Step Indicator (Desktop) -->
+                <div class="calculator-steps-indicator" id="stepsIndicator">
+                    <div class="step-item" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Тип авто</div>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Марка / Модель</div>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Пакет / Зоны</div>
+                    </div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Итог</div>
+                    </div>
+                </div>
+
+                <!-- Steps Container -->
+                <div class="calculator-steps-container">
+                    <!-- Step 1: Тип авто -->
+                    <div class="calculator-step active" data-step="1" id="step1">
+                        <div class="step-header">
+                            <h2 class="step-title" id="calculator-title">Выберите тип автомобиля</h2>
+                            <p class="step-subtitle">Это поможет определить базовую стоимость</p>
+                        </div>
+                        <div class="step-content">
+                            <div class="chips" id="carTypeSelect">
+                                <div class="chip" data-type="sedan">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/sedan.svg" alt="Седаны" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Седаны</strong>
+                                        <span>Малый, бизнес, премиум, люкс</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="hatchback">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/hatch.svg" alt="Хэтчбеки" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Хэтчбеки</strong>
+                                        <span>Компактные и средние</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="suv">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/suv.svg" alt="SUV / Кроссоверы" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>SUV / Кроссоверы</strong>
+                                        <span>Компактные, средние, большие, люкс</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="coupe">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/coupe.svg" alt="Купе / Спорткары" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Купе / Спорткары</strong>
+                                        <span>Спорт, суперкары, гиперкары</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="pickup">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/pickup.svg" alt="Пикапы" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Пикапы</strong>
+                                        <span>Компактные, средние, большие</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="minivan">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/minivan.svg" alt="Минивэны" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Минивэны</strong>
+                                        <span>Компактные, стандартные, премиум</span>
+                                    </div>
+                                </div>
+                                <div class="chip" data-type="minibus">
+                                    <div class="chip-icon">
+                                        <img src="./img/icons/microbus.svg" alt="Микроавтобусы" width="48" height="48" loading="eager">
+                                    </div>
+                                    <div class="chip-text">
+                                        <strong>Микроавтобусы</strong>
+                                        <span>Пассажирские, премиум</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Марка и Модель -->
+                    <div class="calculator-step" data-step="2" id="step2">
+                        <div class="step-header">
+                            <h2 class="step-title">Выберите марку и модель</h2>
+                            <p class="step-subtitle">Найдите свой автомобиль в базе</p>
+                        </div>
+                        <div class="step-content">
+                            <!-- Search Brand -->
+                            <div class="search-container">
+                                <div class="search-wrapper">
+                                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                    <input type="text" id="searchBrand" placeholder="Начните вводить марку..." class="search-input">
+                                    <button class="search-clear" id="searchClear" style="display: none;">×</button>
+                                </div>
+                                <div class="popular-brands" id="popularBrands">
+                                    <span class="popular-label">Популярные марки:</span>
+                                    <div class="popular-chips" id="popularBrandsList"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Brands List -->
+                            <div class="section-block" style="margin-bottom: 30px;">
+                                <h3 class="section-title">Все марки</h3>
+                                <div class="chips scrollable-horizontal" id="brandList"></div>
+                            </div>
+
+                            <!-- Models List (hidden, used in modal) -->
+                            <div class="section-block" id="modelsSection" style="display: none;">
+                                <h3 class="section-title">Модель автомобиля</h3>
+                                <div class="chips scrollable-horizontal" id="modelList"></div>
+                                <p id="selectedClass" class="info-line">Класс авто: <span>—</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Пакеты или Зоны риска -->
+                    <div class="calculator-step" data-step="3" id="step3">
+                        <div class="step-header">
+                            <h2 class="step-title">Выберите услугу</h2>
+                            <p class="step-subtitle">Пакет услуг или отдельные зоны риска</p>
+                        </div>
+                        <div class="step-content">
+                            <!-- Packages -->
+                            <div class="section-block">
+                                <h3 class="section-title">Пакеты услуг</h3>
+                                <div class="package-list" id="packageList"></div>
+                            </div>
+
+                            <!-- Additional Services -->
+                            <div class="section-block" id="additionalServicesSection" style="display: none;">
+                                <h3 class="section-title">Дополнительные услуги</h3>
+                                <div id="additionalServices"></div>
+                            </div>
+
+                            <!-- Risk Zones -->
+                            <div class="section-block" id="riskZonesSection" style="display: none;">
+                                <h3 class="section-title">Зоны риска</h3>
+                                <div id="riskZones"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Итог -->
+                    <div class="calculator-step" data-step="4" id="step4">
+                        <div class="step-header">
+                            <h2 class="step-title">Итоговая стоимость</h2>
+                            <p class="step-subtitle">Проверьте выбранные услуги</p>
+                        </div>
+                        <div class="step-content">
+                            <div class="summary-card">
+                                <div class="summary-item">
+                                    <span class="summary-label">Марка:</span>
+                                    <span class="summary-value" id="summaryBrand">—</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Модель:</span>
+                                    <span class="summary-value" id="summaryModel">—</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Класс:</span>
+                                    <span class="summary-value" id="summaryClass">—</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Пакет:</span>
+                                    <span class="summary-value" id="summaryPackage">—</span>
+                                </div>
+                                <div class="summary-item" id="summaryZones" style="display: none;">
+                                    <span class="summary-label">Зоны риска:</span>
+                                    <span class="summary-value" id="summaryZonesValue">—</span>
+                                </div>
+                                <div class="summary-item" id="summaryAdditionalServices" style="display: none;">
+                                    <span class="summary-label">Доп. услуги:</span>
+                                    <span class="summary-value" id="summaryAdditionalServicesValue">—</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fixed Bottom Panel -->
+            <div class="calculator-bottom-panel">
+                <div class="bottom-panel-content">
+                    <div class="price-display">
+                        <div class="price-label">Итоговая стоимость</div>
+                        <div class="price-value" id="finalPrice">0 ₽</div>
+                    </div>
+                    <div class="bottom-actions">
+                        <button class="btn-secondary" id="btnBack" style="display: none;">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                    <span>Назад</span>
+                                </div>
+                            </div>
+                        </button>
+                        <button class="btn-primary" id="btnNext">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <span>Далее</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                        <button class="btn-primary" id="btnBook" style="display: none;">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <span>Записаться</span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Selection Modal -->
+    <div class="model-modal" id="modelModal">
+        <div class="model-overlay"></div>
+        <div class="model-content">
+            <button class="model-close" id="modelClose" aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="model-header">
+                <h2 class="model-title" id="model-title">Выберите модель</h2>
+                <p class="model-subtitle" id="modelBrandName">—</p>
+            </div>
+            <div class="model-body">
+                <div class="chips scrollable-horizontal" id="modelListModal"></div>
+                <p id="selectedClassModal" class="info-line">Класс авто: <span>—</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Form Modal - Модальное окно формы заявки -->
+    <div id="requestModal" class="request-modal hidden" role="dialog" aria-modal="true" aria-labelledby="request-title">
+        <div class="request-overlay"></div>
+        <div class="request-content">
+            <button class="request-close" id="requestCloseBtn" aria-label="Закрыть форму">×</button>
+            
+            <h2 class="request-title" id="request-title">Оставьте заявку</h2>
+            
+            <form id="requestForm">
+                <div class="form-group">
+                    <label>Ваше имя *</label>
+                    <input type="text" name="name" id="userName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" name="phone" id="userPhone" required placeholder="+7 (___) ___-__-__">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" id="userEmail">
+                </div>
+                
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <textarea name="comment" id="userComment" rows="4"></textarea>
+                </div>
+                
+                <div class="form-summary" id="summaryDataContainer" style="display: none;">
+                    <h3>Выбранные услуги:</h3>
+                    <pre id="summaryData"></pre>
+                </div>
+                
+                <button type="submit" class="request-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="./js/prices.js"></script>
+    <script src="./js/cars.js"></script>
+    <script src="./js/calculator-fullscreen.js"></script>
+    
+    <!-- Автоматическое открытие калькулятора при загрузке -->
+    <script>
+        // Функция будет вызвана из calculator-fullscreen.js после инициализации
+        window.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const calc = document.getElementById("calculatorFullscreen");
+                if (calc) {
+                    // Принудительно показываем калькулятор
+                    calc.classList.add("active");
+                    calc.style.setProperty('display', 'block', 'important');
+                    calc.style.setProperty('opacity', '1', 'important');
+                    calc.style.setProperty('visibility', 'visible', 'important');
+                    calc.style.setProperty('pointer-events', 'auto', 'important');
+                    calc.style.setProperty('z-index', '9999', 'important');
+                    
+                    // Показываем overlay
+                    const overlay = calc.querySelector('.calculator-overlay');
+                    if (overlay) {
+                        overlay.style.display = 'block';
+                        overlay.style.opacity = '0.5';
+                        overlay.style.visibility = 'visible';
+                    }
+                    
+                    // Показываем модальный контент
+                    const modal = calc.querySelector('.calculator-modal');
+                    if (modal) {
+                        modal.style.display = 'flex';
+                        modal.style.opacity = '1';
+                        modal.style.visibility = 'visible';
+                    }
+                    
+                    document.body.style.overflow = "hidden";
+                    
+                    // Вызываем openCalculator если функция доступна
+                    if (typeof window.openCalculator === 'function') {
+                        window.openCalculator();
+                    }
+                    
+                    // Сбрасываем калькулятор при открытии
+                    if (typeof window.resetCalculator === 'function') {
+                        window.resetCalculator();
+                    }
+                }
+            }, 300);
+        });
+    </script>
+    
+</body>
+</html>
