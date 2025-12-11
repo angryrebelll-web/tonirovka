@@ -181,8 +181,8 @@
                 font-size: 8px;
             }
             .nav-container {
-                padding-top: 6px !important;
-                padding-bottom: 6px !important;
+                padding-top: 8px !important;
+                padding-bottom: 8px !important;
             }
         }
 
@@ -191,8 +191,8 @@
                 display: flex;
             }
             .nav-container {
-                padding-top: 6px !important;
-                padding-bottom: 6px !important;
+                padding-top: 8px !important;
+                padding-bottom: 8px !important;
             }
             .propellini-logo {
                 height: 9px;
@@ -211,8 +211,8 @@
 
         @media (max-width: 480px) {
             .nav-container {
-                padding-top: 4px !important;
-                padding-bottom: 4px !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
             }
             .propellini-logo {
                 height: 8px;
@@ -231,8 +231,8 @@
 
         @media (max-width: 375px) {
             .nav-container {
-                padding-top: 4px !important;
-                padding-bottom: 4px !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
             }
             .propellini-logo {
                 height: 7px;
@@ -260,8 +260,8 @@
 
         @media (min-width: 769px) {
             .nav-container {
-                padding-top: 8px;
-                padding-bottom: 8px;
+                padding-top: 10px;
+                padding-bottom: 10px;
             }
             .nav-logo-wrapper {
                 gap: 4px;
@@ -833,8 +833,8 @@
 
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 28px;
-                line-height: 32px;
+                font-size: 36px;
+                line-height: 40px;
                 margin-bottom: 16px;
                 padding: 0 10px;
             }
@@ -864,8 +864,8 @@
 
         @media (max-width: 480px) {
             .hero-title {
-                font-size: 24px;
-                line-height: 28px;
+                font-size: 32px;
+                line-height: 36px;
                 margin-bottom: 12px;
             }
             .hero-description {
@@ -878,7 +878,7 @@
             .hero-buttons {
                 flex-direction: column;
                 gap: 12px;
-                margin-top: 24px;
+                margin-top: 60px;
                 margin-bottom: 30px;
             }
             .btn-secondary,
@@ -902,8 +902,8 @@
 
         @media (max-width: 375px) {
             .hero-title {
-                font-size: 22px;
-                line-height: 26px;
+                font-size: 28px;
+                line-height: 32px;
                 margin-bottom: 10px;
             }
             .hero-description {
@@ -914,7 +914,7 @@
                 padding: 25px 12px 18px;
             }
             .hero-buttons {
-                margin-top: 20px;
+                margin-top: 50px;
                 margin-bottom: 25px;
                 gap: 10px;
             }
@@ -1214,10 +1214,77 @@
         }
 
         .reviews-carousel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto 0;
+            overflow: hidden;
+        }
+
+        .reviews-carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .review-card {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .reviews-carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .reviews-carousel-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(22, 132, 145, 0.2);
+            border: 1px solid rgba(22, 132, 145, 0.3);
+            color: var(--propellini-text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 24px;
+            user-select: none;
+        }
+
+        .reviews-carousel-btn:hover {
+            background: rgba(22, 132, 145, 0.4);
+            border-color: rgba(22, 132, 145, 0.5);
+            transform: scale(1.1);
+        }
+
+        .reviews-carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .reviews-carousel-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .reviews-carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(22, 132, 145, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reviews-carousel-dot.active {
+            background: var(--propellini-primary);
+            width: 24px;
+            border-radius: 5px;
         }
 
         .review-card {
@@ -1227,6 +1294,9 @@
             padding: 32px;
             transition: all 0.3s ease;
             position: relative;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
         }
 
         .review-card:hover {
@@ -1291,12 +1361,17 @@
 
         @media (max-width: 768px) {
             .reviews-carousel {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                max-width: 100%;
             }
 
             .review-card {
                 padding: 24px;
+            }
+
+            .reviews-carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
         }
 
@@ -1892,7 +1967,7 @@
 
         @media (max-width: 768px) {
             .tinting-title {
-                font-size: 28px;
+                font-size: 24px;
                 line-height: 1.2;
                 margin-bottom: 32px;
                 padding: 0 15px;
@@ -1902,31 +1977,32 @@
         @media (max-width: 480px) {
             .tinting-title {
                 font-size: 18px;
-                line-height: 1.2;
+                line-height: 1.3;
                 margin-bottom: 24px;
-                padding: 0 10px;
+                padding: 0 12px;
                 letter-spacing: 0.01em;
                 word-wrap: break-word;
                 hyphens: auto;
+                overflow-wrap: break-word;
             }
         }
 
         @media (max-width: 375px) {
             .tinting-title {
-                font-size: 18px;
+                font-size: 16px;
                 line-height: 1.25;
                 margin-bottom: 20px;
-                padding: 0 8px;
+                padding: 0 10px;
                 letter-spacing: 0;
             }
         }
 
         @media (max-width: 320px) {
             .tinting-title {
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 1.3;
                 margin-bottom: 18px;
-                padding: 0 6px;
+                padding: 0 8px;
             }
         }
 
@@ -2091,7 +2167,7 @@
 <body>
     <!-- Навигация -->
     <nav class="nav" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 nav-container" style="padding-top: 8px; padding-bottom: 8px;">
+        <div class="max-w-7xl mx-auto px-6 nav-container" style="padding-top: 10px; padding-bottom: 10px;">
             <div class="flex items-center justify-between" style="min-height: 20px;">
                 <div class="flex items-center gap-1 nav-logo-wrapper">
                     <a href="#hero" style="display: flex; align-items: center; gap: 2px; text-decoration: none;">
@@ -2185,7 +2261,7 @@
                         </a>
                         <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.785 16.241s.336-.041.508-.25c.155-.192.15-.557.15-.557s-.022-1.536.688-1.762c.703-.22 1.603 1.49 2.556 2.147.703.485 1.237.378 1.237.378l2.556-.037s1.336-.084.702-1.135c-.052-.082-.37-.8-1.91-2.263-1.616-1.54-1.397-.43.544-1.313 1.17-.536 1.64-1.24 1.497-1.93-.137-.68-1.003-.5-1.003-.5l-2.89.018s-.214-.03-.372.075c-.158.104-.258.348-.258.348s-.465 1.24-1.08 2.293c-1.3 2.133-1.82 2.245-2.033 2.11-.49-.307-.368-1.23-.368-1.886 0-2.05.31-2.9-.608-3.12-.298-.072-.517-.12-1.28-.128-.98-.01-1.806.003-2.275.207-.31.137-.548.442-.403.46.18.022.588.034.803.25.277.28.267.91.267.91s.16 2.35-.37 2.64c-.364.2-.864-.208-1.94-2.11-.54-1.05-.95-2.21-.95-2.21s-.08-.2-.223-.308c-.172-.13-.412-.172-.412-.172l-2.75.018s-.412.012-.564.19c-.137.16-.01.49-.01.49s2.15 5.04 4.58 7.58c2.23 2.33 4.77 2.18 4.77 2.18h1.138s.412-.025.62-.15c.15-.1.24-.29.24-.29s.024-1.78.01-2.05z"/>
+                                <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.584-1.612-2.9-.831-3.347 0-.303.57-.394 1.062-1.12 1.062-.9 0-2.4-1.516-3.35-3.26C6.84 10.36 5.31 6.52 5.31 6.52s-.14-.315.315-.315h1.744c.66 0 .9.435 1.164.9.9 1.8 2.094 3.48 2.7 3.48.42 0 .588-.262.588-.9v-2.7c-.06-1.14-.63-1.26-.63-1.68.06-.21.42-.42.9-.42h2.7c.66 0 .9.315.9.9v4.5c0 .472.21.63.525.63.42 0 .735-.21 1.68-1.68.9-1.5 1.56-2.7 1.68-3.18.12-.42.42-.63.9-.63h1.744c.66 0 .9.315.78.9-.12.42-1.05 2.7-2.94 5.4-1.8 2.4-2.52 3.48-3.12 3.48-.42 0-.63-.21-.63-.63v-2.7c0-1.14-.24-1.26-.24-1.68.06-.21.42-.42.9-.42h2.7c.66 0 .9.315.9.9v4.5c0 .66-.21.9-.63.9z"/>
                             </svg>
                         </a>
                         <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -2495,54 +2571,62 @@
             </div>
             
             <div class="reviews-carousel slide-up" style="animation-delay: 0.1s;">
-                <!-- Отзыв 1 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">AV</div>
-                        <div class="review-info">
-                            <div class="review-name">Alexey Volkov</div>
-                            <div class="review-date">16 ноября</div>
+                <div class="reviews-carousel-wrapper" id="reviewsCarouselWrapper">
+                    <!-- Отзыв 1 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">AV</div>
+                            <div class="review-info">
+                                <div class="review-name">Alexey Volkov</div>
+                                <div class="review-date">16 ноября</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="review-rating">★★★★★</div>
-                    <div class="review-text">
-                        Отличная мойка! Очень тщательно помыли машину, уделили внимание стеклам, колесам, салону. Персонал внимательный, цены адекватные. Обязательно вернусь!
-                    </div>
-                </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Отличная мойка! Очень тщательно помыли машину, уделили внимание стеклам, колесам, салону. Персонал внимательный, цены адекватные. Обязательно вернусь!
+                        </div>
+                    </a>
 
-                <!-- Отзыв 2 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">АШ</div>
-                        <div class="review-info">
-                            <div class="review-name">Артём Ширманкин</div>
-                            <div class="review-date">18 ноября</div>
+                    <!-- Отзыв 2 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">АШ</div>
+                            <div class="review-info">
+                                <div class="review-name">Артём Ширманкин</div>
+                                <div class="review-date">18 ноября</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="review-rating">★★★★★</div>
-                    <div class="review-text">
-                        Отличная мойка автомобиля! Качественная работа, убрали пятно от кофе. Всё чисто, аккуратно. Рекомендую!
-                    </div>
-                </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Отличная мойка автомобиля! Качественная работа, убрали пятно от кофе. Всё чисто, аккуратно. Рекомендую!
+                        </div>
+                    </a>
 
-                <!-- Отзыв 3 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">СЖ</div>
-                        <div class="review-info">
-                            <div class="review-name">Сергей Ж.</div>
-                            <div class="review-date">14 мая</div>
+                    <!-- Отзыв 3 -->
+                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">СЖ</div>
+                            <div class="review-info">
+                                <div class="review-name">Сергей Ж.</div>
+                                <div class="review-date">14 мая</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="review-rating">★★★★★</div>
-                    <div class="review-text">
-                        Современное оборудование, двухэтапная мойка, сохранение лакокрасочного покрытия. Используют качественную химию. Очень доволен результатом!
-                    </div>
+                        <div class="review-rating">★★★★★</div>
+                        <div class="review-text">
+                            Современное оборудование, двухэтапная мойка, сохранение лакокрасочного покрытия. Используют качественную химию. Очень доволен результатом!
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="reviews-carousel-nav">
+                    <button class="reviews-carousel-btn" id="reviewsPrevBtn" aria-label="Предыдущий отзыв">‹</button>
+                    <div class="reviews-carousel-dots" id="reviewsDots"></div>
+                    <button class="reviews-carousel-btn" id="reviewsNextBtn" aria-label="Следующий отзыв">›</button>
                 </div>
             </div>
             
             <div class="text-center mt-12 slide-up" style="animation-delay: 0.2s;">
-                <a href="https://yandex.ru/maps/org/propellini/1124717893/reviews/?ll=37.530000%2C55.800000&z=16" 
+                <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" 
                    class="btn-primary btn-shimmer" 
                    target="_blank" 
                    rel="noopener noreferrer"
@@ -2654,7 +2738,9 @@
     <!-- Карта -->
     <section class="map-section">
         <div class="map-container">
-            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Amap"
+            <iframe src="https://yandex.ru/map-widget/v1/?ll=37.530000%2C55.800000&z=17&pt=37.530000%2C55.800000"
+                    width="100%"
+                    height="100%"
                     frameborder="0"
                     allowfullscreen="true">
             </iframe>
@@ -3012,6 +3098,73 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Отправить';
             }, 1000);
+        });
+
+        // Карусель отзывов
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselWrapper = document.getElementById('reviewsCarouselWrapper');
+            const prevBtn = document.getElementById('reviewsPrevBtn');
+            const nextBtn = document.getElementById('reviewsNextBtn');
+            const dotsContainer = document.getElementById('reviewsDots');
+            
+            if (!carouselWrapper || !prevBtn || !nextBtn || !dotsContainer) return;
+            
+            const reviews = carouselWrapper.querySelectorAll('.review-card');
+            let currentIndex = 0;
+            
+            // Создаем точки навигации
+            reviews.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'reviews-carousel-dot' + (index === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            function updateCarousel() {
+                carouselWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Обновляем точки
+                const dots = dotsContainer.querySelectorAll('.reviews-carousel-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+                
+                // Обновляем кнопки
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === reviews.length - 1;
+            }
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            function nextSlide() {
+                if (currentIndex < reviews.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            }
+            
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            }
+            
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Автопрокрутка (опционально)
+            // let autoSlideInterval = setInterval(nextSlide, 5000);
+            // carouselWrapper.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+            // carouselWrapper.addEventListener('mouseleave', () => {
+            //     autoSlideInterval = setInterval(nextSlide, 5000);
+            // });
+            
+            // Инициализация
+            updateCarousel();
         });
     </script>
 </body>
