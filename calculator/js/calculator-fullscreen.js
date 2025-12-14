@@ -1464,27 +1464,27 @@ function renderPackages() {
         const minPrice = Math.min(...prices);
         const maxPrice = Math.max(...prices);
         
-        // Формируем список зон для отображения
-        let zonesList = '';
-        if (pkg.zones && pkg.zones.length > 0) {
-            zonesList = '<ul>';
-            pkg.zones.forEach(zone => {
-                zonesList += `<li>${zone}</li>`;
-            });
-            zonesList += '</ul>';
-        } else {
-            // Если зон нет, показываем общую информацию
-            zonesList = '<ul><li>Все зоны кузова</li></ul>';
+        // Формируем список услуг из description
+        let servicesList = '';
+        if (pkg.description) {
+            // Разбиваем описание по " + " для получения отдельных услуг
+            const services = pkg.description.split(' + ').map(s => s.trim()).filter(s => s);
+            if (services.length > 0) {
+                servicesList = '<ul>';
+                services.forEach(service => {
+                    servicesList += `<li>${service}</li>`;
+                });
+                servicesList += '</ul>';
+            }
         }
 
         div.innerHTML = `
             <header class="package-header">
                 <h3 class="package-name">${pkg.name}</h3>
-                <p class="package-desc">${pkg.description || (pkg.id === 'korea' ? 'Тонировка пленкой Корея' : pkg.id === 'koreaPremium' ? 'Тонировка премиум пленкой Корея' : pkg.id === 'llumar' ? 'Тонировка премиум пленкой Llumar' : 'Тонировка стекол')}</p>
-                <div class="package-cost">${minPrice === maxPrice ? minPrice : `${minPrice} — ${maxPrice}`}</div>
+                <div class="package-cost">${minPrice === maxPrice ? minPrice.toLocaleString('ru-RU') + ' ₽' : `${minPrice.toLocaleString('ru-RU')} — ${maxPrice.toLocaleString('ru-RU')} ₽`}</div>
             </header>
             <section class="package-features">
-                ${pkg.description ? `<ul><li>${pkg.description}</li></ul>` : zonesList}
+                ${servicesList}
             </section>
             <footer class="package-footer">
                 <button class="package-button">
@@ -1623,10 +1623,15 @@ function renderAdditionalServices() {
 
         const id = "service_" + service.id;
 
+        // Получаем минимальную цену для услуги (для отображения "От")
+        const prices = Object.values(service.price);
+        const minPrice = Math.min(...prices);
+        const currentPrice = service.price[selectedClass];
+        
         label.innerHTML = `
             <input type="checkbox" id="${id}">
             <span>${service.name}</span>
-            <span class="price">${service.price[selectedClass]} ₽</span>
+            <span class="price">От ${currentPrice.toLocaleString('ru-RU')} ₽</span>
         `;
 
         const checkbox = label.querySelector("input");
