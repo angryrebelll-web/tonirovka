@@ -1406,10 +1406,10 @@ function selectModelUI(div) {
     
     // Маппинг классов для отображения
     const classDisplayNames = {
-        1: "A-класс",
-        2: "C, E-класс",
-        3: "S-класс, Минивэны, Кроссоверы, Универсалы",
-        4: "Спорткары, Внедорожники, Микроавтобусы"
+        1: "1 класс",
+        2: "2 класс",
+        3: "3 класс",
+        4: "4 класс"
     };
     
     const classDisplayName = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "—";
@@ -1845,10 +1845,10 @@ function calculateTotal() {
 function updateSummaryStep() {
     // Маппинг классов для отображения
     const classDisplayNames = {
-        1: "A-класс",
-        2: "C, E-класс",
-        3: "S-класс, Минивэны, Кроссоверы, Универсалы",
-        4: "Спорткары, Внедорожники, Микроавтобусы"
+        1: "1 класс",
+        2: "2 класс",
+        3: "3 класс",
+        4: "4 класс"
     };
     
     if (summaryBrand) {
