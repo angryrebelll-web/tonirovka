@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propellini — Калькулятор оклейки авто (Fullscreen)</title>
+    <title>Propellini — Калькулятор тонировки авто (Fullscreen)</title>
     
     <!-- Preload критичных ресурсов -->
     <link rel="preload" as="style" href="./css/style.css">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="step-item" data-step="3">
                         <div class="step-number">3</div>
-                        <div class="step-label">Пакет / Зоны</div>
+                        <div class="step-label">Пакет услуг</div>
                     </div>
                     <div class="step-item" data-step="4">
                         <div class="step-number">4</div>
@@ -172,11 +172,11 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Пакеты или Зоны риска -->
+                    <!-- Step 3: Пакеты услуг -->
                     <div class="calculator-step" data-step="3" id="step3">
                         <div class="step-header">
-                            <h2 class="step-title">Выберите услугу</h2>
-                            <p class="step-subtitle">Пакет услуг или отдельные зоны риска</p>
+                            <h2 class="step-title">Выберите пакет тонировки</h2>
+                            <p class="step-subtitle">Выберите тип пленки для тонировки стекол</p>
                         </div>
                         <div class="step-content">
                             <!-- Packages -->
@@ -187,13 +187,16 @@
 
                             <!-- Additional Services -->
                             <div class="section-block" id="additionalServicesSection" style="display: none;">
-                                <h3 class="section-title">Дополнительные услуги</h3>
+                                <h3 class="section-title">Выбор услуг отдельно</h3>
+                                <p style="color: var(--propellini-text-secondary); font-size: 13px; margin-bottom: 12px;">
+                                    Выберите конкретные услуги из прайса или используйте пакеты выше
+                                </p>
                                 <div id="additionalServices"></div>
                             </div>
 
-                            <!-- Risk Zones -->
+                            <!-- Risk Zones (скрыто для тонировки) -->
                             <div class="section-block" id="riskZonesSection" style="display: none;">
-                                <h3 class="section-title">Зоны риска</h3>
+                                <h3 class="section-title">Дополнительные зоны</h3>
                                 <div id="riskZones"></div>
                             </div>
                         </div>

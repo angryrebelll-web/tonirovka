@@ -3,41 +3,46 @@
    ========================================= */
 
 // =========================================
-// Маппинг классов по типу авто
+// Маппинг классов по типу авто для тонировки
+// Классы из прайса:
+// 1 — A-класс
+// 2 — C, E-класс
+// 3 — S-класс, Минивэны, Кроссоверы, Универсалы
+// 4 — Спорткары, Внедорожники, Микроавтобусы
 // =========================================
 const classMapping = {
-    "sedan-small": 1,
-    "sedan-business": 2,
-    "sedan-premium": 3,
-    "sedan-luxury": 5,
-    "hatch-small": 1,
-    "hatch-medium": 2,
-    "coupe": 3,
-    "coupe-sport": 3,
-    "supercar": 3,
-    "hypercar": 5,
-    "luxury": 5,
-    "suv-compact": 2,
-    "suv-medium": 2,
-    "suv-large": 3,
-    "suv-luxury": 5,
-    "pickup-compact": 4,
-    "pickup-small": 4,
-    "pickup-medium": 4,
-    "pickup-large": 4,
-    "pickup-luxury": 5,
-    "minivan-compact": 5,
-    "minivan-standard": 5,
-    "minivan": 5,
-    "minivan-business": 5,
-    "minivan-premium": 5,
-    "minivan-luxury": 5,
-    "minivan-electric": 5,
-    "minibus": 5,
-    "minibus-premium": 5,
-    "van-commercial": 4,
-    "cargo-medium": 4,
-    "cargo-large": 4
+    "sedan-small": 1,        // A-класс
+    "sedan-business": 2,      // C, E-класс
+    "sedan-premium": 2,       // C, E-класс
+    "sedan-luxury": 3,        // S-класс
+    "hatch-small": 1,        // A-класс
+    "hatch-medium": 2,        // C, E-класс
+    "coupe": 4,               // Спорткары
+    "coupe-sport": 4,        // Спорткары
+    "supercar": 4,           // Спорткары
+    "hypercar": 4,           // Спорткары
+    "luxury": 3,             // S-класс
+    "suv-compact": 3,        // Кроссоверы
+    "suv-medium": 3,         // Кроссоверы
+    "suv-large": 4,          // Внедорожники
+    "suv-luxury": 3,         // S-класс
+    "pickup-compact": 4,     // Внедорожники
+    "pickup-small": 4,       // Внедорожники
+    "pickup-medium": 4,      // Внедорожники
+    "pickup-large": 4,       // Внедорожники
+    "pickup-luxury": 4,      // Внедорожники
+    "minivan-compact": 3,    // Минивэны
+    "minivan-standard": 3,   // Минивэны
+    "minivan": 3,            // Минивэны
+    "minivan-business": 3,   // Минивэны
+    "minivan-premium": 3,    // Минивэны
+    "minivan-luxury": 3,     // Минивэны
+    "minivan-electric": 3,   // Минивэны
+    "minibus": 4,            // Микроавтобусы
+    "minibus-premium": 4,    // Микроавтобусы
+    "van-commercial": 4,     // Микроавтобусы
+    "cargo-medium": 4,       // Микроавтобусы
+    "cargo-large": 4         // Микроавтобусы
 };
 
 // =========================================

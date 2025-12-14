@@ -247,3 +247,5 @@ onerror="const fallback=document.createElement('span'); fallback.textContent='..
 **Дата завершения аудита:** 2025-01-11  
 **Версия отчета:** 1.0
 
+
+

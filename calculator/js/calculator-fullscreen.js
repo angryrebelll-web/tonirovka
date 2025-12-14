@@ -206,6 +206,10 @@ function resetCalculator() {
         selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
     }
     
+    if (selectedClassTextModal) {
+        selectedClassTextModal.innerHTML = 'Класс авто: <span>—</span>';
+    }
+    
     if (packageList) {
         packageList.querySelectorAll(".package-item").forEach(p => p.classList.remove("active"));
     }
@@ -330,6 +334,10 @@ function goToStep(step) {
             if (selectedClassText) {
                 selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
             }
+            
+            if (selectedClassTextModal) {
+                selectedClassTextModal.innerHTML = 'Класс авто: <span>—</span>';
+            }
             break;
             
         case 2:
@@ -348,6 +356,10 @@ function goToStep(step) {
                     }
                     if (selectedClassText) {
                         selectedClassText.innerHTML = 'Класс авто: <span>—</span>';
+                    }
+                    
+                    if (selectedClassTextModal) {
+                        selectedClassTextModal.innerHTML = 'Класс авто: <span>—</span>';
                     }
                 }
             }
@@ -1391,13 +1403,23 @@ function selectModelUI(div) {
     }
     
     // Проверяем, что все данные совпадают
+    
+    // Маппинг классов для отображения
+    const classDisplayNames = {
+        1: "A-класс",
+        2: "C, E-класс",
+        3: "S-класс, Минивэны, Кроссоверы, Универсалы",
+        4: "Спорткары, Внедорожники, Микроавтобусы"
+    };
+    
+    const classDisplayName = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "—";
 
     if (selectedClassText) {
-        selectedClassText.innerHTML = `Класс авто: <span>${selectedClass || "—"}</span>`;
+        selectedClassText.innerHTML = `Класс авто: <span>${classDisplayName}</span>`;
     }
     
     if (selectedClassTextModal) {
-        selectedClassTextModal.innerHTML = `Класс авто: <span>${selectedClass || "—"}</span>`;
+        selectedClassTextModal.innerHTML = `Класс авто: <span>${classDisplayName}</span>`;
     }
 
     // Обновляем цены только если класс определен
@@ -1458,11 +1480,11 @@ function renderPackages() {
         div.innerHTML = `
             <header class="package-header">
                 <h3 class="package-name">${pkg.name}</h3>
-                <p class="package-desc">${pkg.id === 'risk' ? 'Защита основных зон' : pkg.id.includes('full') ? 'Полная защита кузова' : 'Комплексная защита'}</p>
+                <p class="package-desc">${pkg.description || (pkg.id === 'korea' ? 'Тонировка пленкой Корея' : pkg.id === 'koreaPremium' ? 'Тонировка премиум пленкой Корея' : pkg.id === 'llumar' ? 'Тонировка премиум пленкой Llumar' : 'Тонировка стекол')}</p>
                 <div class="package-cost">${minPrice === maxPrice ? minPrice : `${minPrice} — ${maxPrice}`}</div>
             </header>
             <section class="package-features">
-                ${zonesList}
+                ${pkg.description ? `<ul><li>${pkg.description}</li></ul>` : zonesList}
             </section>
             <footer class="package-footer">
                 <button class="package-button">
@@ -1552,13 +1574,16 @@ function updatePriceBlocks() {
     renderRiskZones();
     renderAdditionalServices();
     
-    // Показать секции
-    if (riskZonesSection) {
-        riskZonesSection.style.display = "block";
-    }
-    
+    // Показать секцию дополнительных услуг
     if (additionalServicesSection) {
         additionalServicesSection.style.display = "block";
+    }
+    
+    // Секция зон риска скрыта для тонировки (если нет riskZonePrices)
+    if (riskZonesSection && typeof riskZonePrices !== 'undefined' && Object.keys(riskZonePrices).length > 0) {
+        riskZonesSection.style.display = "block";
+    } else if (riskZonesSection) {
+        riskZonesSection.style.display = "none";
     }
     
     // Если выбран пакет с зонами, подсветить зоны
@@ -1578,32 +1603,17 @@ function renderAdditionalServices() {
 
     additionalServicesContainer.innerHTML = "";
     
-    // Дополнительные услуги
-    const additionalServicesList = [
+    // Дополнительные услуги для тонировки
+    const additionalServicesList = typeof additionalServices !== 'undefined' ? additionalServices : [
         {
-            id: "fullVinyl",
-            name: "Полная оклейка виниловой пленкой",
-            price: fullWrapVinyl
+            id: "koreaAthermal",
+            name: "Тонировка передней полусферы (Корея, атермальная)",
+            price: typeof koreaAthermalFront !== 'undefined' ? koreaAthermalFront : { 1: 12000, 2: 12000, 3: 12000, 4: 12000 }
         },
         {
-            id: "displayWrap",
-            name: "Оклейка дисплеев автомобиля",
-            price: displayWrap
-        },
-        {
-            id: "interiorGloss",
-            name: "Оклейка глянцевых элементов салона",
-            price: interiorGlossWrap
-        },
-        {
-            id: "elementByElement",
-            name: "Поэлементная оклейка защитной пленкой",
-            price: elementByElementWrap
-        },
-        {
-            id: "filmRemoval",
-            name: "Снятие пленки с одного элемента",
-            price: filmRemoval
+            id: "koreaChameleon",
+            name: "Тонировка передней полусферы (Корея, хамелеон)",
+            price: typeof koreaChameleonFront !== 'undefined' ? koreaChameleonFront : { 1: 16000, 2: 16000, 3: 16000, 4: 16000 }
         }
     ];
 
@@ -1688,46 +1698,58 @@ function renderRiskZones() {
     riskZonesContainer.innerHTML = "";
     selectedRiskZones = [];
 
-    Object.keys(riskZonePrices).forEach(zone => {
-        const label = document.createElement("label");
-        label.className = "check";
-
-        const id = "zone_" + zone.replace(/\s+/g, "_");
-
-        label.innerHTML = `
-            <input type="checkbox" id="${id}">
-            <span>${zone}</span>
-            <span class="price">${riskZonePrices[zone][selectedClass]} ₽</span>
-        `;
-
-        const checkbox = label.querySelector("input");
-        checkbox.addEventListener("change", (e) => {
-            if (e.target.checked) {
-                selectedRiskZones.push(zone);
-                // Сброс пакетов
-                selectedPackage = null;
-                if (packageList) {
-                    packageList.querySelectorAll(".package-item").forEach(p => p.classList.remove("active"));
-                }
-                // Убрать подсветку зон пакета
-                removePackageZonesHighlight();
-            } else {
-                selectedRiskZones = selectedRiskZones.filter(z => z !== zone);
-            }
-
-            calculateTotal();
-            
-            // Обновляем кнопки навигации после изменения зон
-            setTimeout(() => {
-                updateNavigationButtons();
-            }, 50);
-        });
+    // Для тонировки зоны риска не используются, скрываем секцию
+    if (riskZonesSection) {
+        riskZonesSection.style.display = "none";
+    }
+    
+    // Если есть riskZonePrices (для обратной совместимости), показываем их
+    if (typeof riskZonePrices !== 'undefined' && Object.keys(riskZonePrices).length > 0) {
+        if (riskZonesSection) {
+            riskZonesSection.style.display = "block";
+        }
         
-        // Сохранить ссылку на label для подсветки
-        label.dataset.zone = zone;
+        Object.keys(riskZonePrices).forEach(zone => {
+            const label = document.createElement("label");
+            label.className = "check";
 
-        riskZonesContainer.appendChild(label);
-    });
+            const id = "zone_" + zone.replace(/\s+/g, "_");
+
+            label.innerHTML = `
+                <input type="checkbox" id="${id}">
+                <span>${zone}</span>
+                <span class="price">${riskZonePrices[zone][selectedClass]} ₽</span>
+            `;
+
+            const checkbox = label.querySelector("input");
+            checkbox.addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    selectedRiskZones.push(zone);
+                    // Сброс пакетов
+                    selectedPackage = null;
+                    if (packageList) {
+                        packageList.querySelectorAll(".package-item").forEach(p => p.classList.remove("active"));
+                    }
+                    // Убрать подсветку зон пакета
+                    removePackageZonesHighlight();
+                } else {
+                    selectedRiskZones = selectedRiskZones.filter(z => z !== zone);
+                }
+
+                calculateTotal();
+                
+                // Обновляем кнопки навигации после изменения зон
+                setTimeout(() => {
+                    updateNavigationButtons();
+                }, 50);
+            });
+            
+            // Сохранить ссылку на label для подсветки
+            label.dataset.zone = zone;
+
+            riskZonesContainer.appendChild(label);
+        });
+    }
 }
 
 /* =============================
@@ -1749,32 +1771,55 @@ function calculateTotal() {
         total += selectedPackage.base[selectedClass];
     }
 
-    selectedRiskZones.forEach(zone => {
-        if (riskZonePrices[zone] && riskZonePrices[zone][selectedClass]) {
-            total += riskZonePrices[zone][selectedClass];
-        }
-    });
+    // Зоны риска (если используются)
+    if (typeof riskZonePrices !== 'undefined') {
+        selectedRiskZones.forEach(zone => {
+            if (riskZonePrices[zone] && riskZonePrices[zone][selectedClass]) {
+                total += riskZonePrices[zone][selectedClass];
+            }
+        });
+    }
 
-    // Дополнительные услуги
+    // Дополнительные услуги для тонировки
     selectedAdditionalServices.forEach(serviceId => {
         let servicePrice = 0;
         
-        switch(serviceId) {
-            case "fullVinyl":
-                servicePrice = fullWrapVinyl[selectedClass] || 0;
-                break;
-            case "displayWrap":
-                servicePrice = displayWrap[selectedClass] || 0;
-                break;
-            case "interiorGloss":
-                servicePrice = interiorGlossWrap[selectedClass] || 0;
-                break;
-            case "elementByElement":
-                servicePrice = elementByElementWrap[selectedClass] || 0;
-                break;
-            case "filmRemoval":
-                servicePrice = filmRemoval[selectedClass] || 0;
-                break;
+        // Используем дополнительные услуги из prices.js
+        if (typeof additionalServices !== 'undefined') {
+            const service = additionalServices.find(s => s.id === serviceId);
+            if (service && service.price && service.price[selectedClass]) {
+                servicePrice = service.price[selectedClass];
+            }
+        } else {
+            // Fallback на старые услуги (для обратной совместимости)
+            switch(serviceId) {
+                case "koreaRear":
+                    servicePrice = typeof koreaRear !== 'undefined' ? (koreaRear[selectedClass] || 0) : 0;
+                    break;
+                case "koreaPremiumRear":
+                    servicePrice = typeof koreaPremiumRear !== 'undefined' ? (koreaPremiumRear[selectedClass] || 0) : 0;
+                    break;
+                case "llumarRear":
+                    servicePrice = typeof llumarRear !== 'undefined' ? (llumarRear[selectedClass] || 0) : 0;
+                    break;
+                case "koreaFront":
+                    servicePrice = typeof koreaFront !== 'undefined' ? (koreaFront[selectedClass] || 0) : 0;
+                    break;
+                case "koreaPremiumFront":
+                    servicePrice = typeof koreaPremiumFront !== 'undefined' ? (koreaPremiumFront[selectedClass] || 0) : 0;
+                    break;
+                case "koreaAthermal":
+                case "koreaAthermalFront":
+                    servicePrice = typeof koreaAthermalFront !== 'undefined' ? (koreaAthermalFront[selectedClass] || 0) : 0;
+                    break;
+                case "koreaChameleon":
+                case "koreaChameleonFront":
+                    servicePrice = typeof koreaChameleonFront !== 'undefined' ? (koreaChameleonFront[selectedClass] || 0) : 0;
+                    break;
+                case "llumarFront":
+                    servicePrice = typeof llumarFront !== 'undefined' ? (llumarFront[selectedClass] || 0) : 0;
+                    break;
+            }
         }
         
         total += servicePrice;
@@ -1793,6 +1838,14 @@ function calculateTotal() {
 }
 
 function updateSummaryStep() {
+    // Маппинг классов для отображения
+    const classDisplayNames = {
+        1: "A-класс",
+        2: "C, E-класс",
+        3: "S-класс, Минивэны, Кроссоверы, Универсалы",
+        4: "Спорткары, Внедорожники, Микроавтобусы"
+    };
+    
     if (summaryBrand) {
         summaryBrand.textContent = selectedBrand || "—";
     }
@@ -1800,7 +1853,8 @@ function updateSummaryStep() {
         summaryModel.textContent = selectedModel || "—";
     }
     if (summaryClass) {
-        summaryClass.textContent = selectedClass || "—";
+        const classDisplayName = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "—";
+        summaryClass.textContent = classDisplayName;
     }
     if (summaryPackage) {
         summaryPackage.textContent = selectedPackage ? selectedPackage.name : "—";
@@ -1821,14 +1875,20 @@ function updateSummaryStep() {
         summaryAdditionalServices.style.display = selectedAdditionalServices.length > 0 ? "flex" : "none";
     }
     if (summaryAdditionalServicesValue) {
-        const serviceNamesMap = {
-            "fullVinyl": "Полная оклейка виниловой пленкой",
-            "displayWrap": "Оклейка дисплеев автомобиля",
-            "interiorGloss": "Оклейка глянцевых элементов салона",
-            "elementByElement": "Поэлементная оклейка защитной пленкой",
-            "filmRemoval": "Снятие пленки с одного элемента"
-        };
-        const serviceNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
+        // Получаем названия услуг из additionalServices или используем маппинг
+        let serviceNames = [];
+        if (typeof additionalServices !== 'undefined') {
+            serviceNames = selectedAdditionalServices.map(id => {
+                const service = additionalServices.find(s => s.id === id);
+                return service ? service.name : id;
+            });
+        } else {
+            const serviceNamesMap = {
+                "koreaAthermal": "Тонировка передней полусферы (Корея, атермальная)",
+                "koreaChameleon": "Тонировка передней полусферы (Корея, хамелеон)"
+            };
+            serviceNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
+        }
         summaryAdditionalServicesValue.textContent = selectedAdditionalServices.length > 0 
             ? serviceNames.join(", ") 
             : "—";
@@ -1864,14 +1924,20 @@ window.openRequestForm = function() {
     const summaryDataContainer = document.getElementById('summaryDataContainer');
     
     if (summaryDataEl) {
-        const serviceNamesMap = {
-            "fullVinyl": "Полная оклейка виниловой пленкой",
-            "displayWrap": "Оклейка дисплеев автомобиля",
-            "interiorGloss": "Оклейка глянцевых элементов салона",
-            "elementByElement": "Поэлементная оклейка защитной пленкой",
-            "filmRemoval": "Снятие пленки с одного элемента"
-        };
-        const additionalServicesNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
+        // Получаем названия услуг из additionalServices или используем маппинг
+        let additionalServicesNames = [];
+        if (typeof additionalServices !== 'undefined') {
+            additionalServicesNames = selectedAdditionalServices.map(id => {
+                const service = additionalServices.find(s => s.id === id);
+                return service ? service.name : id;
+            });
+        } else {
+            const serviceNamesMap = {
+                "koreaAthermal": "Тонировка передней полусферы (Корея, атермальная)",
+                "koreaChameleon": "Тонировка передней полусферы (Корея, хамелеон)"
+            };
+            additionalServicesNames = selectedAdditionalServices.map(id => serviceNamesMap[id] || id);
+        }
         
         // Формируем информацию о пакете или зонах
         let packageOrZonesInfo = "—";
