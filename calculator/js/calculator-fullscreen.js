@@ -1952,10 +1952,19 @@ window.openRequestForm = function() {
             packageOrZonesInfo = "Выбранные зоны: " + selectedRiskZones.join(", ");
         }
         
+        // Получаем правильное отображение класса
+        const classDisplayNames = {
+            1: "1 класс",
+            2: "2 класс",
+            3: "3 класс",
+            4: "4 класс"
+        };
+        const classDisplayName = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "—";
+        
         summaryDataEl.textContent = `
 Марка: ${selectedBrand || "—"}
 Модель: ${selectedModel || "—"}
-Класс: ${selectedClass || "—"}
+Класс: ${classDisplayName}
 
 ${selectedPackage ? "Пакет:" : "Зоны/Услуги:"} ${packageOrZonesInfo}
 
