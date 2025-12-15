@@ -251,6 +251,66 @@
             font-weight: 600;
         }
 
+        /* Классы для замены inline стилей (Apple Standards) */
+        .btn-primary-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .calculator-description {
+            color: var(--propellini-text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .calculator-button-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator-button-large {
+            padding: 24px 64px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 14px;
+            background: var(--propellini-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(22, 132, 145, 0.4);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .slideshow-section {
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            height: 100%;
+            padding: 0;
+        }
+
+        .slideshow-title {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            margin: 0;
+            padding: 0 2rem;
+            text-align: center;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+
         /* Общие стили focus-visible для всех интерактивных элементов (Apple Standards) */
         button:focus-visible,
         a:focus-visible,
@@ -3580,7 +3640,7 @@
                     </svg>
                     +7(991)936-14-89
                 </a>
-                <button class="btn-primary btn-shimmer" onclick="window.openModal()" style="display: flex; align-items: center; justify-content: center; text-align: center;">Получить консультацию</button>
+                <button class="btn-primary btn-shimmer btn-primary-flex" onclick="window.openModal()">Получить консультацию</button>
             </div>
             
             <!-- Контакты внизу Hero секции -->
@@ -3693,13 +3753,13 @@
     <section class="section section-bg-dark" id="pricing">
         <div class="container">
             <h2 class="section-title slide-up">Рассчитать стоимость</h2>
-            <p class="text-center slide-up" style="color: var(--propellini-text-secondary); margin-bottom: 2.5rem; font-size: 1.1rem;">
+            <p class="text-center slide-up calculator-description">
                 Узнайте точную стоимость тонировки для вашего автомобиля
             </p>
             
             <!-- Кнопка калькулятора -->
-            <div class="text-center slide-up" data-delay="0.1" style="display: flex; justify-content: center; align-items: center;">
-                <button onclick="openCalculator()" class="btn-primary" style="padding: 24px 64px; font-size: 20px; font-weight: 700; border-radius: 14px; background: var(--propellini-primary); color: white; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(22, 132, 145, 0.4); max-width: 500px; margin: 0 auto;">
+            <div class="text-center slide-up calculator-button-wrapper" data-delay="0.1">
+                <button onclick="openCalculator()" class="btn-primary calculator-button-large">
                     <span>Открыть калькулятор</span>
                 </button>
             </div>
@@ -3802,9 +3862,9 @@
     </section>
 
     <!-- Лайф фото работ -->
-    <section class="section section-bg-dark" id="lifephotos" style="padding: 0; height: 100vh; overflow: hidden;">
-        <div class="container" style="height: 100%; padding: 0;">
-            <h2 class="section-title slide-up" style="position: absolute; top: 2rem; left: 50%; transform: translateX(-50%); z-index: 10; margin: 0; padding: 0 2rem;">Лайф фото работ</h2>
+    <section class="section section-bg-dark slideshow-section" id="lifephotos">
+        <div class="container slideshow-container">
+            <h2 class="section-title slide-up slideshow-title">Лайф фото работ</h2>
             <div class="slideshow" id="lifephotosSlideshow">
                 <figure>
                     <a id="lifephoto-1" href="#lifephoto-1">

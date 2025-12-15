@@ -1833,6 +1833,25 @@ function calculateTotal() {
     totalPrice = total;
     finalPriceElement.textContent = total.toLocaleString("ru-RU") + " ₽";
     
+    // Обновление aria-live для итоговой цены (Apple Standards)
+    const ariaLiveElement = document.getElementById('calculatorSummaryAria');
+    const ariaLiveText = document.getElementById('calculatorSummaryText');
+    if (ariaLiveElement && ariaLiveText) {
+        const brandText = selectedBrand || "не выбрана";
+        const modelText = selectedModel || "не выбрана";
+        const classDisplayNames = {
+            1: "1 класс",
+            2: "2 класс",
+            3: "3 класс",
+            4: "4 класс"
+        };
+        const classText = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "не выбран";
+        const packageText = selectedPackage ? selectedPackage.name : "не выбран";
+        const priceText = total > 0 ? `${total.toLocaleString("ru-RU")} рублей` : "0 рублей";
+        
+        ariaLiveText.textContent = `Итоговая стоимость: Марка ${brandText}, Модель ${modelText}, Класс ${classText}, Пакет ${packageText}, Итого ${priceText}`;
+    }
+    
     // Обновить итоговый шаг
     updateSummaryStep();
     
@@ -1897,6 +1916,19 @@ function updateSummaryStep() {
         summaryAdditionalServicesValue.textContent = selectedAdditionalServices.length > 0 
             ? serviceNames.join(", ") 
             : "—";
+    }
+    
+    // Обновление aria-live региона для screen readers (Apple Standards)
+    const ariaLiveElement = document.getElementById('calculatorSummaryAria');
+    const ariaLiveText = document.getElementById('calculatorSummaryText');
+    if (ariaLiveElement && ariaLiveText) {
+        const brandText = selectedBrand || "не выбрана";
+        const modelText = selectedModel || "не выбрана";
+        const classText = selectedClass ? classDisplayNames[selectedClass] || `Класс ${selectedClass}` : "не выбран";
+        const packageText = selectedPackage ? selectedPackage.name : "не выбран";
+        const priceText = totalPrice > 0 ? `${totalPrice.toLocaleString("ru-RU")} рублей` : "0 рублей";
+        
+        ariaLiveText.textContent = `Итоговая стоимость: Марка ${brandText}, Модель ${modelText}, Класс ${classText}, Пакет ${packageText}, Итого ${priceText}`;
     }
 }
 

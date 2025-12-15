@@ -166,7 +166,7 @@
                             <!-- Models List (hidden, used in modal) -->
                             <div class="section-block" id="modelsSection" style="display: none;">
                                 <h3 class="section-title">Модель автомобиля</h3>
-                                <div class="chips scrollable-horizontal" id="modelList"></div>
+                                <div class="chips scrollable-horizontal" id="modelList" aria-live="polite" aria-atomic="false"></div>
                                 <p id="selectedClass" class="info-line">Класс авто: <span>—</span></p>
                             </div>
                         </div>
@@ -182,7 +182,7 @@
                             <!-- Packages -->
                             <div class="section-block">
                                 <h3 class="section-title">Пакеты услуг</h3>
-                                <div class="package-list" id="packageList"></div>
+                                <div class="package-list" id="packageList" aria-live="polite" aria-atomic="false"></div>
                             </div>
 
                             <!-- Additional Services -->
@@ -191,7 +191,7 @@
                                 <p style="color: var(--propellini-text-secondary); font-size: 13px; margin-bottom: 12px;">
                                     Выберите конкретные услуги из прайса или используйте пакеты выше
                                 </p>
-                                <div id="additionalServices"></div>
+                                <div id="additionalServices" aria-live="polite" aria-atomic="false"></div>
                             </div>
 
                             <!-- Risk Zones (скрыто для тонировки) -->
@@ -209,6 +209,10 @@
                             <p class="step-subtitle">Проверьте выбранные услуги</p>
                         </div>
                         <div class="step-content">
+                            <!-- ARIA live region для динамического контента (Apple Standards) -->
+                            <div aria-live="polite" aria-atomic="true" class="sr-only" id="calculatorSummaryAria">
+                                <span id="calculatorSummaryText"></span>
+                            </div>
                             <div class="summary-card">
                                 <div class="summary-item">
                                     <span class="summary-label">Марка:</span>
