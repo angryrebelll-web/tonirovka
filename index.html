@@ -130,12 +130,6 @@
             transform: translateY(30px);
         }
         
-        /* Исключение для карусели отзывов - она должна быть видна всегда */
-        .js-loaded .reviews-carousel.slide-up {
-            opacity: 1 !important;
-            transform: none !important;
-            visibility: visible !important;
-        }
         
         .slide-up.visible {
             opacity: 1;
@@ -2767,155 +2761,47 @@
             background: var(--propellini-dark-secondary);
         }
 
-        .reviews-carousel {
-            position: relative;
-            max-width: 800px;
-            margin: 40px auto 0;
-            overflow: visible;
-        }
-
-        .carousel {
-            position: relative;
-        }
-
-        .carousel-inner {
-            position: relative;
+        .reviews-grid {
+            margin-top: 40px;
             width: 100%;
-            overflow: hidden;
-            min-height: 300px;
         }
 
-        .carousel-item {
-            display: none;
+        .review-item {
             width: 100%;
-            opacity: 0;
-            transition: opacity 0.6s ease-in-out;
-        }
-
-        .carousel-item.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            position: static;
-            width: 48px;
-            height: 48px;
-            background: rgba(22, 132, 145, 0.8);
-            border: 1px solid rgba(22, 132, 145, 0.5);
-            border-radius: 50%;
-            color: var(--propellini-text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            pointer-events: auto;
-            margin: 0 8px;
-        }
-
-        .carousel-control-prev:hover,
-        .carousel-control-next:hover {
-            background: rgba(22, 132, 145, 1);
-            border-color: rgba(22, 132, 145, 0.8);
-            transform: scale(1.1);
-        }
-
-        .carousel-controls-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 32px;
-            gap: 16px;
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: no-repeat 50% / 100% 100%;
-            font-size: 24px;
-            line-height: 1;
-        }
-
-        .carousel-control-prev-icon::before {
-            content: '‹';
-        }
-
-        .carousel-control-next-icon::before {
-            content: '›';
-        }
-
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        .reviews-carousel-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .reviews-carousel-dots {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .reviews-carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(22, 132, 145, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .reviews-carousel-dot.active {
-            background: var(--propellini-primary);
-            width: 24px;
-            border-radius: 5px;
+            height: 100%;
         }
 
         .review-card {
-            background: rgba(18, 18, 18, 0.8);
-            border: 1px solid rgba(22, 132, 145, 0.2);
-            border-radius: 16px;
-            padding: 32px;
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid rgba(22, 132, 145, 0.22);
+            border-radius: 12px;
+            padding: 24px;
             transition: all 0.3s ease;
             position: relative;
             text-decoration: none;
             display: block;
             cursor: pointer;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .review-card:hover {
             border-color: rgba(22, 132, 145, 0.4);
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(22, 132, 145, 0.2);
+            background: rgba(18, 18, 18, 0.95);
         }
 
         .review-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .review-avatar {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--propellini-primary);
             display: flex;
@@ -2923,7 +2809,7 @@
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 20px;
+            font-size: 16px;
             font-family: 'Montserrat', sans-serif;
             flex-shrink: 0;
         }
@@ -2936,47 +2822,51 @@
             color: var(--propellini-text);
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 4px;
         }
 
         .review-date {
             color: var(--propellini-text-muted);
             font-family: 'Roboto', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .review-rating {
             color: #ffd700;
-            font-size: 18px;
-            margin-bottom: 16px;
+            font-size: 16px;
+            margin-bottom: 12px;
             letter-spacing: 2px;
         }
 
         .review-text {
             color: var(--propellini-text-secondary);
             font-family: 'Roboto', sans-serif;
-            line-height: 1.7;
-            font-size: 15px;
+            line-height: 1.6;
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
-            .reviews-carousel {
-                max-width: 100%;
-            }
-            
-            .reviews-carousel-wrapper {
-                width: 100%;
+            .reviews-grid {
+                gap: 20px;
             }
 
             .review-card {
-                padding: 24px;
+                padding: 20px;
             }
 
-            .reviews-carousel-btn {
+            .review-avatar {
                 width: 40px;
                 height: 40px;
-                font-size: 20px;
+                font-size: 14px;
+            }
+
+            .review-name {
+                font-size: 15px;
+            }
+
+            .review-text {
+                font-size: 13px;
             }
         }
 
@@ -4298,436 +4188,68 @@
             <div class="text-center mb-16 slide-up">
                 <h2 class="section-title">ОТЗЫВЫ НАШИХ КЛИЕНТОВ</h2>
                 <p class="text-secondary-custom text-secondary-large">
-                    Более 29 отзывов с рейтингом 5.0
+                    3 отзыва с рейтингом 5.0
                 </p>
             </div>
             
-            <div class="reviews-carousel slide-up" data-delay="0.1">
-                <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="reviewsCarouselInner">
-                    <!-- Отзыв 1 -->
-                    <div class="carousel-item active" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
-                            <div class="review-header">
-                                <div class="review-avatar">AV</div>
-                                <div class="review-info">
-                                    <div class="review-name">Alexey Volkov</div>
-                                    <div class="review-date">16 ноября</div>
-                                </div>
-                            </div>
-                            <div class="review-rating">★★★★★</div>
-                            <div class="review-text">
-                                Отличная мойка! Очень тщательно помыли машину, уделили внимание стеклам, колесам, салону. Персонал внимательный, цены адекватные. Обязательно вернусь!
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 2 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+            <div class="reviews-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Отзыв 1 -->
+                <div class="review-item slide-up">
+                    <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">АШ</div>
+                            <div class="review-avatar">АВ</div>
                             <div class="review-info">
-                                <div class="review-name">Артём Ширманкин</div>
-                                <div class="review-date">18 ноября</div>
+                                <div class="review-name">Алексей Волков</div>
+                                <div class="review-date">16 ноября</div>
                             </div>
                         </div>
                         <div class="review-rating">★★★★★</div>
                         <div class="review-text">
-                            Отличная мойка автомобиля! Качественная работа, убрали пятно от кофе. Всё чисто, аккуратно. Рекомендую!
+                            Отличная мойка! Очень тщательно помыли машину, уделили внимание стеклам, колесам, салону. Персонал внимательный, цены адекватные. Обязательно вернусь!
                         </div>
                     </a>
+                </div>
 
-                    <!-- Отзыв 3 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
-                            <div class="review-header">
-                                <div class="review-avatar">СЖ</div>
-                                <div class="review-info">
-                                    <div class="review-name">Сергей Ж.</div>
-                                    <div class="review-date">14 мая</div>
-                                </div>
-                            </div>
-                            <div class="review-rating">★★★★★</div>
-                            <div class="review-text">
-                                Современное оборудование, двухэтапная мойка, сохранение лакокрасочного покрытия. Используют качественную химию. Очень доволен результатом!
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 4 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
+                <!-- Отзыв 2 -->
+                <div class="review-item slide-up" data-delay="0.1">
+                    <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">ДК</div>
+                            <div class="review-avatar">МП</div>
                             <div class="review-info">
-                                <div class="review-name">Дмитрий К.</div>
+                                <div class="review-name">Мария Петрова</div>
                                 <div class="review-date">12 ноября</div>
                             </div>
                         </div>
                         <div class="review-rating">★★★★★</div>
                         <div class="review-text">
-                            Отличный сервис! Тонировка выполнена качественно, без пузырей и дефектов. Мастера профессионалы своего дела. Рекомендую всем!
+                            Прекрасная работа! Тонировка выполнена качественно, использовали премиальную пленку. Машина выглядит отлично, защита от солнца работает идеально. Рекомендую!
                         </div>
                     </a>
+                </div>
 
-                    <!-- Отзыв 5 -->
-                    <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">МП</div>
-                            <div class="review-info">
-                                <div class="review-name">Мария П.</div>
-                                <div class="review-date">10 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Прекрасная работа! Использовали премиальную пленку Llumar, результат превзошел ожидания. Машина выглядит отлично, защита от солнца работает идеально.
-                        </div>
-                    </a>
-
-                    <!-- Отзыв 6 -->
+                <!-- Отзыв 3 -->
+                <div class="review-item slide-up" data-delay="0.2">
                     <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">АВ</div>
+                            <div class="review-avatar">ДК</div>
                             <div class="review-info">
-                                <div class="review-name">Андрей В.</div>
-                                <div class="review-date">8 ноября</div>
+                                <div class="review-name">Дмитрий Козлов</div>
+                                <div class="review-date">10 ноября</div>
                             </div>
                         </div>
                         <div class="review-rating">★★★★★</div>
                         <div class="review-text">
                             Быстро, качественно, недорого! Тонировка выполнена за один день, все аккуратно, без замечаний. Персонал вежливый, объяснили все нюансы. Спасибо!
                         </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 7 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ДМ</div>
-                            <div class="review-info">
-                                <div class="review-name">DrivMiks</div>
-                                <div class="review-date">15 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Регулярно мою здесь машину и всегда ухожу довольным! Моют очень тщательно, все трудно доступные места, стекла и диски - все чисто. В салоне тоже красота. Персонал внимательный, цены не кусаются. Спасибо за вашу работу. Буду приезжать еще!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 8 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">АК</div>
-                            <div class="review-info">
-                                <div class="review-name">Алина Кальянова</div>
-                                <div class="review-date">10 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Долго искала место, где можно сделать полировку фар и легкую химчистку багажника. Все сделали быстро, четко и очень аккуратно. Персонал вежливый, на все интересующиеся вопросы ответили! Оказанной услугой осталась довольна. Рекомендую!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 9 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ВК</div>
-                            <div class="review-info">
-                                <div class="review-name">Владислав К.</div>
-                                <div class="review-date">22 сентября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Ребята очень помогли с химчисткой салона, вывести запах уксуса, который выводится с очень большим трудом. Всё заняло 2 часа по доступной цене (по сравнению с другими сервисами). Очень доволен результатом. Ребятам большое спасибо!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 10 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">АГ</div>
-                            <div class="review-info">
-                                <div class="review-name">Андрей Голод</div>
-                                <div class="review-date">14 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Очень порадовало качество оказанной услуги, мастера подошли ответственно к работе, помыли автомобиль, сделали полировку кузова. Приятный сервис по доступным ценам. Буду заглядывать еще.
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 11 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">СД</div>
-                            <div class="review-info">
-                                <div class="review-name">Сергей Донцов</div>
-                                <div class="review-date">13 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Хочу отметить высокий уровень обслуживания! При записи оперативно подобрали удобное время, на месте встретили приветливо, подробно рассказали, как и что будут делать. Всем остался доволен. Однозначно рекомендую данный сервис!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 12 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">АД</div>
-                            <div class="review-info">
-                                <div class="review-name">Арсалан Дармаев</div>
-                                <div class="review-date">11 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Хочу выразить благодарность персоналу за внимательное отношение и профессионализм. Меня подробно проконсультировали, учли все пожелания. Результат превзошёл ожидания — ни единого развода, всё идеально чисто. Однозначно рекомендую!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 13 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">СИ</div>
-                            <div class="review-info">
-                                <div class="review-name">Сергей Извеков</div>
-                                <div class="review-date">18 ноября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Перепробовал много мест, но решил остановится на этой. Хочу отметить компетентность администратора, который проконсультировал и ответил на все мои интересующие вопросы. Мастера подошли к работе ответственно, делали химчистку салона. Сервис на высоте, рекомендую!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 14 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ТК</div>
-                            <div class="review-info">
-                                <div class="review-name">Тимофей Кононенко</div>
-                                <div class="review-date">30 октября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Заезжал к ребятам на комплексную мойку автомобиля, оказанной услугой остался доволен, дополнительно ко всему нанесли еще покрытие анти-дождь, рекомендую
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 15 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">СА</div>
-                            <div class="review-info">
-                                <div class="review-name">Сергей Асташкин</div>
-                                <div class="review-date">30 октября</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Заезжал к ребятам на оклейку машины защитной пленкой, оказанной услугой остался доволен, ребята профессионалы своего дела, буду заезжать к ним еще, рекомендую
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 16 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ИИ</div>
-                            <div class="review-info">
-                                <div class="review-name">Иван Иванович</div>
-                                <div class="review-date">30 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Великолепная мойка! Вежливый персонал. Машина стала чистой как новая. Оборудование и качество работы на высшем уровне. Обязательно вернусь снова! Спасибо!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 17 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ТМ</div>
-                            <div class="review-info">
-                                <div class="review-name">TM</div>
-                                <div class="review-date">28 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Сегодня помыла машину, очень довольна результатом! Работа выполнена качественно и оперативно. Поверхность автомобиля чистая, без разводов и следов. Буду приезжать еще! Отличная мойка! Рекомендую! Благодарю!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 18 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ТД</div>
-                            <div class="review-info">
-                                <div class="review-name">Татьяна Дмитриева</div>
-                                <div class="review-date">1 мая</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Долго искала мойку, заехала сюда и осталась довольна! Очень хорошо помыли машину и почистили салон с багажником! Рекомендую и буду приезжать сама!!!
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 19 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">АР</div>
-                            <div class="review-info">
-                                <div class="review-name">Александр Рыбаклёв</div>
-                                <div class="review-date">1 мая</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Отличная автомойка пригнал hyundai tucson. Всё сделали хорошо. Пропылесосили. Помыли. Всё протёрли в салоне. И цены адекватные. Спасибо большое.
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 20 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ЕК</div>
-                            <div class="review-info">
-                                <div class="review-name">Елена Кириллова</div>
-                                <div class="review-date">28 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Мойка супер, идеально вымыли мой автомобиль. И расположение комфортное, не пришлось искать даже. Нравиться, когда люди делают свою работу хорошо.
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 21 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ЮН</div>
-                            <div class="review-info">
-                                <div class="review-name">Юлия Николаева</div>
-                                <div class="review-date">27 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Очень хорошая команда, клиентоориентированные ребята, машину помыли очень быстро и качественно, рекомендую 👍
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 22 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">МИ</div>
-                            <div class="review-info">
-                                <div class="review-name">Михаил Ильин</div>
-                                <div class="review-date">30 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Машину моют хорошо! Видно что расходные материалы (тряпки) профессиональные. Можно так же заказать и доп услуги по детейлингу
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 23 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ТФ</div>
-                            <div class="review-info">
-                                <div class="review-name">Татьяна Фомина</div>
-                                <div class="review-date">28 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            Очень хорошо помыли машину, приятные люди, отличная атмосфера, советую на 100%
-                        </div>
-                        </a>
-                    </div>
-
-                    <!-- Отзыв 24 -->
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" target="_blank" rel="noopener noreferrer" class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">ДС</div>
-                            <div class="review-info">
-                                <div class="review-name">Дарья Смирнова</div>
-                                <div class="review-date">28 апреля</div>
-                            </div>
-                        </div>
-                        <div class="review-rating">★★★★★</div>
-                        <div class="review-text">
-                            отличная мойка)
-                        </div>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
             
-            <div class="carousel-controls-wrapper">
-                <button class="carousel-control-prev" type="button" id="reviewsPrevBtn" aria-label="Предыдущий отзыв">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Предыдущий</span>
-                </button>
-                <button class="carousel-control-next" type="button" id="reviewsNextBtn" aria-label="Следующий отзыв">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Следующий</span>
-                </button>
-            </div>
-            </div>
-            
             <div class="text-center mt-12 slide-up" data-delay="0.2">
-                <a href="https://yandex.by/maps/org/tsentr_okleyki/192322091412/reviews/?ll=37.290603%2C55.893480&utm_source=review&z=14" 
-                   class="btn-primary btn-shimmer" 
+                <a href="https://yandex.by/maps/org/propellini/67952230417/reviews/?ll=37.448465%2C55.807461&utm_source=review&z=17" 
+                   class="btn-primary btn-shimmer btn-link-inline" 
                    target="_blank" 
-                   rel="noopener noreferrer"
-                   class="btn-link-inline">
+                   rel="noopener noreferrer">
                     Читать все отзывы на Яндекс.Картах
                 </a>
             </div>
@@ -5541,110 +5063,6 @@
             }, 1000);
         });
 
-        // Карусель отзывов в стиле Bootstrap
-        document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('reviewsCarousel');
-            if (!carousel) {
-                console.log('Carousel not found');
-                return;
-            }
-            
-            const items = carousel.querySelectorAll('.carousel-item');
-            console.log('Found items:', items.length);
-            if (items.length <= 1) {
-                console.log('Not enough items for carousel');
-                return;
-            }
-            
-            let currentIndex = 0;
-            let intervalId = null;
-            
-            function showSlide(index) {
-                if (index < 0 || index >= items.length) {
-                    console.log('Invalid index:', index);
-                    return;
-                }
-                
-                console.log('Showing slide:', index + 1, 'of', items.length);
-                
-                // Убираем активный класс у всех
-                items.forEach(function(item, i) {
-                    if (i === index) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
-                    }
-                });
-                
-                currentIndex = index;
-            }
-            
-            function nextSlide() {
-                const nextIndex = (currentIndex + 1) % items.length;
-                console.log('Next slide: from', currentIndex, 'to', nextIndex);
-                showSlide(nextIndex);
-            }
-            
-            function prevSlide() {
-                const prevIndex = (currentIndex - 1 + items.length) % items.length;
-                console.log('Prev slide: from', currentIndex, 'to', prevIndex);
-                showSlide(prevIndex);
-            }
-            
-            function startAutoSlide() {
-                if (intervalId) clearInterval(intervalId);
-                const activeItem = carousel.querySelector('.carousel-item.active');
-                const interval = activeItem ? parseInt(activeItem.getAttribute('data-bs-interval')) || 5000 : 5000;
-                intervalId = setInterval(nextSlide, interval);
-            }
-            
-            function stopAutoSlide() {
-                if (intervalId) {
-                    clearInterval(intervalId);
-                    intervalId = null;
-                }
-            }
-            
-            // Кнопки навигации - ищем по ID
-            const prevBtn = document.getElementById('reviewsPrevBtn');
-            const nextBtn = document.getElementById('reviewsNextBtn');
-            
-            console.log('Prev button:', prevBtn);
-            console.log('Next button:', nextBtn);
-            
-            if (prevBtn) {
-                prevBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Prev button clicked');
-                    stopAutoSlide();
-                    prevSlide();
-                    startAutoSlide();
-                });
-            }
-            
-            if (nextBtn) {
-                nextBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Next button clicked');
-                    stopAutoSlide();
-                    nextSlide();
-                    startAutoSlide();
-                });
-            }
-            
-            // Автопрокрутка при наведении
-            carousel.addEventListener('mouseenter', stopAutoSlide);
-            carousel.addEventListener('mouseleave', startAutoSlide);
-            
-            // Инициализация
-            if (items.length > 0) {
-                showSlide(0);
-                startAutoSlide();
-                console.log('Carousel initialized with', items.length, 'items');
-            }
-        });
     </script>
     
     <!-- Функция открытия калькулятора -->
