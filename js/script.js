@@ -93,6 +93,12 @@ document.addEventListener('keydown', (e) => {
 
 // Инициализация обработчиков при загрузке DOM
 document.addEventListener('DOMContentLoaded', function() {
+    // Гарантируем, что модальное окно закрыто при загрузке
+    const modal = document.getElementById('applicationModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
     // Обработчики для кнопок открытия калькулятора
     const calculatorNavBtn = document.getElementById('calculatorNavBtn');
     const calculatorMobileBtn = document.getElementById('calculatorMobileBtn');
