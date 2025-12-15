@@ -3023,9 +3023,9 @@
                 0 0 0 0 inset rgba(5, 5, 5, 0.1),
                 -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.25),
                 0 0 0 0 inset rgba(5, 5, 5, 0.1),
-                0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.25),
+                0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.4),
                 0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
-                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.4),
                 -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.25);
             display: flex;
             align-items: center;
@@ -3044,14 +3044,25 @@
                 -0.075em -0.12em 0.2em 0.1em inset rgba(5, 5, 5, 0.25);
         }
 
-        .socials .social-icon-link .button-inner svg,
+        .socials .social-icon-link .button-inner svg {
+            position: relative;
+            z-index: 4;
+            transition: transform 250ms ease;
+            will-change: transform;
+            color: #ffffff;
+            filter: drop-shadow(0 0 0.2em rgba(22, 132, 145, 0.8)) drop-shadow(0 0 0.4em rgba(22, 132, 145, 0.4));
+            width: 24px;
+            height: 24px;
+        }
+
         .socials .social-icon-link .button-inner span {
             position: relative;
             z-index: 4;
             transition: transform 250ms ease;
             will-change: transform;
-            color: var(--propellini-primary);
-            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.5));
+            color: #ffffff;
+            filter: drop-shadow(0 0 0.2em rgba(22, 132, 145, 0.8)) drop-shadow(0 0 0.4em rgba(22, 132, 145, 0.4));
+            font-weight: 700;
         }
 
         .socials .social-icon-link:hover .button-inner svg,
