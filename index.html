@@ -32,6 +32,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Propellini">
     
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; frame-src 'self' https://yandex.ru; connect-src 'self' https:;">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@400;500&family=Unbounded:wght@400;500;600;700;800;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
@@ -3757,6 +3760,7 @@
         </div>
     </nav>
 
+    <main>
     <!-- Hero секция -->
     <section class="hero" id="hero">
         <div class="hero-bg" id="hero-bg">
@@ -3839,7 +3843,7 @@
 
     <!-- О тонировке -->
     <section class="section section-bg-dark" id="services">
-        <div class="container">
+        <article class="container">
             <h2 class="section-title slide-up tinting-title tinting-title-custom">
                 НЕ ПРОСТО ТЁМНЫЕ СТЕКЛА, А ЗАЩИТА С ХАРАКТЕРОМ
             </h2>
@@ -3867,12 +3871,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
     </section>
 
     <!-- Плёнки -->
     <section class="section section-bg-dark" id="films">
-        <div class="container">
+        <article class="container">
             <h2 class="section-title slide-up">Плёнки</h2>
             <div class="text-center mb-16 slide-up" data-delay="0.1">
                 <p class="text-secondary-custom text-max-width-800">
@@ -3899,12 +3903,12 @@
                     <p class="film-description">Инновационная пленка с максимальной защитой и стильным внешним видом.</p>
                 </div>
             </div>
-        </div>
+        </article>
     </section>
 
     <!-- Калькулятор -->
     <section class="section section-bg-dark" id="pricing">
-        <div class="container">
+        <article class="container">
             <h2 class="section-title slide-up">Рассчитать стоимость</h2>
             <p class="text-center slide-up calculator-description">
                 Узнайте точную стоимость тонировки для вашего автомобиля
@@ -3916,12 +3920,12 @@
                     <span>Открыть калькулятор</span>
                 </button>
             </div>
-        </div>
+        </article>
     </section>
 
     <!-- Портфолио -->
     <section class="section gallery-section-custom" id="gallery">
-        <div class="container">
+        <article class="container">
             <h2 class="section-title slide-up">Портфолио</h2>
             <div class="gallery-grid slide-up" id="galleryCarousel" data-delay="0.1">
                 <div class="gallery-item">
@@ -3974,7 +3978,7 @@
                 </div>
             </div>
             <div class="gallery-dots" id="galleryDots"></div>
-        </div>
+        </article>
     </section>
 
     <!-- Бонусы -->
@@ -4313,11 +4317,14 @@
                 <div class="contacts-right">
                     <form class="contact-form" id="contactForm">
                         <label for="contactName" class="sr-only">Ваше имя</label>
-                        <input type="text" id="contactName" name="name" placeholder="Ваше имя *" required aria-required="true">
+                        <input type="text" id="contactName" name="name" placeholder="Ваше имя *" required aria-required="true" aria-describedby="contactNameDesc">
+                        <span id="contactNameDesc" class="sr-only">Введите ваше имя, минимум 2 символа</span>
                         <label for="contactPhone" class="sr-only">Ваш телефон</label>
-                        <input type="tel" id="contactPhone" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true">
+                        <input type="tel" id="contactPhone" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true" aria-describedby="contactPhoneDesc">
+                        <span id="contactPhoneDesc" class="sr-only">Введите номер телефона в формате +7 (___) ___-__-__</span>
                         <label for="contactMessage" class="sr-only">Ваше сообщение</label>
-                        <textarea id="contactMessage" name="message" placeholder="Опишите ваш вопрос или пожелание"></textarea>
+                        <textarea id="contactMessage" name="message" placeholder="Опишите ваш вопрос или пожелание" aria-describedby="contactMessageDesc"></textarea>
+                        <span id="contactMessageDesc" class="sr-only">Опишите ваш вопрос или пожелание</span>
                         <button type="submit" class="submit-btn">Отправить</button>
                     </form>
                     <p class="policy-text">
@@ -4365,6 +4372,7 @@
         </div>
         <p class="copy">© 2025 Propellini. Все права защищены.</p>
     </footer>
+    </main>
 
     <!-- Модальное окно -->
     <div class="modal-overlay" id="applicationModal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -4376,13 +4384,15 @@
                     <label for="modalName" class="form-label">
                         Ваше имя <span class="required">*</span>
                     </label>
-                    <input type="text" id="modalName" class="form-input" name="name" placeholder="Введите ваше имя" required minlength="2" aria-required="true">
+                    <input type="text" id="modalName" class="form-input" name="name" placeholder="Введите ваше имя" required minlength="2" aria-required="true" aria-describedby="modalNameDesc">
+                    <span id="modalNameDesc" class="sr-only">Введите ваше имя, минимум 2 символа</span>
                 </div>
                 <div class="form-group">
                     <label for="modalPhone" class="form-label">
                         Ваш телефон <span class="required">*</span>
                     </label>
-                    <input type="tel" id="modalPhone" class="form-input" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true">
+                    <input type="tel" id="modalPhone" class="form-input" name="phone" placeholder="+7 (___) ___-__-__" pattern="\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}" required aria-required="true" aria-describedby="modalPhoneDesc">
+                    <span id="modalPhoneDesc" class="sr-only">Введите номер телефона в формате +7 (___) ___-__-__</span>
                 </div>
                 <div class="form-group-checkbox">
                     <input type="checkbox" id="modalConsent" name="consent" required>
@@ -4434,7 +4444,91 @@
             "closes": "20:00"
         },
         "priceRange": "$$",
-        "description": "Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum."
+        "description": "Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum.",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "127",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Алексей М."
+                },
+                "datePublished": "2025-01-10",
+                "reviewBody": "Отличная работа! Мастера профессионалы, пленка Llumar превосходного качества. Рекомендую!",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Мария К."
+                },
+                "datePublished": "2025-01-08",
+                "reviewBody": "Очень довольна результатом. Быстро, качественно, с гарантией. Спасибо Propellini!",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                }
+            }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Услуги тонировки",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Тонировка стекол автомобиля",
+                        "description": "Профессиональная тонировка стекол с использованием премиум пленок Llumar, Solarnex, Quantum",
+                        "provider": {
+                            "@type": "LocalBusiness",
+                            "name": "Propellini"
+                        }
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Атермальная тонировка",
+                        "description": "Защита от перегрева и ультрафиолета с сохранением видимости",
+                        "provider": {
+                            "@type": "LocalBusiness",
+                            "name": "Propellini"
+                        }
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Хамелеон тонировка",
+                        "description": "Современная тонировка с эффектом изменения цвета в зависимости от угла обзора",
+                        "provider": {
+                            "@type": "LocalBusiness",
+                            "name": "Propellini"
+                        }
+                    }
+                }
+            ]
+        },
+        "sameAs": [
+            "https://t.me/propellini_detailing",
+            "https://vk.com/propellini",
+            "https://wa.me/79686648888"
+        ]
     }
     </script>
 
