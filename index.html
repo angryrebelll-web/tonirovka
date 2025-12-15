@@ -1284,17 +1284,6 @@
             height: 20px;
         }
 
-        /* Иконки соцсетей в контактах */
-        .socials a.tg,
-        .socials a.wa {
-            color: var(--propellini-primary);
-        }
-
-        .socials .vk-icon-img {
-            width: 24px;
-            height: 24px;
-            filter: brightness(0) saturate(100%) invert(40%) sepia(100%) saturate(1000%) hue-rotate(150deg);
-        }
 
         .btn-shimmer {
             position: relative;
@@ -1671,9 +1660,9 @@
                 0 0 0 0 inset rgba(5, 5, 5, 0.1),
                 -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.25),
                 0 0 0 0 inset rgba(5, 5, 5, 0.1),
-                0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.25),
+                0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.4),
                 0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
-                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.4),
                 -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.25);
             display: flex;
             align-items: center;
@@ -1697,8 +1686,8 @@
             z-index: 4;
             transition: transform 250ms ease;
             will-change: transform;
-            color: var(--propellini-primary);
-            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.3));
+            color: #ffffff;
+            filter: drop-shadow(0 0 0.2em rgba(22, 132, 145, 0.8)) drop-shadow(0 0 0.4em rgba(22, 132, 145, 0.4));
             width: 24px;
             height: 24px;
         }
@@ -1708,8 +1697,9 @@
             z-index: 4;
             transition: transform 250ms ease;
             will-change: transform;
-            color: var(--propellini-primary);
-            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.3));
+            color: #ffffff;
+            filter: drop-shadow(0 0 0.2em rgba(22, 132, 145, 0.8)) drop-shadow(0 0 0.4em rgba(22, 132, 145, 0.4));
+            font-weight: 700;
         }
 
         .hero-footer-socials a:hover .button-inner svg {
@@ -2952,40 +2942,121 @@
 
         .socials {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex-direction: row;
+            gap: 12px;
             margin-top: 28px;
+            align-items: center;
         }
 
-        .socials a {
-            color: var(--propellini-primary);
-            text-decoration: none;
-            font-size: 15px;
-            font-family: 'Roboto', sans-serif;
-            padding: 8px 0;
-            transition: all 0.3s ease;
+        .socials .social-icon-link {
+            all: unset;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            position: relative;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            border-radius: 999vw;
+            background-color: rgba(22, 132, 145, 0.85);
+            box-shadow: -0.15em -0.15em 0.15em -0.075em rgba(22, 132, 145, 0.4),
+                0.0375em 0.0375em 0.0675em 0 rgba(22, 132, 145, 0.2);
         }
 
-        .socials a:hover {
-            color: var(--propellini-primary-light);
-            transform: translateX(4px);
+        .socials .social-icon-link::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            width: calc(100% + 0.3em);
+            height: calc(100% + 0.3em);
+            top: -0.15em;
+            left: -0.15em;
+            border-radius: inherit;
+            background: linear-gradient(-135deg,
+                    rgba(22, 132, 145, 0.6),
+                    transparent 20%,
+                    transparent 100%);
+            filter: blur(0.0125em);
+            opacity: 0.25;
+            mix-blend-mode: multiply;
         }
 
-        .socials a::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--propellini-primary);
-            border-radius: 50%;
-            transition: all 0.3s ease;
+        .socials .social-icon-link .button-outer {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            transition: box-shadow 300ms ease;
+            will-change: box-shadow;
+            box-shadow: 0 0.05em 0.05em -0.01em rgba(5, 5, 5, 1),
+                0 0.01em 0.01em -0.01em rgba(5, 5, 5, 0.5),
+                0.15em 0.3em 0.1em -0.01em rgba(5, 5, 5, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .socials a:hover::before {
-            background: var(--propellini-primary-light);
-            transform: scale(1.3);
+        .socials .social-icon-link:hover .button-outer {
+            box-shadow: 0 0 0 0 rgba(5, 5, 5, 1), 0 0 0 0 rgba(5, 5, 5, 0.5),
+                0 0 0 0 rgba(5, 5, 5, 0.25);
+        }
+
+        .socials .social-icon-link .button-inner {
+            --inset: 0.035em;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            padding: 0;
+            background-image: linear-gradient(135deg,
+                    rgba(22, 132, 145, 1),
+                    rgba(18, 109, 119, 1));
+            transition: box-shadow 300ms ease, clip-path 250ms ease,
+                background-image 250ms ease, transform 250ms ease;
+            will-change: box-shadow, clip-path, background-image, transform;
+            overflow: clip;
+            clip-path: inset(0 0 0 0 round 999vw);
+            box-shadow:
+                0 0 0 0 inset rgba(5, 5, 5, 0.1),
+                -0.05em -0.05em 0.05em 0 inset rgba(5, 5, 5, 0.25),
+                0 0 0 0 inset rgba(5, 5, 5, 0.1),
+                0 0 0.05em 0.2em inset rgba(255, 255, 255, 0.25),
+                0.025em 0.05em 0.1em 0 inset rgba(255, 255, 255, 1),
+                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+                -0.075em -0.25em 0.25em 0.1em inset rgba(5, 5, 5, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .socials .social-icon-link:hover .button-inner {
+            clip-path: inset(clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) clamp(1px, 0.0625em, 2px) round 999vw);
+            box-shadow:
+                0.1em 0.15em 0.05em 0 inset rgba(5, 5, 5, 0.75),
+                -0.025em -0.03em 0.05em 0.025em inset rgba(5, 5, 5, 0.5),
+                0.25em 0.25em 0.2em 0 inset rgba(5, 5, 5, 0.5),
+                0 0 0.05em 0.5em inset rgba(255, 255, 255, 0.15),
+                0 0 0 0 inset rgba(255, 255, 255, 1),
+                0.12em 0.12em 0.12em inset rgba(255, 255, 255, 0.25),
+                -0.075em -0.12em 0.2em 0.1em inset rgba(5, 5, 5, 0.25);
+        }
+
+        .socials .social-icon-link .button-inner svg,
+        .socials .social-icon-link .button-inner span {
+            position: relative;
+            z-index: 4;
+            transition: transform 250ms ease;
+            will-change: transform;
+            color: var(--propellini-primary);
+            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.5));
+        }
+
+        .socials .social-icon-link:hover .button-inner svg,
+        .socials .social-icon-link:hover .button-inner span {
+            transform: scale(0.975);
         }
 
         .contacts-right {
@@ -4178,12 +4249,31 @@
                         <a href="tel:+79919361489" class="contact-phone-link">+7 (991) 936-14-89</a>
                     </p>
                     <div class="socials">
-                        <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" class="tg">Telegram</a>
-                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="vk contact-link-custom">
-                            <img src="https://w7.pngwing.com/pngs/430/375/png-transparent-vk-social-media-logo-social-media-logo-social-brand-3d-icon.png" alt="ВКонтакте" class="vk-icon-img">
-                            <span>ВКонтакте</span>
+                        <a href="https://t.me/propellini_detailing" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Telegram">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="social-icon">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                                    </svg>
+                                </div>
+                            </div>
                         </a>
-                        <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" class="wa">WhatsApp: +7 968 664-88-88</a>
+                        <a href="https://vk.com/propellini" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="ВКонтакте">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <span class="vk-text">ВК</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/79686648888" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
+                            <div class="button-outer">
+                                <div class="button-inner">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="social-icon">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <!-- Правая форма -->
