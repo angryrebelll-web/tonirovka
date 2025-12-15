@@ -126,6 +126,48 @@ document.addEventListener('DOMContentLoaded', function() {
         openCalculatorPricingBtn.addEventListener('click', openCalculator);
     }
     
+    // Дополнительные обработчики для альтернативных кнопок
+    const calculatorNavBtnAlt = document.getElementById('calculatorNavBtnAlt');
+    const calculatorMobileBtnAlt = document.getElementById('calculatorMobileBtnAlt');
+    const openModalBtnAlt = document.getElementById('openModalBtnAlt');
+    const openModalMobileBtnAlt = document.getElementById('openModalMobileBtnAlt');
+    const openModalHeroBtnAlt = document.getElementById('openModalHeroBtnAlt');
+    
+    if (calculatorNavBtnAlt) {
+        calculatorNavBtnAlt.addEventListener('click', openCalculator);
+    }
+    if (calculatorMobileBtnAlt) {
+        calculatorMobileBtnAlt.addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            if (menu && menuBtn) {
+                menu.classList.remove('active');
+                menuBtn.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+            openCalculator();
+        });
+    }
+    if (openModalBtnAlt) {
+        openModalBtnAlt.addEventListener('click', window.openModal);
+    }
+    if (openModalMobileBtnAlt) {
+        openModalMobileBtnAlt.addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            if (menu && menuBtn) {
+                menu.classList.remove('active');
+                menuBtn.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+            window.openModal();
+        });
+    }
+    if (openModalHeroBtnAlt) {
+        openModalHeroBtnAlt.addEventListener('click', window.openModal);
+    }
+    
     // Обработчики для кнопок открытия модального окна
     const openModalBtn = document.getElementById('openModalBtn');
     const openModalMobileBtn = document.getElementById('openModalMobileBtn');
