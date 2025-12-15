@@ -272,8 +272,8 @@
         }
 
         .calculator-button-large {
-            padding: 24px 64px;
-            font-size: 20px;
+            padding: 48px 128px;
+            font-size: 40px;
             font-weight: 700;
             border-radius: 14px;
             background: var(--propellini-primary);
@@ -282,6 +282,21 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(22, 132, 145, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-button-large {
+                padding: 32px 64px;
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calculator-button-large {
+                padding: 24px 48px;
+                font-size: 22px;
+            }
+        }
             max-width: 500px;
             margin: 0 auto;
         }
@@ -623,8 +638,13 @@
 
         .gallery-section-custom {
             background: var(--propellini-dark-secondary);
-            padding-top: 60px;
+            padding-top: 30px;
             padding-bottom: 60px;
+        }
+        
+        /* Уменьшаем отступ сверху для секции pricing перед gallery */
+        #pricing {
+            padding-bottom: 30px;
         }
 
         /* Slideshow стили для лайф фото работ */
@@ -3890,7 +3910,7 @@
             
             <!-- Кнопка калькулятора -->
             <div class="text-center slide-up calculator-button-wrapper" data-delay="0.1">
-                <button onclick="openCalculator()" class="btn-primary calculator-button-large">
+                <button type="button" id="openCalculatorPricingBtn" class="btn-primary calculator-button-large">
                     <span>Открыть калькулятор</span>
                 </button>
             </div>
