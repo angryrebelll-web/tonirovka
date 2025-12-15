@@ -1481,7 +1481,7 @@ function renderPackages() {
         div.innerHTML = `
             <header class="package-header">
                 <h3 class="package-name">${pkg.name}</h3>
-                <div class="package-cost">${minPrice === maxPrice ? minPrice.toLocaleString('ru-RU') + ' ₽' : `${minPrice.toLocaleString('ru-RU')} — ${maxPrice.toLocaleString('ru-RU')} ₽`}</div>
+                <div class="package-cost">${minPrice === maxPrice ? minPrice.toLocaleString('ru-RU') : `${minPrice.toLocaleString('ru-RU')} — ${maxPrice.toLocaleString('ru-RU')}`}</div>
             </header>
             <section class="package-features">
                 ${servicesList}
