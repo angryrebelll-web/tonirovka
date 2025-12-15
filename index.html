@@ -405,7 +405,7 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 14px;
-            color: white;
+            color: var(--propellini-primary);
             letter-spacing: 0.05em;
         }
 
@@ -515,7 +515,7 @@
         }
 
         .contact-phone-link {
-            color: var(--propellini-text);
+            color: var(--propellini-primary);
             text-decoration: none;
             font-size: 18px;
             font-weight: 500;
@@ -1189,12 +1189,12 @@
         .btn-primary {
             background: var(--propellini-primary);
             color: white;
-            padding: 10px 24px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 16px;
             font-family: 'Roboto', sans-serif;
             font-weight: 500;
             font-size: 14px;
-            border: none;
+            border: 1px solid rgba(22, 132, 145, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: var(--propellini-shadow-md);
@@ -1202,6 +1202,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .nav .btn-primary {
@@ -1274,6 +1276,26 @@
             box-shadow: 0 4px 12px rgba(22, 132, 145, 0.2);
         }
 
+        /* Иконка телефона в Hero - цвет Propellini */
+        .hero-buttons .btn-secondary svg {
+            stroke: var(--propellini-primary);
+            color: var(--propellini-primary);
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Иконки соцсетей в контактах */
+        .socials a.tg,
+        .socials a.wa {
+            color: var(--propellini-primary);
+        }
+
+        .socials .vk-icon-img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%) invert(40%) sepia(100%) saturate(1000%) hue-rotate(150deg);
+        }
+
         .btn-shimmer {
             position: relative;
             overflow: hidden;
@@ -1286,9 +1308,35 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
-            animation: shimmerGlow 2.5s infinite;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.6),
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmerGlow 3s infinite;
             z-index: 1;
+            transform: skewX(-20deg);
+        }
+
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+            pointer-events: none;
+            border-radius: inherit;
+            z-index: 0;
         }
 
         @keyframes shimmerGlow {
@@ -1649,8 +1697,10 @@
             z-index: 4;
             transition: transform 250ms ease;
             will-change: transform;
-            color: white;
-            filter: drop-shadow(0 0 0.1em rgba(0, 0, 0, 0.2));
+            color: var(--propellini-primary);
+            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.3));
+            width: 24px;
+            height: 24px;
         }
 
         .hero-footer-socials a .button-inner span {
@@ -1658,8 +1708,8 @@
             z-index: 4;
             transition: transform 250ms ease;
             will-change: transform;
-            color: white;
-            filter: drop-shadow(0 0 0.1em rgba(0, 0, 0, 0.2));
+            color: var(--propellini-primary);
+            filter: drop-shadow(0 0 0.1em rgba(22, 132, 145, 0.3));
         }
 
         .hero-footer-socials a:hover .button-inner svg {
