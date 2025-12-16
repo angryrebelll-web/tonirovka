@@ -5051,103 +5051,8 @@
             });
         });
 
-        // Модальное окно с ловушками фокуса (Apple Standards)
-        let modalFocusableElements = [];
-        let firstFocusableElement = null;
-        let lastFocusableElement = null;
-        let previousActiveElement = null;
-
-        function trapFocus(modal) {
-            // Получаем все фокусируемые элементы внутри модального окна
-            const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-            modalFocusableElements = Array.from(modal.querySelectorAll(focusableSelectors))
-                .filter(el => !el.disabled && el.offsetParent !== null);
-            
-            if (modalFocusableElements.length === 0) return;
-            
-            firstFocusableElement = modalFocusableElements[0];
-            lastFocusableElement = modalFocusableElements[modalFocusableElements.length - 1];
-            
-            // Сохраняем предыдущий активный элемент
-            previousActiveElement = document.activeElement;
-            
-            // Фокусируем первый элемент
-            firstFocusableElement.focus();
-        }
-
-        function releaseFocus() {
-            // Возвращаем фокус на предыдущий элемент
-            if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
-                previousActiveElement.focus();
-            }
-            previousActiveElement = null;
-            modalFocusableElements = [];
-            firstFocusableElement = null;
-            lastFocusableElement = null;
-        }
-
-        window.openModal = function() {
-            const modal = document.getElementById('applicationModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                // Устанавливаем ловушку фокуса
-                setTimeout(() => trapFocus(modal), 100);
-            }
-        };
-
-        window.closeModal = function() {
-            const modal = document.getElementById('applicationModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-                // Освобождаем фокус
-                releaseFocus();
-                // Сброс формы
-                const form = document.getElementById('applicationForm');
-                if (form) form.reset();
-            }
-        };
-
-        // Закрытие модального окна при клике вне его
-        document.addEventListener('click', (e) => {
-            const modal = document.getElementById('applicationModal');
-            if (modal && e.target === modal) {
-                window.closeModal();
-            }
-        });
-
-        // Закрытие модального окна по Escape и ловушка Tab
-        document.addEventListener('keydown', (e) => {
-            const modal = document.getElementById('applicationModal');
-            if (!modal || !modal.classList.contains('active')) return;
-            
-            if (e.key === 'Escape') {
-                window.closeModal();
-            } else if (e.key === 'Tab') {
-                // Ловушка фокуса внутри модального окна
-                if (modalFocusableElements.length === 0) {
-                    trapFocus(modal);
-                }
-                
-                if (e.shiftKey) {
-                    // Shift + Tab
-                    if (document.activeElement === firstFocusableElement) {
-                        e.preventDefault();
-                        lastFocusableElement.focus();
-                    }
-                } else {
-                    // Tab
-                    if (document.activeElement === lastFocusableElement) {
-                        e.preventDefault();
-                        firstFocusableElement.focus();
-                    }
-                }
-            }
-        });
-
         // Toast уведомления (Apple Standards - замена alert)
-        function showToast(message, type = 'success', duration = 3000) {
+        window.showToast = function(message, type = 'success', duration = 3000) {
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.setAttribute('role', 'alert');
@@ -5164,7 +5069,7 @@
         // Обработка форм
         document.getElementById('contactForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
+            window.showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
             this.reset();
         });
 
@@ -5177,17 +5082,17 @@
             const consent = this.querySelector('[name="consent"]').checked;
             
             if (!name || name.length < 2) {
-                showToast('Пожалуйста, введите ваше имя (минимум 2 символа)', 'error');
+                window.showToast('Пожалуйста, введите ваше имя (минимум 2 символа)', 'error');
                 return;
             }
             
             if (!phone || !phone.match(/\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}/)) {
-                showToast('Пожалуйста, введите корректный номер телефона', 'error');
+                window.showToast('Пожалуйста, введите корректный номер телефона', 'error');
                 return;
             }
             
             if (!consent) {
-                showToast('Необходимо согласие на обработку персональных данных', 'warning');
+                window.showToast('Необходимо согласие на обработку персональных данных', 'warning');
                 return;
             }
             
@@ -5198,7 +5103,7 @@
             
             // Имитация отправки
             setTimeout(() => {
-                showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
+                window.showToast('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.', 'success');
                 this.reset();
                 window.closeModal();
                 submitBtn.disabled = false;
@@ -5206,14 +5111,6 @@
             }, 1000);
         });
 
-    </script>
-    
-    <!-- Функция открытия калькулятора -->
-    <script>
-        function openCalculator() {
-            // Открываем калькулятор в новой вкладке
-            window.location.href = './calculator/index.html';
-        }
     </script>
 </body>
 </html>

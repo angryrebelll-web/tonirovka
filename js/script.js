@@ -1,9 +1,9 @@
 // JavaScript для проекта тонировки Propellini
 
-// Функция открытия калькулятора
-function openCalculator() {
+// Функция открытия калькулятора (доступна глобально)
+window.openCalculator = function() {
     window.location.href = './calculator/index.html';
-}
+};
 
 // Функции модального окна с ловушками фокуса
 let modalFocusableElements = [];
@@ -91,24 +91,29 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Инициализация обработчиков при загрузке DOM
-document.addEventListener('DOMContentLoaded', function() {
+// Функция инициализации обработчиков
+function initButtonHandlers() {
     // Гарантируем, что модальное окно закрыто при загрузке
     const modal = document.getElementById('applicationModal');
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
+    
     // Обработчики для кнопок открытия калькулятора
     const calculatorNavBtn = document.getElementById('calculatorNavBtn');
     const calculatorMobileBtn = document.getElementById('calculatorMobileBtn');
     const openCalculatorBtn = document.getElementById('openCalculatorBtn');
     
     if (calculatorNavBtn) {
-        calculatorNavBtn.addEventListener('click', openCalculator);
+        calculatorNavBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openCalculator) window.openCalculator();
+        });
     }
     if (calculatorMobileBtn) {
-        calculatorMobileBtn.addEventListener('click', function() {
+        calculatorMobileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
             // Закрываем меню перед переходом
             const menu = document.getElementById('mobileMenu');
             const menuBtn = document.getElementById('mobileMenuBtn');
@@ -119,17 +124,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             }
             // Открываем калькулятор
-            openCalculator();
+            if (window.openCalculator) window.openCalculator();
         });
     }
     if (openCalculatorBtn) {
-        openCalculatorBtn.addEventListener('click', openCalculator);
+        openCalculatorBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openCalculator) window.openCalculator();
+        });
     }
     
     // Кнопка калькулятора в секции pricing
     const openCalculatorPricingBtn = document.getElementById('openCalculatorPricingBtn');
     if (openCalculatorPricingBtn) {
-        openCalculatorPricingBtn.addEventListener('click', openCalculator);
+        openCalculatorPricingBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openCalculator) window.openCalculator();
+        });
     }
     
     // Дополнительные обработчики для альтернативных кнопок
@@ -140,10 +151,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const openModalHeroBtnAlt = document.getElementById('openModalHeroBtnAlt');
     
     if (calculatorNavBtnAlt) {
-        calculatorNavBtnAlt.addEventListener('click', openCalculator);
+        calculatorNavBtnAlt.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openCalculator) window.openCalculator();
+        });
     }
     if (calculatorMobileBtnAlt) {
-        calculatorMobileBtnAlt.addEventListener('click', function() {
+        calculatorMobileBtnAlt.addEventListener('click', function(e) {
+            e.preventDefault();
             const menu = document.getElementById('mobileMenu');
             const menuBtn = document.getElementById('mobileMenuBtn');
             if (menu && menuBtn) {
@@ -152,14 +167,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuBtn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
             }
-            openCalculator();
+            if (window.openCalculator) window.openCalculator();
         });
     }
     if (openModalBtnAlt) {
-        openModalBtnAlt.addEventListener('click', window.openModal);
+        openModalBtnAlt.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openModal) window.openModal();
+        });
     }
     if (openModalMobileBtnAlt) {
-        openModalMobileBtnAlt.addEventListener('click', function() {
+        openModalMobileBtnAlt.addEventListener('click', function(e) {
+            e.preventDefault();
             const menu = document.getElementById('mobileMenu');
             const menuBtn = document.getElementById('mobileMenuBtn');
             if (menu && menuBtn) {
@@ -167,11 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuBtn.classList.remove('active');
                 menuBtn.setAttribute('aria-expanded', 'false');
             }
-            window.openModal();
+            if (window.openModal) window.openModal();
         });
     }
     if (openModalHeroBtnAlt) {
-        openModalHeroBtnAlt.addEventListener('click', window.openModal);
+        openModalHeroBtnAlt.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openModal) window.openModal();
+        });
     }
     
     // Обработчики для кнопок открытия модального окна
@@ -180,10 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const openModalHeroBtn = document.getElementById('openModalHeroBtn');
     
     if (openModalBtn) {
-        openModalBtn.addEventListener('click', window.openModal);
+        openModalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openModal) window.openModal();
+        });
     }
     if (openModalMobileBtn) {
-        openModalMobileBtn.addEventListener('click', function() {
+        openModalMobileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
             // Закрываем мобильное меню перед открытием модального окна
             const menu = document.getElementById('mobileMenu');
             const menuBtn = document.getElementById('mobileMenuBtn');
@@ -193,17 +219,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuBtn.setAttribute('aria-expanded', 'false');
             }
             // Открываем модальное окно
-            window.openModal();
-            // body.overflow уже будет установлен в window.openModal
+            if (window.openModal) window.openModal();
         });
     }
     if (openModalHeroBtn) {
-        openModalHeroBtn.addEventListener('click', window.openModal);
+        openModalHeroBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.openModal) window.openModal();
+        });
     }
     
     // Обработчик для кнопки закрытия модального окна
     const closeModalBtn = document.getElementById('closeModal');
     if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', window.closeModal);
+        closeModalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.closeModal) window.closeModal();
+        });
     }
-});
+}
+
+// Инициализация обработчиков при загрузке DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initButtonHandlers);
+} else {
+    // DOM уже загружен
+    initButtonHandlers();
+}
