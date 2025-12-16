@@ -33,8 +33,6 @@
     <meta name="apple-mobile-web-app-title" content="Propellini">
     
     <!-- Content Security Policy -->
-    <!-- Мягкая версия для локальной разработки (file://) -->
-    <!-- Для продакшена замените на: default-src 'self'; script-src 'self' 'unsafe-inline' https://yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; frame-src 'self' https://yandex.ru; connect-src 'self' https:; -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://yandex.ru; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; frame-src 'self' https://yandex.ru; connect-src 'self' https:;">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -120,6 +118,7 @@
             visibility: visible;
             opacity: 1;
             padding: 100px 0;
+            position: relative;
         }
         
         .container {
@@ -2506,10 +2505,6 @@
         }
 
         /* Секции */
-        .section {
-            padding: 100px 0;
-            position: relative;
-        }
 
         .section-title {
             font-size: 30px;
@@ -3281,6 +3276,28 @@
         .socials .social-icon-link:hover .button-inner svg,
         .socials .social-icon-link:hover .button-inner span {
             transform: scale(0.975);
+        }
+
+        .contact-info {
+            margin-top: 32px;
+        }
+
+        .contact-info-item {
+            margin-bottom: 20px;
+            color: var(--propellini-text);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contact-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-info-item strong {
+            color: var(--propellini-primary);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
         }
 
         .contacts-right {
@@ -4468,6 +4485,16 @@
                                 </div>
                             </div>
                         </a>
+                    </div>
+                    <div class="contact-info">
+                        <p class="contact-info-item">
+                            <strong>Адрес:</strong><br>
+                            Москва, ул. Авиационная, 79 к. 1
+                        </p>
+                        <p class="contact-info-item">
+                            <strong>Режим работы:</strong><br>
+                            пн-вс: с 8:00 до 23:00
+                        </p>
                     </div>
                 </div>
                 <!-- Правая форма -->
