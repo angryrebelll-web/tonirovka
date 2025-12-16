@@ -2,7 +2,7 @@
 <html lang="ru" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Профессиональная тонировка стекол автомобиля в Москве. Премиум пленки Llumar, Solarnex, Quantum. Гарантия 5 лет.">
     <meta name="keywords" content="тонировка автомобиля, тонировка стекол, Llumar, Solarnex, Quantum, Москва, Propellini">
     <title>Propellini - Профессиональная тонировка стекол автомобиля | Премиум пленки</title>
@@ -64,11 +64,33 @@
     <!-- Tailwind CDN удален - заменен на собственные утилитные классы (Apple Standards) -->
     <style>
         /* КРИТИЧНЫЕ СТИЛИ - ГАРАНТИРУЮТ ВИДИМОСТЬ КОНТЕНТА */
+        * {
+            box-sizing: border-box;
+        }
+        
         html, body {
             background: #0a0a0a;
             color: #ffffff;
             margin: 0;
             padding: 0;
+        }
+        
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+        
+        .container,
+        .hero-content,
+        section {
+            box-sizing: border-box;
+            max-width: 100%;
         }
         
         main, section, article {
@@ -113,6 +135,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            padding-top: env(safe-area-inset-top, 0);
         }
         
         /* Элементы видны по умолчанию */
@@ -176,6 +199,13 @@
             margin-right: auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
         }
         
         .nav .container {
@@ -339,7 +369,7 @@
 
         .calculator-description {
             color: var(--propellini-text-secondary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 48px; /* Унифицировано */
             font-size: 1.1rem;
         }
 
@@ -350,35 +380,67 @@
         }
 
         .calculator-button-large {
-            padding: 96px 256px;
-            font-size: 80px;
-            font-weight: 700;
-            border-radius: 14px;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 16px;
             background: var(--propellini-primary);
             color: white;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(22, 132, 145, 0.4);
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
         
         @media (max-width: 768px) {
             .calculator-button-large {
-                padding: 64px 128px;
-                font-size: 56px;
+                padding: 18px 40px;
+                font-size: 17px;
+                font-weight: 600;
+                min-height: 56px;
             }
         }
         
         @media (max-width: 480px) {
             .calculator-button-large {
-                padding: 48px 96px;
-                font-size: 44px;
+                padding: 18px 32px;
+                font-size: 16px;
+                font-weight: 600;
+                min-height: 56px;
             }
         }
         
-        .calculator-button-large {
-            max-width: 500px;
-            margin: 0 auto;
+        @media (max-width: 375px) {
+            .calculator-button-large {
+                padding: 16px 28px;
+                font-size: 16px;
+                min-height: 56px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .calculator-button-large {
+                padding: 16px 24px;
+                font-size: 15px;
+                min-height: 56px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .calculator-button-large {
+                padding: 16px 20px;
+                font-size: 15px;
+                min-height: 56px;
+            }
         }
 
         .slideshow-section {
@@ -510,7 +572,7 @@
 
         .services-section-bg {
             background: var(--propellini-dark-secondary);
-            padding: 40px 0;
+            padding: 100px 0; /* Унифицировано с базовым .section */
         }
 
         .services-description-text-custom {
@@ -541,7 +603,7 @@
         .text-secondary-margin {
             color: var(--propellini-text-secondary);
             line-height: 1.8;
-            margin-bottom: 24px;
+            margin-bottom: 32px; /* Система 8px: 32px = 4 * 8px */
             font-family: 'Roboto', sans-serif;
         }
 
@@ -734,14 +796,10 @@
 
         .gallery-section-custom {
             background: var(--propellini-dark-secondary);
-            padding-top: 30px;
-            padding-bottom: 60px;
+            padding: 100px 0; /* Унифицировано с базовым .section */
         }
         
-        /* Уменьшаем отступ сверху для секции pricing перед gallery */
-        #pricing {
-            padding-bottom: 30px;
-        }
+        /* Убрано кастомное уменьшение отступа для pricing - используется базовый .section */
 
         /* Slideshow стили для лайф фото работ */
         #lifephotos {
@@ -1376,6 +1434,14 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 44px;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-primary {
+                min-height: 48px;
+                padding: 14px 28px;
+            }
         }
         
         .nav .btn-primary {
@@ -1509,7 +1575,7 @@
         /* Toast уведомления (Apple Standards) */
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0));
             right: 20px;
             padding: 16px 24px;
             background: var(--propellini-dark-secondary);
@@ -1907,13 +1973,13 @@
                 text-align: left !important;
                 align-items: flex-start !important;
                 width: 100%;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
 
             .hero-footer-socials {
                 justify-content: flex-start !important;
                 width: 100%;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
         }
 
@@ -1925,19 +1991,19 @@
             }
 
             .hero-footer-contacts {
-                padding: 0 15px !important;
+                padding: 0 20px !important;
             }
 
             .hero-footer-left,
             .hero-footer-right {
                 text-align: left !important;
                 align-items: flex-start !important;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
 
             .hero-footer-socials {
                 justify-content: flex-start !important;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
         }
 
@@ -1949,19 +2015,19 @@
             }
 
             .hero-footer-contacts {
-                padding: 0 12px !important;
+                padding: 0 20px !important;
             }
 
             .hero-footer-left,
             .hero-footer-right {
                 text-align: left !important;
                 align-items: flex-start !important;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
 
             .hero-footer-socials {
                 justify-content: flex-start !important;
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
         }
         
@@ -2446,7 +2512,7 @@
             font-weight: 400;
             font-family: 'Unbounded', sans-serif;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 48px; /* Унифицировано: 48px = 3rem (система 8px) */
             text-transform: none;
             letter-spacing: 0;
             position: relative;
@@ -3010,7 +3076,7 @@
 
         .contacts-section {
             background: #0e0e0e;
-            padding-bottom: 40px;
+            padding: 100px 0; /* Унифицировано с базовым .section */
         }
 
         /* Дублирующее определение удалено - используется основное выше */
@@ -3026,7 +3092,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
-            margin-top: 40px;
+            margin-top: 48px; /* Унифицировано: система 8px */
             gap: 80px;
             max-width: 1100px;
             margin-left: auto;
@@ -3799,7 +3865,7 @@
                 width: 100%;
             }
             .contacts-left {
-                padding-left: 32px !important;
+                padding-left: 20px !important;
             }
             .socials {
                 padding-left: 32px !important;
@@ -3995,7 +4061,7 @@
     <section class="section section-bg-dark" id="films">
         <article class="container">
             <h2 class="section-title slide-up">Плёнки</h2>
-            <div class="text-center mb-16 slide-up" data-delay="0.1">
+            <div class="text-center slide-up" data-delay="0.1" style="margin-bottom: 48px;">
                 <p class="text-secondary-custom text-max-width-800">
                     Мы работаем с премиальными пленками Llumar, Solarnex, Quantum для обеспечения высочайшего качества тонировки.
                 </p>
@@ -4101,7 +4167,7 @@
     <!-- Бонусы -->
     <section class="section section-bg-dark" id="bonuses">
         <div class="container">
-            <div class="text-center mb-16 slide-up">
+            <div class="text-center slide-up" style="margin-bottom: 48px;">
                 <h2 class="section-title">Бонусы</h2>
                 <h3 class="bonus-title-custom">
                     Забота о клиентах — наш приоритет
@@ -4213,7 +4279,7 @@
     <!-- Отзывы -->
     <section class="section reviews-section section-bg-dark" id="reviews">
         <div class="container">
-            <div class="text-center mb-16 slide-up">
+            <div class="text-center slide-up" style="margin-bottom: 48px;">
                 <h2 class="section-title">ОТЗЫВЫ НАШИХ КЛИЕНТОВ</h2>
             </div>
             
