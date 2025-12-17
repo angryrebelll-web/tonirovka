@@ -1,0 +1,18 @@
+# Защита API директории
+<Files "contact.php">
+    # Разрешаем только POST запросы
+    <LimitExcept POST OPTIONS>
+        Require all denied
+    </LimitExcept>
+</Files>
+
+# CORS headers
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type"
+
+# Защита от прямого доступа к другим файлам
+<FilesMatch "\.(inc|conf|bak|backup|old|tmp)$">
+    Require all denied
+</FilesMatch>
+
