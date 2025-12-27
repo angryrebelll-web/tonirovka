@@ -1486,7 +1486,6 @@ function renderPackages() {
                 <h3 class="package-name">${pkg.name}</h3>
                 <div class="package-cost">
                     ${displayPrice.toLocaleString('ru-RU')} ₽
-                    ${isMinivan ? '<span style="font-size: 12px; opacity: 0.7; display: block; margin-top: 4px;">(базовая: ' + (pkg.base[selectedClass] || 0).toLocaleString('ru-RU') + ' ₽)</span>' : ''}
                 </div>
             </header>
             <section class="package-features">
@@ -1645,9 +1644,6 @@ function renderAdditionalServices() {
         
         // Формируем текст цены с учетом минивэна
         let priceText = `${displayPrice.toLocaleString('ru-RU')} ₽`;
-        if (isMinivan && !minivanExcludedServices.includes(service.id)) {
-            priceText += ` <span style="font-size: 11px; opacity: 0.7;">(базовая: ${basePrice.toLocaleString('ru-RU')} ₽)</span>`;
-        }
         
         label.innerHTML = `
             <input type="checkbox" id="${id}">
