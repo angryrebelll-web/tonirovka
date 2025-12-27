@@ -2615,7 +2615,7 @@
             display: none;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .gallery-grid {
                 display: flex;
                 overflow-x: auto;
@@ -2627,6 +2627,10 @@
                 gap: 0;
                 padding: 0;
                 scroll-behavior: smooth;
+                /* Улучшения для плавной прокрутки на всех мобильных */
+                touch-action: pan-x;
+                will-change: scroll-position;
+                overscroll-behavior-x: contain;
             }
             
             .gallery-grid::-webkit-scrollbar {
@@ -2641,8 +2645,16 @@
                 border-radius: 0;
                 margin: 0;
                 scroll-snap-align: start;
+                scroll-snap-stop: always; /* Останавливается на каждом элементе */
                 position: relative;
                 overflow: hidden;
+                /* Предотвращаем выделение текста при свайпе */
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+                /* Улучшаем производительность */
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
             }
             
             .gallery-item img {
@@ -2652,6 +2664,9 @@
                 transform: none;
                 opacity: 1;
                 transition: none;
+                /* Улучшаем производительность */
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
             }
             
             .gallery-overlay {
@@ -2690,12 +2705,22 @@
                 background: rgba(255, 255, 255, 0.3);
                 cursor: pointer;
                 transition: all 0.3s ease;
+                touch-action: manipulation;
             }
             
             .gallery-dot.active {
                 background: var(--propellini-primary);
                 width: 24px;
                 border-radius: 4px;
+            }
+        }
+        
+        /* Для планшетов - показываем по 2 элемента */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .gallery-item {
+                flex: 0 0 50%;
+                width: 50%;
+                margin-right: 16px;
             }
         }
         
@@ -4873,7 +4898,8 @@
             // Свайп-карусель для галереи в мобильной версии
             let galleryCarouselInitialized = false;
             function initGalleryCarousel() {
-                if (window.innerWidth <= 768) {
+                // Расширяем поддержку до планшетов (1024px)
+                if (window.innerWidth <= 1024) {
                     const galleryCarousel = document.getElementById('galleryCarousel');
                     const galleryDots = document.getElementById('galleryDots');
                     
@@ -4892,7 +4918,7 @@
                     // Очищаем точки перед созданием новых
                     galleryDots.innerHTML = '';
                     
-                    // Создаем точки навигации строго по количеству элементов (должно быть 6)
+                    // Создаем точки навигации строго по количеству элементов
                     const itemCount = galleryItems.length;
                     
                     for (let index = 0; index < itemCount; index++) {
@@ -4902,6 +4928,11 @@
                         dot.setAttribute('aria-label', `Перейти к слайду ${index + 1}`);
                         dot.setAttribute('tabindex', '0');
                         dot.addEventListener('click', () => {
+                            scrollToSlide(index);
+                        });
+                        // Поддержка touch для точек
+                        dot.addEventListener('touchend', (e) => {
+                            e.preventDefault();
                             scrollToSlide(index);
                         });
                         galleryDots.appendChild(dot);
@@ -4928,31 +4959,98 @@
                     }
                     
                     // Обработка прокрутки
-                    galleryCarousel.addEventListener('scroll', updateDots);
+                    galleryCarousel.addEventListener('scroll', updateDots, { passive: true });
                     galleryCarouselInitialized = true;
                     
-                    // Поддержка свайпа
+                    // Улучшенная поддержка свайпа для всех мобильных устройств
                     let startX = 0;
+                    let startY = 0;
                     let scrollLeft = 0;
                     let isDown = false;
+                    let startTime = 0;
+                    let lastX = 0;
+                    let velocity = 0;
+                    let minSwipeDistance = 10; // Минимальное расстояние для свайпа
                     
                     galleryCarousel.addEventListener('touchstart', (e) => {
                         isDown = true;
-                        startX = e.touches[0].pageX - galleryCarousel.offsetLeft;
+                        startX = e.touches[0].pageX;
+                        startY = e.touches[0].pageY;
                         scrollLeft = galleryCarousel.scrollLeft;
+                        startTime = Date.now();
+                        lastX = startX;
+                        velocity = 0;
+                        // Отключаем scroll-snap во время свайпа для плавности
+                        galleryCarousel.style.scrollSnapType = 'none';
                     }, { passive: true });
                     
                     galleryCarousel.addEventListener('touchmove', (e) => {
                         if (!isDown) return;
-                        e.preventDefault();
-                        const x = e.touches[0].pageX - galleryCarousel.offsetLeft;
-                        const walk = (x - startX) * 2;
-                        galleryCarousel.scrollLeft = scrollLeft - walk;
-                    });
+                        
+                        const currentX = e.touches[0].pageX;
+                        const currentY = e.touches[0].pageY;
+                        const deltaX = Math.abs(currentX - startX);
+                        const deltaY = Math.abs(currentY - startY);
+                        
+                        // Определяем, горизонтальный или вертикальный свайп
+                        // Если вертикальный свайп больше горизонтального - не блокируем
+                        if (deltaY > deltaX && deltaY > minSwipeDistance) {
+                            // Вертикальный свайп - не блокируем (для прокрутки страницы)
+                            isDown = false;
+                            galleryCarousel.style.scrollSnapType = 'x mandatory';
+                            return;
+                        }
+                        
+                        // Горизонтальный свайп - блокируем прокрутку страницы только если свайп начался
+                        if (deltaX > minSwipeDistance) {
+                            e.preventDefault();
+                        }
+                        
+                        const walk = currentX - startX;
+                        const newScrollLeft = scrollLeft - walk;
+                        
+                        // Ограничиваем прокрутку границами
+                        const maxScroll = galleryCarousel.scrollWidth - galleryCarousel.offsetWidth;
+                        galleryCarousel.scrollLeft = Math.max(0, Math.min(newScrollLeft, maxScroll));
+                        
+                        // Вычисляем скорость для инерции
+                        const timeDelta = Date.now() - startTime;
+                        if (timeDelta > 0) {
+                            velocity = (currentX - lastX) / timeDelta;
+                        }
+                        lastX = currentX;
+                    }, { passive: false });
                     
-                    galleryCarousel.addEventListener('touchend', () => {
+                    galleryCarousel.addEventListener('touchend', (e) => {
+                        if (!isDown) return;
                         isDown = false;
-                        updateDots();
+                        
+                        const deltaX = Math.abs(e.changedTouches[0].pageX - startX);
+                        
+                        // Включаем обратно scroll-snap
+                        galleryCarousel.style.scrollSnapType = 'x mandatory';
+                        
+                        // Применяем инерцию, если свайп был быстрым и достаточным
+                        if (deltaX > minSwipeDistance && Math.abs(velocity) > 0.3) {
+                            const momentum = velocity * 80; // Коэффициент инерции
+                            const targetScroll = galleryCarousel.scrollLeft - momentum;
+                            const maxScroll = galleryCarousel.scrollWidth - galleryCarousel.offsetWidth;
+                            
+                            galleryCarousel.scrollTo({
+                                left: Math.max(0, Math.min(targetScroll, maxScroll)),
+                                behavior: 'smooth'
+                            });
+                        }
+                        
+                        // Обновляем точки после завершения свайпа
+                        setTimeout(() => {
+                            updateDots();
+                        }, 150);
+                    }, { passive: true });
+                    
+                    galleryCarousel.addEventListener('touchcancel', () => {
+                        isDown = false;
+                        galleryCarousel.style.scrollSnapType = 'x mandatory';
                     }, { passive: true });
                     
                     // Инициализация
@@ -4966,7 +5064,8 @@
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
                     galleryCarouselInitialized = false;
-                    if (window.innerWidth <= 768) {
+                    // Расширяем поддержку до планшетов
+                    if (window.innerWidth <= 1024) {
                         initGalleryCarousel();
                     } else {
                         // Очищаем точки при переходе на десктоп
