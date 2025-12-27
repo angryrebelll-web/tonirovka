@@ -1459,15 +1459,18 @@ function renderPackages() {
         div.className = "package-item";
         div.dataset.id = pkg.id;
 
-        // Получаем минимальную и максимальную цену
-        const prices = Object.values(pkg.base);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
+        // Получаем цену с учетом минивэна
+        let displayPrice = pkg.base[selectedClass] || 0;
+        const isMinivan = selectedType === 'minivan';
+        
+        // Для минивэнов применяем надбавку к пакету (так как пакет включает заднюю полусферу)
+        if (isMinivan) {
+            displayPrice = Math.round(displayPrice * 1.3);
+        }
         
         // Формируем список услуг из description
         let servicesList = '';
         if (pkg.description) {
-            // Разбиваем описание по " + " для получения отдельных услуг
             const services = pkg.description.split(' + ').map(s => s.trim()).filter(s => s);
             if (services.length > 0) {
                 servicesList = '<ul>';
@@ -1481,7 +1484,10 @@ function renderPackages() {
         div.innerHTML = `
             <header class="package-header">
                 <h3 class="package-name">${pkg.name}</h3>
-                <div class="package-cost">${minPrice === maxPrice ? minPrice.toLocaleString('ru-RU') : `${minPrice.toLocaleString('ru-RU')} — ${maxPrice.toLocaleString('ru-RU')}`}</div>
+                <div class="package-cost">
+                    ${displayPrice.toLocaleString('ru-RU')} ₽
+                    ${isMinivan ? '<span style="font-size: 12px; opacity: 0.7; display: block; margin-top: 4px;">(базовая: ' + (pkg.base[selectedClass] || 0).toLocaleString('ru-RU') + ' ₽)</span>' : ''}
+                </div>
             </header>
             <section class="package-features">
                 ${servicesList}
@@ -1571,6 +1577,8 @@ function renderPackages() {
 function updatePriceBlocks() {
     if (!selectedClass) return;
 
+    // Перерисовываем пакеты с новыми ценами
+    renderPackages();
     renderRiskZones();
     renderAdditionalServices();
     
@@ -1592,6 +1600,9 @@ function updatePriceBlocks() {
             highlightPackageZones();
         }, 100);
     }
+    
+    // Пересчитываем итоговую цену
+    calculateTotal();
 }
 
 /* =============================
@@ -1604,17 +1615,17 @@ function renderAdditionalServices() {
     additionalServicesContainer.innerHTML = "";
     
     // Дополнительные услуги для тонировки
-    const additionalServicesList = typeof additionalServices !== 'undefined' ? additionalServices : [
-        {
-            id: "koreaAthermal",
-            name: "Тонировка передней полусферы (Корея, атермальная)",
-            price: typeof koreaAthermalFront !== 'undefined' ? koreaAthermalFront : { 1: 12000, 2: 12000, 3: 12000, 4: 12000 }
-        },
-        {
-            id: "koreaChameleon",
-            name: "Тонировка передней полусферы (Корея, хамелеон)",
-            price: typeof koreaChameleonFront !== 'undefined' ? koreaChameleonFront : { 1: 16000, 2: 16000, 3: 16000, 4: 16000 }
-        }
+    const additionalServicesList = typeof additionalServices !== 'undefined' ? additionalServices : [];
+    
+    const isMinivan = selectedType === 'minivan';
+    // Список услуг, к которым НЕ применяется надбавка для минивэнов
+    const minivanExcludedServices = [
+        'koreaFront',
+        'koreaPremiumFront', 
+        'llumarFront',
+        'koreaAthermalWindshield',
+        'koreaChameleonWindshield',
+        'windshieldArmor'
     ];
 
     additionalServicesList.forEach(service => {
@@ -1623,15 +1634,25 @@ function renderAdditionalServices() {
 
         const id = "service_" + service.id;
 
-        // Получаем минимальную цену для услуги (для отображения "От")
-        const prices = Object.values(service.price);
-        const minPrice = Math.min(...prices);
-        const currentPrice = service.price[selectedClass];
+        // Получаем базовую цену
+        const basePrice = service.price[selectedClass] || 0;
+        
+        // Применяем надбавку для минивэнов (если не в списке исключений)
+        let displayPrice = basePrice;
+        if (isMinivan && !minivanExcludedServices.includes(service.id)) {
+            displayPrice = Math.round(basePrice * 1.3);
+        }
+        
+        // Формируем текст цены с учетом минивэна
+        let priceText = `${displayPrice.toLocaleString('ru-RU')} ₽`;
+        if (isMinivan && !minivanExcludedServices.includes(service.id)) {
+            priceText += ` <span style="font-size: 11px; opacity: 0.7;">(базовая: ${basePrice.toLocaleString('ru-RU')} ₽)</span>`;
+        }
         
         label.innerHTML = `
             <input type="checkbox" id="${id}">
             <span>${service.name}</span>
-            <span class="price">От ${currentPrice.toLocaleString('ru-RU')} ₽</span>
+            <span class="price">${priceText}</span>
         `;
 
         const checkbox = label.querySelector("input");
@@ -1771,16 +1792,43 @@ function calculateTotal() {
     }
 
     let total = 0;
+    
+    // Проверяем, является ли автомобиль минивэном
+    const isMinivan = selectedType === 'minivan';
+    
+    // Список услуг, к которым НЕ применяется надбавка для минивэнов
+    const minivanExcludedServices = [
+        'koreaFront',
+        'koreaPremiumFront', 
+        'llumarFront',
+        'koreaAthermalWindshield',
+        'koreaChameleonWindshield',
+        'windshieldArmor'
+    ];
 
     if (selectedPackage && selectedPackage.base[selectedClass]) {
-        total += selectedPackage.base[selectedClass];
+        let packagePrice = selectedPackage.base[selectedClass];
+        
+        // Для минивэнов +30% к пакету (так как пакет включает заднюю полусферу)
+        if (isMinivan) {
+            packagePrice = Math.round(packagePrice * 1.3);
+        }
+        
+        total += packagePrice;
     }
 
     // Зоны риска (если используются)
     if (typeof riskZonePrices !== 'undefined') {
         selectedRiskZones.forEach(zone => {
             if (riskZonePrices[zone] && riskZonePrices[zone][selectedClass]) {
-                total += riskZonePrices[zone][selectedClass];
+                let zonePrice = riskZonePrices[zone][selectedClass];
+                
+                // Для минивэнов +30% к зонам риска
+                if (isMinivan) {
+                    zonePrice = Math.round(zonePrice * 1.3);
+                }
+                
+                total += zonePrice;
             }
         });
     }
@@ -1794,35 +1842,64 @@ function calculateTotal() {
             const service = additionalServices.find(s => s.id === serviceId);
             if (service && service.price && service.price[selectedClass]) {
                 servicePrice = service.price[selectedClass];
+                
+                // Для минивэнов +30% только если услуга не в списке исключений
+                if (isMinivan && !minivanExcludedServices.includes(serviceId)) {
+                    servicePrice = Math.round(servicePrice * 1.3);
+                }
             }
         } else {
             // Fallback на старые услуги (для обратной совместимости)
             switch(serviceId) {
                 case "koreaRear":
                     servicePrice = typeof koreaRear !== 'undefined' ? (koreaRear[selectedClass] || 0) : 0;
+                    if (isMinivan) servicePrice = Math.round(servicePrice * 1.3);
                     break;
                 case "koreaPremiumRear":
                     servicePrice = typeof koreaPremiumRear !== 'undefined' ? (koreaPremiumRear[selectedClass] || 0) : 0;
+                    if (isMinivan) servicePrice = Math.round(servicePrice * 1.3);
                     break;
                 case "llumarRear":
                     servicePrice = typeof llumarRear !== 'undefined' ? (llumarRear[selectedClass] || 0) : 0;
+                    if (isMinivan) servicePrice = Math.round(servicePrice * 1.3);
                     break;
                 case "koreaFront":
                     servicePrice = typeof koreaFront !== 'undefined' ? (koreaFront[selectedClass] || 0) : 0;
+                    // Не применяем надбавку для минивэнов
                     break;
                 case "koreaPremiumFront":
                     servicePrice = typeof koreaPremiumFront !== 'undefined' ? (koreaPremiumFront[selectedClass] || 0) : 0;
-                    break;
-                case "koreaAthermal":
-                case "koreaAthermalFront":
-                    servicePrice = typeof koreaAthermalFront !== 'undefined' ? (koreaAthermalFront[selectedClass] || 0) : 0;
-                    break;
-                case "koreaChameleon":
-                case "koreaChameleonFront":
-                    servicePrice = typeof koreaChameleonFront !== 'undefined' ? (koreaChameleonFront[selectedClass] || 0) : 0;
+                    // Не применяем надбавку для минивэнов
                     break;
                 case "llumarFront":
                     servicePrice = typeof llumarFront !== 'undefined' ? (llumarFront[selectedClass] || 0) : 0;
+                    // Не применяем надбавку для минивэнов
+                    break;
+                case "koreaAthermalWindshield":
+                case "koreaChameleonWindshield":
+                    servicePrice = typeof koreaAthermalWindshield !== 'undefined' ? (koreaAthermalWindshield[selectedClass] || 0) : 0;
+                    if (serviceId === "koreaChameleonWindshield" && typeof koreaChameleonWindshield !== 'undefined') {
+                        servicePrice = koreaChameleonWindshield[selectedClass] || 0;
+                    }
+                    // Не применяем надбавку для минивэнов
+                    break;
+                case "windshieldArmor":
+                    servicePrice = typeof windshieldArmor !== 'undefined' ? (windshieldArmor[selectedClass] || 0) : 0;
+                    // Не применяем надбавку для минивэнов
+                    break;
+                // Остальные услуги (передние боковые, задняя полусфера целиком) - применяем надбавку для минивэнов
+                default:
+                    // Для обратной совместимости со старыми ID
+                    if (serviceId.includes("Rear") || serviceId.includes("Sides") || serviceId === "rearFull") {
+                        // Пытаемся найти цену через additionalServices
+                        if (typeof additionalServices !== 'undefined') {
+                            const service = additionalServices.find(s => s.id === serviceId);
+                            if (service && service.price && service.price[selectedClass]) {
+                                servicePrice = service.price[selectedClass];
+                                if (isMinivan) servicePrice = Math.round(servicePrice * 1.3);
+                            }
+                        }
+                    }
                     break;
             }
         }
